@@ -1,10 +1,5 @@
-<div>
-  <h1 class="font-bold text-4xl">Home#index</h1>
-  <p>Find me in app/views/home/index.html.erb</p>
-</div>
-
 <div class="container mx-auto mt-10">
- <%= form_with url: "#", method: :get, local: true do |form| %>
+ <%= form_with url: prompts_path, local: true do |form| %>
   <div class="flex items-center">
     <%= form.text_field :input_field, class: "flex-1 border border-gray-300 rounded-md px-3 py-2 mx-2", placeholder: "Enter text here" %>
     <%= form.submit "Generate", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>

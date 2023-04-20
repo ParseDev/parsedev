@@ -72,3 +72,6 @@ group :test do
   gem "webdrivers"
 end
 gem "tailwindcss-rails", "~> 2.0"
+gem "boxcars"
+gem "hnswlib"
+gem 'dotenv-rails', groups: [:development, :test]
