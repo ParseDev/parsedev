@@ -1,0 +1,28 @@
+<h1>Datasource: <%= @datasource.name %></h1>
+
+<p>
+  <strong>Name:</strong>
+  <%= @datasource.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @datasource.description %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @datasource.datasource_type %>
+</p>
+
+<p>
+  <strong>Host:</strong>
+  <%= @datasource.host %>
+</p>
+
+<p>
+  <strong>Port:</strong>
+  <%= @datasource.port %>
+</p>
+
+<%= link_to 'Back to List', datasources_path %>
