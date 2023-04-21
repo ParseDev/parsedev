@@ -1,9 +1,11 @@
 class DatasourcesController < ApplicationController
+    before_action :authenticate_user!
     def new
         @datasource = Datasource.new
     end
     
     def create
+        debugger
         @datasource = Datasource.new(datasource_params.merge(company_id: current_user.try(:company_id) || 1))
         
         if @datasource.save
