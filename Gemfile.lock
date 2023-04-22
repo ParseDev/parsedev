@@ -72,7 +72,7 @@ GEM
     bindex (0.8.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
-    boxcars (0.2.8)
+    boxcars (0.2.9)
       google_search_results (~> 2.2)
       gpt4all (~> 0.0.4)
       ruby-openai (~> 3.0)

@@ -1,1 +1,33 @@
-<%= result.to_json %>
+<code class="block overflow-x-scroll">
+    <%= result.added_context[:code] %>
+</code>
+
+<div class="px-4 sm:px-6 lg:px-8">
+  <div class="mt-8 flow-root">
+    <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+        <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+          <table class="min-w-full divide-y divide-gray-300">
+            <thead class="bg-gray-50">
+              <tr>
+              <%- result.answer[0].keys.each do |header| %>
+                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%=header %> </th>
+              <% end %>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200 bg-white">
+            <%- result.answer.each do |res| %>
+              <tr>
+              <%- res.each do |k, v|%>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%=v%></td>
+                <% end %>
+              </tr>
+            <% end %>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
