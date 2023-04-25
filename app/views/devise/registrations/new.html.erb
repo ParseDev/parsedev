@@ -1,35 +1,58 @@
-<h2>Sign up</h2>
+<div class="w-full max-w-xs mx-auto">
+    <h1 class="font-hairline mb-6 text-center">Sign Up</h1>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+    <%= form_for(resource,
+                 as: resource_name,
+                 url: registration_path(resource_name),
+                 html: {
+                         class: "bg-white mb-4 px-8 pt-6 pb-8 rounded shadow-md"
+                 }
+        ) do |f| %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+        <%= devise_error_messages! %>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
+        <div class="mb-4">
+            <%= f.label :company_name, class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= f.text_field :company_name, autofocus: true, autocomplete: "company",
+                              class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight foucs:outline-none focus:shadow-outline"
+            %>
+        </div>
+        <div class="mb-4">
+            <%= f.label :email, class: "block font-bold mb-2 text-gray-700 text-sm" %>
+            <%= f.email_field :email,
+                              autocomplete: "email",
+                              placeholder: "user@example.com",
+                              class: "appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none shadow focus:shadow-outline" %>
+        </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+        <div class="mb-4">
+            <%= f.label :password, class: "block font-bold mb-2 text-gray-700 text-sm" %>
+            <% if @minimum_password_length %>
+                <small><em class="text-gray-600">(<%= @minimum_password_length %> characters minimum)</em></small>
+            <% end %>
+            <%= f.password_field :password,
+                                 autocomplete: "new-password",
+                                 class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+            %>
+        </div>
 
-  <!-- Add a field for the company name -->
-  <div class="field">
-    <%= f.label :company_name, "Company Name" %><br />
-    <%= f.text_field :company_name %>
-  </div>
+        <div class="mb-4">
+            <%= f.label :password_confirmation, class: "block font-bold mb-2 text-gray-700 text-sm" %>
+            <%= f.password_field :password_confirmation,
+                                 autocomplete: "new-password",
+                                 class: "appearance-none border leading-tight focus:outline-none px-3 py-2 rounded shadow focus:shadow-outline text-gray-700 w-full"
+            %>
+        </div>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
+        <div class="mb-4">
+            <%= f.submit "Sign Up",
+                         class: "button bg-blue-500 hover:bg-blue-700 font-bold text-white focus:outline-none py-2 px-4 rounded focus:shadow-outline w-full"
+            %>
+        </div>
 
-<%= render "devise/shared/links" %>
+        <%= render "devise/shared/links" %>
+
+    <% end %>
+
+    <%= render "devise/shared/form_footer" %>
+</div>

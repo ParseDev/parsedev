@@ -75,3 +75,5 @@ gem "tailwindcss-rails", "~> 2.0"
 gem "boxcars"
 gem "hnswlib"
 gem 'dotenv-rails', groups: [:development, :test]
+gem 'devise-tailwindcssed'
+gem 'erb_lint', require: false
