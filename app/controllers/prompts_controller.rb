@@ -21,7 +21,7 @@ class PromptsController < ApplicationController
     result = sql.conduct(params[:input_field])
     puts "Result: #{result}}"
     respond_to do |format|
-      format.turbo_stream { render turbo_stream: turbo_stream.replace('result_frame', partial: 'result', locals: { result: result }) }
+      format.turbo_stream { render turbo_stream: turbo_stream.update('result_frame', partial: 'result', locals: { result: result }) }
       format.html { redirect_to prompt_path }
     end
   end
