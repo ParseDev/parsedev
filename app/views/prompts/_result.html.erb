@@ -2,11 +2,18 @@
     <%= result.added_context[:code] %>
 </code>
 
+
+<%- if result.answer.kind_of?(Array) %>
 <div class="px-4 sm:px-6 lg:px-8">
   <div class="mt-8 flow-root">
     <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
       <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+      <canvas id="chartCanvas"></canvas>
+      <button id="createChartBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Create Chart
+          </button>
         <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+        
           <table class="min-w-full divide-y divide-gray-300">
             <thead class="bg-gray-50">
               <tr>
@@ -31,3 +38,55 @@
     </div>
   </div>
 </div>
+
+<% else %>
+<p>
+ Response: <%= result.answer %>
+<p>
+
+<% end %>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  // Handle the button click event
+  document.getElementById('createChartBtn').addEventListener('click', function() {
+    // Extract data from the table
+    const table = document.querySelector('table');
+    const labels = Array.from(table.querySelectorAll('tbody tr')).map(tr => tr.children[0].textContent);
+    const datasets = Array.from(table.querySelectorAll('thead th')).slice(1).map((th, index) => {
+      const data = Array.from(table.querySelectorAll('tbody tr')).map(tr => parseFloat(tr.children[index + 1].textContent));
+      return {
+        label: th.textContent,
+        data: data,
+        backgroundColor: `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, 0.2)`,
+        borderColor: `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, 1)`,
+        borderWidth: 1
+      };
+    });
+
+    // Create a chart using Chart.js
+    const ctx = document.getElementById('chartCanvas').getContext('2d');
+    const chart = new Chart(ctx, {
+      type: 'bar', // Change this to the desired chart type (e.g., 'line', 'pie', etc.)
+      data: {
+        labels: labels,
+        datasets: datasets
+      },
+      options: {
+        // Customize chart options as needed
+        scales: {
+          y: {
+            beginAtZero: true,
+            stacked: true // Enable stacking on the y-axis
+          },
+          x: {
+            stacked: true // Enable stacking on the x-axis
+          }
+        }
+      }
+    });
+  });
+</script>
