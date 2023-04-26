@@ -16,11 +16,6 @@
 
   <body class="h-full">
     <main class="center-content">
-      <% flash.each do |type, message| %>
-        <div class="<%= flash_class(type) %>">
-          <%= message %>
-        </div>
-      <% end %>
       <div class="mt-20">
         <%= yield %>
       </div>
