@@ -1,17 +1,13 @@
 <div class="container mx-auto mt-10">
   <%= form_with url: prompts_path, remote: true, local: false, html: { id: 'generate-form' } do |form| %>
     <div class="flex items-center">
-      <%= form.text_field :input_field, class: "flex-1 border border-gray-300 rounded-md px-3 py-2 mx-2", placeholder: "Enter text here" %>
+      <%= form.text_field :input_field, class: "flex-1 border border-gray-300 rounded-md px-3 py-2 mx-2", placeholder: "Enter text here", required: true %>
+      <%= form.select :datasource_id, current_user.company.datasources.map { |ds| [ds.name, ds.id] }, { prompt: 'Select a datasource' }, class: "w-1/4 border border-gray-300 rounded-md px-3 py-2 mx-2", required: true %>
       <%= form.submit "Generate", class: "rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
     </div>
   <% end %>
   <div id="result" class="mt-5">
-    <canvas id="chart"></canvas>
     <turbo-frame id="result_frame"></turbo-frame>
-    <div class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
-      <dt class="truncate text-sm font-medium text-gray-500">Avg. Open Rate</dt>
-      <dd class="mt-1 text-3xl font-semibold tracking-tight text-gray-900">58.16%</dd>
-    </div>
   </div>
   <!-- Loading spinner -->
   <div id="loading-spinner" class="hidden mt-5">
@@ -24,9 +20,7 @@
         <span class="sr-only">Loading...</span>
     </div>
 </div>
-  </div>
-  
-</div>
+
 
 <script>
   // Get the form and loading spinner elements

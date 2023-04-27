@@ -2,7 +2,8 @@ class PromptsController < ApplicationController
   before_action :authenticate_user!
   def create
     engine = Boxcars::Openai.new(max_tokens: 256)
-    datasource = current_user.company.datasources.first
+    datasource = current_user.company.datasources.find(params[:datasource_id]) 
+    if datasource.datasource_type == "psql"
     
     
     db_config_hash = {
@@ -45,9 +46,12 @@ class PromptsController < ApplicationController
     connection_pool.checkin(connection)
     
     
-    sql = Boxcars::SQL.new(engine: engine, connection: connection)
-    
-    result = sql.conduct(params[:input_field])
+    boxcar = Boxcars::SQL.new(engine: engine, connection: connection)
+    else
+      boxcar = Boxcars::Swagger.new(engine: engine, swagger_url: 'https://raw.githubusercontent.com/stripe/openapi/master/openapi/spec3.yaml',  context: "API_token: #{datasource.stripe_token}")
+    end
+
+    result = boxcar.conduct(params[:input_field])
     puts "Result: #{result}}"
     respond_to do |format|
       format.turbo_stream { render turbo_stream: turbo_stream.update('result_frame', partial: 'result', locals: { result: result }) }

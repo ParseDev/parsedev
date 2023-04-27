@@ -77,3 +77,4 @@ gem "hnswlib"
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'devise-tailwindcssed'
 gem 'erb_lint', require: false
+gem 'rest-client'
