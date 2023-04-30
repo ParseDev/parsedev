@@ -1,6 +1,9 @@
-<code class="block overflow-x-scroll">
-    <%= result.added_context[:code] %>
-</code>
+<div class="w-full overflow-x-scroll">
+  <code class="bg-gray-800 text-white p-3 rounded-md whitespace-pre block">
+  <%= result.added_context[:code].gsub(/(sk_live_)[a-zA-Z0-9]+/, '\1***********').strip %>
+  </code>
+</div>
+<%= result %>
 
 
 <%- if result.answer.kind_of?(Array) %>

@@ -50,7 +50,6 @@ class PromptsController < ApplicationController
     else
       boxcar = Boxcars::Swagger.new(engine: engine, swagger_url: 'https://raw.githubusercontent.com/stripe/openapi/master/openapi/spec3.yaml',  context: "API_token: #{datasource.stripe_token}")
     end
-
     result = boxcar.conduct(params[:input_field])
     puts "Result: #{result}}"
     respond_to do |format|

@@ -14,47 +14,32 @@
     <%= favicon_link_tag asset_path('logo.png') %>
   </head>
 
-  <body class="h-full">
-<div>
-  <!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
-  <div class="relative z-50 lg:hidden" role="dialog" aria-modal="true">
-    <div class="fixed inset-0 bg-gray-900/80" id="backdrop"></div>
-    <div class="fixed inset-0 flex">
-      <div class="relative mr-16 flex w-full max-w-xs flex-1" ="mobile-menu">
-        <div class="absolute left-full top-0 flex w-16 justify-center pt-5">
-          <button type="button" class="-m-2.5 p-2.5" id="close-button">
-            <span class="sr-only">Close sidebar</span>
-            <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
+  <body class="bg-gray-100">
+    <% flash.each do |type, message| %>
+        <div class="<%= flash_class(type) %>">
+          <%= message %>
         </div>
-
-        <!-- Sidebar component, swap this element with another sidebar if you like -->
-        <%= render "shared/mobile_sidebar"%>
-      </div>
-    </div>
+  <% end %>
+    <div class="flex h-screen">
   
-  </div>
+  <div class="bg-white w-1/4 p-4 border-r border-gray-300 flex flex-col justify-between">
+            <!-- Sidebar Content -->
+            <div>
+                <h1 class="text-xl font-bold mb-4">Menu</h1>
+                <!-- Sidebar Menu -->
+                <ul class="space-y-2 mb-4">
+                    <%= link_to "Dashboard", root_path, class: "block px-4 py-2 hover:bg-gray-200"%>
+                    <%= link_to "Datasources", datasources_path, class: "block px-4 py-2 hover:bg-gray-200"%>
+                </ul>
+            </div>
+            <!-- Logout Button -->
+          
+            <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500" %>
 
-  <!-- Static sidebar for desktop -->
-  <%= render "shared/desktop_sidebar" %>
-
-  <div class="lg:pl-72">
-  <main class="py-10">
-      <div class="px-4 sm:px-6 lg:px-8">
-      <% flash.each do |type, message| %>
-  <div class="<%= flash_class(type) %>">
-    <%= message %>
-  </div>
-<% end %>
+        </div>
         <%= yield %>
-      </div>
-    </main>  
   </div>
-
   
-</div>
 
   </body>
 </html>
