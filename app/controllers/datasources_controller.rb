@@ -5,7 +5,6 @@ class DatasourcesController < ApplicationController
     end
     
     def create
-        debugger
         @datasource = Datasource.new(datasource_params.merge(company_id: current_user.try(:company_id) || 1))
         
         if @datasource.save

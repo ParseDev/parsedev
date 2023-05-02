@@ -1,7 +1,7 @@
 <!-- Chat Area -->
-<div class="flex flex-col w-3/4 bg-gray-100 ">
+<div class="flex flex-col w-full min-h-screen bg-gray-100"> <!-- Updated classes here -->
     <!-- Chat Messages -->
-    <div class="flex-1 p-4 overflow-auto" id="messages-container">
+    <div class="flex-1 p-4 overflow-auto mb-32" id="messages-container">
     <turbo-frame id="result_frame">
         <div class="mb-4">
             <div class="inline-block bg-green-100 rounded-tl-lg rounded-tr-lg rounded-br-lg px-4 py-2 text-green-800">
@@ -12,7 +12,7 @@
   
     </div>
     <!-- Input Bar -->
-    <div class="border-t border-gray-300 p-4">
+    <div class="fixed bottom-0 left-0 w-full border-t border-gray-300 p-4 bg-white"> <!-- Updated classes here -->
         <%= form_with url: prompts_path, remote: true, local: false, html: { id: 'generate-form', class: 'flex items-center' }, data: { action: "submit->chat#handleSubmit" } do |form| %>
         <!-- Dropdown -->
       <div class="relative overflow-hidden whitespace-nowrap text-overflow-ellipsis border-none mr-2 rounded-l-lg px-3 py-2 focus-within:outline-none focus-within:border-none focus-within:ring-0 ring-0">
@@ -33,6 +33,7 @@
 
     </div>
 </div>
+
 
 <script>
   const form = document.getElementById('generate-form');

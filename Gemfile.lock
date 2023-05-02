@@ -1,3 +1,11 @@
+PATH
+  remote: /Users/elietoubiana/code/dojo-ai/boxcars
+  specs:
+    boxcars (0.2.9)
+      google_search_results (~> 2.2)
+      gpt4all (~> 0.0.4)
+      ruby-openai (~> 3.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -80,10 +88,6 @@ GEM
     bindex (0.8.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
-    boxcars (0.2.9)
-      google_search_results (~> 2.2)
-      gpt4all (~> 0.0.4)
-      ruby-openai (~> 3.0)
     builder (3.2.4)
     capybara (3.39.0)
       addressable
@@ -109,6 +113,7 @@ GEM
     devise-tailwindcssed (0.1.5)
       rails (>= 5.2.3.4, < 7.1)
       railties (> 4.0, < 7.1)
+    diff-lcs (1.5.0)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.8.1)
@@ -238,6 +243,23 @@ GEM
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
     rexml (3.2.5)
+    rspec-core (3.12.2)
+      rspec-support (~> 3.12.0)
+    rspec-expectations (3.12.3)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.12.0)
+    rspec-mocks (3.12.5)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.12.0)
+    rspec-rails (5.1.2)
+      actionpack (>= 5.2)
+      activesupport (>= 5.2)
+      railties (>= 5.2)
+      rspec-core (~> 3.10)
+      rspec-expectations (~> 3.10)
+      rspec-mocks (~> 3.10)
+      rspec-support (~> 3.10)
+    rspec-support (3.12.0)
     rubocop (1.50.2)
       json (~> 2.3)
       parallel (~> 1.10)
@@ -315,7 +337,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap
-  boxcars
+  boxcars!
   capybara
   debug
   devise
@@ -330,6 +352,7 @@ DEPENDENCIES
   rails (~> 7.0.4, >= 7.0.4.3)
   redis (~> 4.0)
   rest-client
+  rspec-rails (~> 5.0)
   selenium-webdriver
   sprockets-rails
   stimulus-rails

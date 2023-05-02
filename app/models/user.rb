@@ -6,4 +6,5 @@ class User < ApplicationRecord
 
   belongs_to :company
   attr_accessor :company_name
+  has_many :prompts
 end

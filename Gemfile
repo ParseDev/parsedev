@@ -72,9 +72,13 @@ group :test do
   gem "webdrivers"
 end
 gem "tailwindcss-rails", "~> 2.0"
-gem "boxcars"
+gem "boxcars", path: '/Users/elietoubiana/code/dojo-ai/boxcars'
 gem "hnswlib"
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'devise-tailwindcssed'
 gem 'erb_lint', require: false
 gem 'rest-client'
+
+group :development, :test do
+  gem 'rspec-rails', '~> 5.0' # Use the latest version available
+end

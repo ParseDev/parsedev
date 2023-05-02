@@ -2,53 +2,36 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 
-// Get the button element by its ID.
-const userMenuButton = document.getElementById('user-menu-button');
 
-// If the userMenuButton element exists, proceed with the rest of the code.
-if (userMenuButton) {
-  // Get the menu element by its role attribute.
-  const menu = document.querySelector('[role="menu"]');
+document.addEventListener('DOMContentLoaded', function () {
+  console.log('hello');
+  // Mobile menu button
+  const mobileMenuButton = document.querySelector('[aria-controls="mobile-menu"]');
+  const mobileMenu = document.getElementById('mobile-menu');
 
-  // Initially hide the menu by setting its display style to 'none'.
-  menu.style.display = 'none';
+  // User menu button
+  const userMenuButton = document.getElementById('user-menu-button');
+  const userMenu = document.querySelector('[aria-labelledby="user-menu-button"]');
 
-  // Add a click event listener to the button.
-  userMenuButton.addEventListener('click', () => {
-    // Toggle the visibility of the menu based on its current display style.
-    if (menu.style.display === 'none') {
-      // If the menu is hidden, show it by setting its display style to 'block'.
-      menu.style.display = 'block';
-    } else {
-      // If the menu is visible, hide it by setting its display style to 'none'.
-      menu.style.display = 'none';
+  // Toggle mobile menu
+  mobileMenuButton.addEventListener('click', function () {
+    const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+    mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+    mobileMenu.classList.toggle('hidden');
+  });
+
+  // Toggle user menu
+  userMenuButton.addEventListener('click', function () {
+    const isExpanded = userMenuButton.getAttribute('aria-expanded') === 'true';
+    userMenuButton.setAttribute('aria-expanded', !isExpanded);
+    userMenu.classList.toggle('hidden');
+  });
+
+  // Close user menu when clicking outside
+  document.addEventListener('click', function (event) {
+    if (!userMenuButton.contains(event.target) && !userMenu.contains(event.target)) {
+      userMenuButton.setAttribute('aria-expanded', false);
+      userMenu.classList.add('hidden');
     }
   });
-}
-
-
-
-
-const closeButton = document.getElementById('close-button');
-const openButton = document.getElementById('mobile-menu-button');
-
-if(closeButton && openButton) {
-  // Get the element with the ID "sidebar"
-  const sidebar = document.getElementById('sidebar');
-  const backdrop = document.getElementById('backdrop');
-
-  // Add a click event listener to the close button
-  closeButton.addEventListener('click', function() {
-    // Hide the sidebar element by setting its display property to "none"
-    sidebar.style.display = 'none';
-    // Hide backdrop
-    backdrop.style.display = 'none';
-  });
-
-  openButton.addEventListener('click', function() {
-    // Show the sidebar element by setting its display property to "block"
-    sidebar.style.display = '';
-    // Show backdrop
-    backdrop.style.display = '';
-  });
-}
+}, {once: true});
