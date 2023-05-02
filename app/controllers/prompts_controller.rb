@@ -51,6 +51,7 @@ class PromptsController < ApplicationController
       boxcar = Boxcars::Swagger.new(engine: engine, swagger_url: 'https://raw.githubusercontent.com/stripe/openapi/master/openapi/spec3.yaml',  context: "API_token: #{datasource.stripe_token}")
     end
     result = boxcar.conduct(params[:input_field])
+    Prompt.create(user: current_user, datasource: datasource, content: params[:input_field])
     respond_to do |format|
       format.turbo_stream { render turbo_stream: turbo_stream.append('result_frame', partial: 'result', locals: { result: result }) }
       format.html { redirect_to prompt_path }

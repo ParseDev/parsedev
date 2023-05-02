@@ -28,7 +28,7 @@
                 <h1 class="text-xl font-bold mb-4">Menu</h1>
                 <!-- Sidebar Menu -->
                 <ul class="space-y-2 mb-4">
-                    <%= link_to "Dashboard", root_path, class: "block px-4 py-2 hover:bg-gray-200"%>
+                    <%= link_to "Chat", root_path, class: "block px-4 py-2 hover:bg-gray-200"%>
                     <%= link_to "Datasources", datasources_path, class: "block px-4 py-2 hover:bg-gray-200"%>
                 </ul>
             </div>
@@ -37,6 +37,7 @@
             <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500" %>
 
         </div>
+
 
           <%= yield %>
   </div>

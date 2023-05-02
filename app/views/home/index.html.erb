@@ -15,8 +15,9 @@
     <div class="border-t border-gray-300 p-4">
         <%= form_with url: prompts_path, remote: true, local: false, html: { id: 'generate-form', class: 'flex items-center' }, data: { action: "submit->chat#handleSubmit" } do |form| %>
         <!-- Dropdown -->
-        <%= form.select :datasource_id, current_user.company.datasources.map { |ds| [ds.name, ds.id] }, { prompt: 'Source' }, class: "border-none mr-2 rounded-l-lg px-3 py-2 focus:outline-none focus:border-none focus:ring-0 ring-0", required: true %>
-
+      <div class="relative overflow-hidden whitespace-nowrap text-overflow-ellipsis border-none mr-2 rounded-l-lg px-3 py-2 focus-within:outline-none focus-within:border-none focus-within:ring-0 ring-0">
+        <%= form.select :datasource_id, current_user.company.datasources.map { |ds| [ds.name, ds.id] }, { prompt: 'Source' }, class: "w-full bg-white border-none focus-within:border-none focus-within:ring-0 ring-0", required: true %>
+      </div>
         <!-- Input Text -->
       <%= form.text_area :input_field, class: "auto-grow-textarea border-none focus-ring-0 ring-0 h-10 flex-1 px-4 py-2 rounded-r-lg focus:outline-none focus:border-none", placeholder: "Type your message...", required: true, id: 'input-text-area', style: "max-height: 120px; overflow-y: auto;" %>
 
