@@ -1,25 +1,24 @@
 <!-- Chat Area -->
-<div class="flex flex-col w-3/4">
+<div class="flex flex-col w-3/4 bg-gray-100 ">
     <!-- Chat Messages -->
-    <div class="flex-1 p-4 overflow-auto">
+    <div class="flex-1 p-4 overflow-auto" id="messages-container">
+    <turbo-frame id="result_frame">
         <div class="mb-4">
             <div class="inline-block bg-green-100 rounded-tl-lg rounded-tr-lg rounded-br-lg px-4 py-2 text-green-800">
                 Assistant: Hi, How can I help you today?
             </div>
         </div>
-        
-        <div id="result" class="mt-5">
-    <turbo-frame id="result_frame"></turbo-frame>
-  </div>
+    </turbo-frame>
+  
     </div>
     <!-- Input Bar -->
     <div class="border-t border-gray-300 p-4">
-        <%= form_with url: prompts_path, remote: true, local: false, html: { id: 'generate-form', class: 'flex items-center' } do |form| %>
+        <%= form_with url: prompts_path, remote: true, local: false, html: { id: 'generate-form', class: 'flex items-center' }, data: { action: "submit->chat#handleSubmit" } do |form| %>
         <!-- Dropdown -->
-        <%= form.select :datasource_id, current_user.company.datasources.map { |ds| [ds.name, ds.id] }, { prompt: 'Source' }, class: "border rounded-l-lg px-3 py-2 focus:outline-none focus:border-none", required: true %>
+        <%= form.select :datasource_id, current_user.company.datasources.map { |ds| [ds.name, ds.id] }, { prompt: 'Source' }, class: "border-none mr-2 rounded-l-lg px-3 py-2 focus:outline-none focus:border-none focus:ring-0 ring-0", required: true %>
 
         <!-- Input Text -->
-        <%= form.text_area :input_field, class: "h-10 flex-1 px-4 py-2 rounded-r-lg focus:outline-none focus:border-none focus:border-blue-500", placeholder: "Type your message...", required: true, id: 'input-text-area' %>
+      <%= form.text_area :input_field, class: "auto-grow-textarea border-none focus-ring-0 ring-0 h-10 flex-1 px-4 py-2 rounded-r-lg focus:outline-none focus:border-none", placeholder: "Type your message...", required: true, id: 'input-text-area', style: "max-height: 120px; overflow-y: auto;" %>
 
 
         <!-- Submit Button -->
@@ -36,12 +35,22 @@
 
 <script>
   const form = document.getElementById('generate-form');
-  const inputField = document.getElementById('input-field');
+  const inputField = document.getElementById('input-text-area');
   const generateButton = document.getElementById('generate-button');
 
   form.addEventListener('submit', function(event) {
-    // Empty the textarea
-    inputField.value = '';
+    let messageContent = inputField.value;
+    var newMessage = document.createElement('div');
+    newMessage.className = 'mb-4';
+    newMessage.innerHTML = `
+        <div class="inline-block bg-blue-100 rounded-tl-lg rounded-tr-lg rounded-br-lg px-4 py-2 text-green-800">
+            You: ${messageContent}
+        </div>
+    `;
+
+      // Append the new HTML element to the messages-container
+      document.getElementById('result_frame').appendChild(newMessage);
+
 
     // Disable the submit button
     generateButton.disabled = true;
@@ -51,16 +60,28 @@
   form.addEventListener('turbo:submit-end', function(event) {
     // Re-enable the submit button
     generateButton.disabled = false;
+    document.getElementById('send-text').style.display = 'inline';
+    // Show the loader container
+    document.getElementById('loader-container').style.display = 'none ';
+    inputField.value = '';
+  
   });
 
-
+  
+  
   document.getElementById('input-text-area').addEventListener('keydown', function(event) {
     // Check if the key code corresponds to the Enter key
     if (event.keyCode === 13) {
       // Prevent the default behavior of the Enter key (new line)
       event.preventDefault();
       // Submit the form
-      document.getElementById('generate-form').submit();
+      var form = document.getElementById('generate-form');
+      if(form.checkValidity()) {
+        form.submit();
+      } else {
+        form.reportValidity();
+      }
+
     }
   });
 
@@ -70,6 +91,5 @@
     // Show the loader container
     document.getElementById('loader-container').style.display = 'inline';
   });
-});
 
 </script>

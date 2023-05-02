@@ -14,7 +14,7 @@
     <%= favicon_link_tag asset_path('logo.png') %>
   </head>
 
-  <body class="bg-gray-100">
+  <body >
     <% flash.each do |type, message| %>
         <div class="<%= flash_class(type) %>">
           <%= message %>
@@ -37,7 +37,8 @@
             <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500" %>
 
         </div>
-        <%= yield %>
+
+          <%= yield %>
   </div>
   
 

@@ -3,21 +3,19 @@
   <%= result.added_context[:code].gsub(/(sk_live_)[a-zA-Z0-9]+/, '\1***********').strip %>
   </code>
 </div>
-<%= result %>
-
 
 <%- if result.answer.kind_of?(Array) %>
 <div class="px-4 sm:px-6 lg:px-8">
   <div class="mt-8 flow-root">
     <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
       <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-      <canvas id="chartCanvas"></canvas>
+      <canvas id="chartCanvas" class="hidden"></canvas>
       <button id="createChartBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             Create Chart
           </button>
         <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
         
-          <table class="min-w-full divide-y divide-gray-300">
+          <table class="min-w-full divide-y divide-gray-300 mt-2">
             <thead class="bg-gray-50">
               <tr>
               <%- result.answer[0].keys.each do |header| %>
@@ -71,7 +69,10 @@
     });
 
     // Create a chart using Chart.js
-    const ctx = document.getElementById('chartCanvas').getContext('2d');
+    const canvas = document.getElementById('chartCanvas');
+    canvas.classList.remove('hidden');
+    const ctx = canvas.getContext('2d');
+
     const chart = new Chart(ctx, {
       type: 'bar', // Change this to the desired chart type (e.g., 'line', 'pie', etc.)
       data: {
