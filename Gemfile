@@ -72,7 +72,7 @@ group :test do
   gem "webdrivers"
 end
 gem "tailwindcss-rails", "~> 2.0"
-gem "boxcars", path: '/Users/elietoubiana/code/dojo-ai/boxcars'
+gem "boxcars"
 gem "hnswlib"
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'devise-tailwindcssed'
@@ -83,3 +83,5 @@ group :development, :test do
   gem 'rspec-rails', '~> 5.0' # Use the latest version available
 end
 gem 'jquery-rails'
+
+gem "dockerfile-rails", ">= 1.2", :group => :development

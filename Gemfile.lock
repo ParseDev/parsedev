@@ -1,11 +1,3 @@
-PATH
-  remote: /Users/elietoubiana/code/dojo-ai/boxcars
-  specs:
-    boxcars (0.2.9)
-      google_search_results (~> 2.2)
-      gpt4all (~> 0.0.4)
-      ruby-openai (~> 3.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -88,6 +80,10 @@ GEM
     bindex (0.8.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
+    boxcars (0.2.9)
+      google_search_results (~> 2.2)
+      gpt4all (~> 0.0.4)
+      ruby-openai (~> 3.0)
     builder (3.2.4)
     capybara (3.39.0)
       addressable
@@ -114,6 +110,8 @@ GEM
       rails (>= 5.2.3.4, < 7.1)
       railties (> 4.0, < 7.1)
     diff-lcs (1.5.0)
+    dockerfile-rails (1.2.5)
+      rails
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.8.1)
@@ -191,7 +189,11 @@ GEM
       net-protocol
     netrc (0.11.0)
     nio4r (2.5.9)
+    nokogiri (1.14.3-aarch64-linux)
+      racc (~> 1.4)
     nokogiri (1.14.3-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.14.3-x86_64-linux)
       racc (~> 1.4)
     orm_adapter (0.5.0)
     os (1.1.4)
@@ -296,7 +298,11 @@ GEM
     stimulus-rails (1.2.1)
       railties (>= 6.0.0)
     strings-ansi (0.2.0)
+    tailwindcss-rails (2.0.27-aarch64-linux)
+      railties (>= 6.0.0)
     tailwindcss-rails (2.0.27-arm64-darwin)
+      railties (>= 6.0.0)
+    tailwindcss-rails (2.0.27-x86_64-linux)
       railties (>= 6.0.0)
     thor (1.2.1)
     timeout (0.3.2)
@@ -337,15 +343,18 @@ GEM
     zeitwerk (2.6.7)
 
 PLATFORMS
+  aarch64-linux
   arm64-darwin-22
+  x86_64-linux
 
 DEPENDENCIES
   bootsnap
-  boxcars!
+  boxcars
   capybara
   debug
   devise
   devise-tailwindcssed
+  dockerfile-rails (>= 1.2)
   dotenv-rails
   erb_lint
   hnswlib
