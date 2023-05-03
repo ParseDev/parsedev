@@ -14,6 +14,7 @@ class UsersController < ApplicationController
     end
 
     def invite
-        debugger
+        User.invite!({email: params[:email], company: current_user.company}, current_user)
+        redirect_to company_users_path(current_user.company), notice: "User invited!"
     end
   end
