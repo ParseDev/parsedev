@@ -82,3 +82,4 @@ gem 'rest-client'
 group :development, :test do
   gem 'rspec-rails', '~> 5.0' # Use the latest version available
 end
+gem 'jquery-rails'

@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  get 'chats/new'
   resources :prompts, only: [:show, :create]
-  resources :datasources, only: [:index, :show, :new, :create]
+  resources :datasources, only: [:index, :show, :new, :create, :destroy]
   resources :chats, only: [:new]
+  resources :dataqueries, only: [:index, :create, :show, :destroy]
   devise_for :users, controllers: { registrations: 'users/registrations' }
-  root 'home#index'
+  root 'chats#new'
   
 end

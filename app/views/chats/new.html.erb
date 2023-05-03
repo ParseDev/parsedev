@@ -9,11 +9,11 @@
             </div>
         </div>
     </turbo-frame>
-  
+     
     </div>
     <!-- Input Bar -->
     <div class="fixed bottom-0 left-0 w-full border-t border-gray-300 p-4 bg-white"> <!-- Updated classes here -->
-        <%= form_with url: prompts_path, remote: true, local: false, html: { id: 'generate-form', class: 'flex items-center' }, data: { action: "submit->chat#handleSubmit" } do |form| %>
+        <%= form_with url: prompts_path, remote: true, local: false, html: { id: 'generate-form', class: 'flex items-center', data: {turbo: true} } do |form| %>
         <!-- Dropdown -->
       <div class="relative overflow-hidden whitespace-nowrap text-overflow-ellipsis border-none mr-2 rounded-l-lg px-3 py-2 focus-within:outline-none focus-within:border-none focus-within:ring-0 ring-0">
         <%= form.select :datasource_id, current_user.company.datasources.map { |ds| [ds.name, ds.id] }, { prompt: 'Source' }, class: "w-full bg-white border-none focus-within:border-none focus-within:ring-0 ring-0", required: true %>
@@ -43,7 +43,7 @@
   form.addEventListener('submit', function(event) {
     let messageContent = inputField.value;
     var newMessage = document.createElement('div');
-    newMessage.className = 'mb-4';
+    newMessage.className = 'mb-4 mt-4';
     newMessage.innerHTML = `
         <div class="inline-block bg-blue-100 rounded-tl-lg rounded-tr-lg rounded-br-lg px-4 py-2 text-green-800">
             You: ${messageContent}
@@ -93,5 +93,6 @@
     // Show the loader container
     document.getElementById('loader-container').style.display = 'inline';
   });
+  
 
 </script>

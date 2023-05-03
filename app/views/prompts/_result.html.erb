@@ -10,13 +10,19 @@
     <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
       <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
       <canvas id="chartCanvas" class="hidden"></canvas>
-      <button id="createChartBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Create Chart
-          </button>
+      <div class="flex items-center py-4">
+        <button id="createChartBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 cursor-pointer">
+          Create Chart
+        </button>
+        
+        <%= form_with model: Dataquery.new, url: dataqueries_path, method: :post, remote: true, data: {disabled_with: 'Saving ...'}, html: {data: {turbo: false}} do |form| %>
+          <%= form.hidden_field :datasource_id, value: prompt.datasource_id %>
+          <%= form.hidden_field :user_id, value: current_user.id %>
+          <%= form.hidden_field :query, value: prompt.code %>
+          <%= form.button 'Save', class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer' %>
+        <% end %>
+      </div>
 
-          <button id="saveQueryButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Save
-          </button>
         <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
         
           <table class="min-w-full divide-y divide-gray-300 mt-2">

@@ -1,0 +1,17 @@
+<div class="container mx-auto px-4 py-8">
+  <div class="mb-6">
+    <h1 class="text-3xl font-bold mb-2">Data Query</h1>
+    <p class="text-gray-600">Datasource: <%= @dataquery.datasource.name %></p>
+  </div>
+
+  <div class="w-full overflow-x-scroll mb-6">
+    <code class="bg-gray-800 text-white p-3 rounded-md whitespace-pre block">
+      <%= @dataquery.sanitized_query %>
+    </code>
+  </div>
+
+  <!-- You can add more content here, such as buttons for editing or deleting the data query -->
+  <div class="flex items-center space-x-4">
+    <%= button_to 'Delete', @dataquery, method: :delete, data: { confirm: 'Are you sure?' }, class: 'inline-block bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded' %>
+  </div>
+</div>

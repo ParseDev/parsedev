@@ -23,6 +23,17 @@ class DatasourcesController < ApplicationController
     def show
         @datasource = Datasource.find(params[:id])
     end
+
+    def destroy
+        @datasource = Datasource.find(params[:id])
+        if @datasource.user == current_user
+            @datasource.destroy
+            redirect_to datasources_path, notice: 'Datasource was successfully destroyed.'
+        else
+            
+            redirect_to datasources_path, alert: 'Oops something went wrong.'
+        end 
+    end
     
     # private
     
