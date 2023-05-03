@@ -11,7 +11,7 @@ class DataqueriesController < ApplicationController
           # Render the JSON response with the dataquery object if it was successfully created
           format.json { render json: dataquery, status: :created }
           # Redirect to the same page for HTML format
-          format.html { redirect_to request.referrer }
+          format.html { redirect_to dataquery_path(dataquery) }
         else
           # Set a flash message for unsuccessful creation
           flash[:alert] = 'Oops, something went wrong'
