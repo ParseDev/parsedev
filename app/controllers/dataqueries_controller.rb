@@ -35,7 +35,7 @@ class DataqueriesController < ApplicationController
   
   
   def index
-    @dataqueries = current_user.dataqueries
+    @dataqueries = current_user.dataqueries.order(created_at: :desc)
   end
 
   def show

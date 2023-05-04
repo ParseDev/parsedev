@@ -8,6 +8,7 @@
   <div class="mb-6">
     <h1 class="text-3xl font-bold mb-2">Data Query</h1>
     <p class="text-gray-600">Datasource: <%= @dataquery.datasource.name %></p>
+    <p class="text-gray-600">Name: <%= @dataquery.name %></p>
   </div>
   
 
@@ -15,6 +16,7 @@
     <code class="bg-gray-800 text-white p-3 rounded-md whitespace-pre-line block">
       <%= @dataquery.sanitized_query %>
     </code>
+
 
   </div>
 

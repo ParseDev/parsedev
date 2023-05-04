@@ -2,6 +2,7 @@ class Datasource < ApplicationRecord
     belongs_to :company
     has_many :prompts
     has_many :dataqueries
+    attr_encrypted :s3_secret_key, key: ENV["ENCRYPTION_KEY"]
 
     def connection
         db_config_hash = {
@@ -41,7 +42,7 @@ class Datasource < ApplicationRecord
           # Perform database operations with the connection
           # ...
           # Check the connection back into the pool when done
-          connection_pool.checkin(connection)
+          
           return connection
     end
 end
