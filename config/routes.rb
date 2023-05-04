@@ -3,13 +3,13 @@ Rails.application.routes.draw do
   resources :datasources, only: [:index, :show, :new, :create, :destroy]
   resources :chats, only: [:new]
   resources :dataqueries, only: [:index, :create, :show, :destroy] do
-    get 'download_csv'
+    get "download_csv"
   end
-  devise_for :users, controllers: { registrations: 'users/registrations' }
-  root 'chats#new'
+  devise_for :users, controllers: { registrations: "users/registrations" }
   resources :companies do
-    post :invite, to: 'users#invite'
+    post :invite, to: "users#invite"
     resources :users, only: [:index, :destroy, :new]
   end
-  
+
+  root "chats#new", as: :authenticated_root
 end
