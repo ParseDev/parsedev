@@ -1,13 +1,13 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   def create
     build_resource(sign_up_params)
-  
+
     # Use a transaction block to ensure that both the company and user are saved together
     ActiveRecord::Base.transaction do
       # Create a new company with the provided name
       company = Company.new(name: sign_up_params[:company_name])
       puts "company name: #{company.name}"
-  
+
       # Save the company
       if company.save
         # Associate the company with the user
@@ -29,7 +29,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         raise ActiveRecord::Rollback, "Failed to create company"
       end
     end
-  
+
     # Check if the user was saved successfully
     unless resource.persisted?
       # If the user was not saved, handle the error (e.g., display an error message)
@@ -37,12 +37,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
       redirect_to :new_user_registration
     end
   end
-  
 
-    private
-  
-    def sign_up_params
-      params.require(:user).permit(:email, :password, :password_confirmation, :company_name)
-    end
-  
+  private
+
+  def sign_up_params
+    params.require(:user).permit(:email, :password, :password_confirmation, :company_name)
   end
+end

@@ -16,9 +16,9 @@
 </div>
 
 <!-- Show the first form by default -->
-<div id="form_psql"><%= render 'form_psql', datasource: @datasource %></div>
-<div id="form_s3" style="display: none;"><%= render 'form_s3', datasource: @datasource %></div>
-<div id="form_mysql" style="display: none;"><%= render 'form_mysql', datasource: @datasource %></div>
+<div id="form_psql"><%= render "form_psql", datasource: @datasource %></div>
+<div id="form_s3" style="display: none;"><%= render "form_s3", datasource: @datasource %></div>
+<div id="form_mysql" style="display: none;"><%= render "form_mysql", datasource: @datasource %></div>
 
 <script>
   function toggleActive(button, formId) {

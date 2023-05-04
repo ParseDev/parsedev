@@ -1,23 +1,23 @@
 <div class="max-w-md mx-auto p-6 bg-white rounded shadow-md">
   <h2 class="text-2xl font-semibold mb-4 text-center"><%= t "devise.invitations.edit.header" %></h2>
-  <%= form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put, class: 'space-y-4' }) do |f| %>
+  <%= form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put, class: "space-y-4" }) do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
     <%= f.hidden_field :invitation_token, readonly: true %>
 
     <% if f.object.class.require_password_on_accepting %>
       <div class="field">
-        <%= f.label :password, class: 'block text-sm font-medium text-gray-700' %>
-        <%= f.password_field :password, class: 'mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
+        <%= f.label :password, class: "block text-sm font-medium text-gray-700" %>
+        <%= f.password_field :password, class: "mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
       </div>
 
       <div class="field">
-        <%= f.label :password_confirmation, class: 'block text-sm font-medium text-gray-700' %>
-        <%= f.password_field :password_confirmation, class: 'mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
+        <%= f.label :password_confirmation, class: "block text-sm font-medium text-gray-700" %>
+        <%= f.password_field :password_confirmation, class: "mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
       </div>
     <% end %>
 
     <div class="actions">
-      <%= f.submit t("devise.invitations.edit.submit_button"), class: 'w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500' %>
+      <%= f.submit t("devise.invitations.edit.submit_button"), class: "w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
     </div>
   <% end %>
 </div>

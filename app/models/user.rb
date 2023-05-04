@@ -8,5 +8,4 @@ class User < ApplicationRecord
   attr_accessor :company_name
   has_many :prompts
   has_many :dataqueries
-
 end

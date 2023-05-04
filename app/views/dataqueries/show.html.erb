@@ -22,22 +22,22 @@
 
   <!-- You can add more content here, such as buttons for editing or deleting the data query -->
   
-  <%= link_to 'Download to CSV', dataquery_download_csv_path(@dataquery), class: 'inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500' %>
+  <%= link_to "Download to CSV", dataquery_download_csv_path(@dataquery), class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
 
 
          <table class="min-w-full divide-y divide-gray-300 mt-2">
             <thead class="bg-gray-50">
               <tr>
-              <%- @result[0].keys.each do |header| %>
-                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%=header %> </th>
+              <% -@result[0].keys.each do |header| %>
+                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= header %> </th>
               <% end %>
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-200 bg-white">
-            <%- @result.each do |res| %>
+            <% -@result.each do |res| %>
               <tr>
-              <%- res.each do |k, v|%>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%=v%></td>
+              <% -res.each do |k, v| %>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= v %></td>
                 <% end %>
               </tr>
             <% end %>

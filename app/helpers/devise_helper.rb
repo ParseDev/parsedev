@@ -11,7 +11,7 @@ module DeviseHelper
     sentence = I18n.t(
       "errors.messages.not_saved",
       count: resource.errors.count,
-      resource: resource.class.model_name.human.downcase
+      resource: resource.class.model_name.human.downcase,
     )
 
     html = <<-HTML
@@ -29,7 +29,7 @@ module DeviseHelper
 
     sentence = "Ooops!"
     if resource.errors.count == 1
-      message =  resource.errors.full_messages[0]
+      message = resource.errors.full_messages[0]
       html = <<-HTML
         <div class="bg-red-lightest border-l-4 border-red text-orange-dark p-4" role="alert">
           <p class="font-bold">#{sentence}</p>
@@ -52,4 +52,5 @@ module DeviseHelper
     html.html_safe
   end
 end
+
 # rubocop:enable Metrics/AbcSize, Metrics/MethodLength

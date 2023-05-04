@@ -41,7 +41,7 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
-gem 'devise'
+gem "devise"
 
 # Use Sass to process CSS
 # gem "sassc-rails"
@@ -74,17 +74,17 @@ end
 gem "tailwindcss-rails", "~> 2.0"
 gem "boxcars"
 gem "hnswlib"
-gem 'dotenv-rails', groups: [:development, :test]
-gem 'devise-tailwindcssed'
-gem 'erb_lint', require: false
-gem 'rest-client'
+gem "dotenv-rails", groups: [:development, :test]
+gem "devise-tailwindcssed"
+gem "erb_lint", require: false
+gem "rest-client"
 
 group :development, :test do
-  gem 'rspec-rails', '~> 5.0' # Use the latest version available
+  gem "rspec-rails", "~> 5.0" # Use the latest version available
 end
-gem 'jquery-rails'
+gem "jquery-rails"
 
 gem "dockerfile-rails", ">= 1.2", :group => :development
-gem 'devise_invitable', '~> 2.0.0'
+gem "devise_invitable", "~> 2.0.0"
 gem "letter_opener", group: :development
-gem 'attr_encrypted'
+gem "attr_encrypted"
