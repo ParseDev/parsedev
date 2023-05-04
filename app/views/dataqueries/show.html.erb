@@ -14,4 +14,24 @@
   <div class="flex items-center space-x-4">
     <%= button_to 'Delete', @dataquery, method: :delete, data: { confirm: 'Are you sure?' }, class: 'inline-block bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded' %>
   </div>
+
+         <table class="min-w-full divide-y divide-gray-300 mt-2">
+            <thead class="bg-gray-50">
+              <tr>
+              <%- @result[0].keys.each do |header| %>
+                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%=header %> </th>
+              <% end %>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200 bg-white">
+            <%- @result.each do |res| %>
+              <tr>
+              <%- res.each do |k, v|%>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%=v%></td>
+                <% end %>
+              </tr>
+            <% end %>
+
+            </tbody>
+          </table>
 </div>

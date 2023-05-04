@@ -13,14 +13,18 @@
       <strong class="w-24">Type:</strong>
       <span class="flex-1"><%= @datasource.datasource_type %></span>
     </p>
-    <p class="flex items-center space-x-2">
-      <strong class="w-24">Host:</strong>
-      <span class="flex-1"><%= @datasource.host %></span>
-    </p>
+    <% if  @datasource.host.present? %>
+      <p class="flex items-center space-x-2">
+        <strong class="w-24">Host:</strong>
+        <span class="flex-1"><%= @datasource.host %></span>
+      </p>
+    <% end %>
+    <% if  @datasource.port.present? %>
     <p class="flex items-center space-x-2">
       <strong class="w-24">Port:</strong>
       <span class="flex-1"><%= @datasource.port %></span>
     </p>
+    <% end %>
   </div>
   <div class="mt-6">
     <%= link_to 'Back to List', datasources_path, class: "inline-block px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600" %>

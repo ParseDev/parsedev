@@ -1,20 +1,52 @@
 <div class="m-10">
-<div class="flex flex-col">
-<div class="grid grid-cols-2 gap-4">
-<button class="w-full py-4 bg-slate-50 rounded-lg hover:bg-blue-100 flex items-center justify-center">
-  <%= image_tag "mysql.png", class: "h-40" %>
-</button>
-<button class="w-full py-4 bg-slate-50 rounded-lg hover:bg-blue-100 flex items-center justify-center">
-  <%= image_tag "postgres.png", class: "h-40" %>
-</button>
-<button class="w-full py-4 bg-slate-50 rounded-lg hover:bg-blue-100 flex items-center justify-center">
-  <%= image_tag "s3.png", class: "h-40" %>
-</button>
-<button class="w-full py-4 bg-slate-50 rounded-lg hover:bg-blue-100 flex items-center justify-center">
-  <%= image_tag "stripe.png", class: "h-40" %>
-</button>
+  <div class="flex flex-col">
+    <div class="grid grid-cols-3 gap-4">
+      <!-- Add active styles to the first button -->
+      <button onclick="toggleActive(this, 'form_psql')" class="w-full py-4 bg-blue-100 text-white border-2 rounded-lg hover:bg-blue-100 flex items-center justify-center">
+        <%= image_tag "postgres.png", class: "h-40" %>
+      </button>
+      <button onclick="toggleActive(this, 'form_mysql')" class="w-full py-4 bg-slate-50 rounded-lg hover:bg-blue-100 flex items-center justify-center">
+        <%= image_tag "mysql.png", class: "h-40" %>
+      </button>
+      <button onclick="toggleActive(this, 'form_s3')" class="w-full py-4 bg-slate-50 rounded-lg hover:bg-blue-100 flex items-center justify-center">
+        <%= image_tag "s3.png", class: "h-40" %>
+      </button>
+    </div>
+  </div>
 </div>
 
-<%= render 'form', datasource: @datasource %>
-</div>
-</div>
+<!-- Show the first form by default -->
+<div id="form_psql"><%= render 'form_psql', datasource: @datasource %></div>
+<div id="form_s3" style="display: none;"><%= render 'form_s3', datasource: @datasource %></div>
+<div id="form_mysql" style="display: none;"><%= render 'form_mysql', datasource: @datasource %></div>
+
+<script>
+  function toggleActive(button, formId) {
+    // Toggle the Tailwind utility classes for the active state
+    button.classList.toggle('bg-slate-50'); // Passive background color
+    button.classList.toggle('bg-blue-100'); // Active background color
+    button.classList.toggle('text-white'); // Active text color
+    button.classList.toggle('border-2'); // Add a border
+
+    // Optionally, remove the active state from other buttons
+    // This ensures that only one button can be active at a time
+    const buttons = document.querySelectorAll('.grid-cols-3 button');
+    buttons.forEach(btn => {
+      if (btn !== button) {
+        btn.classList.add('bg-slate-50');
+        btn.classList.remove('bg-blue-100');
+        btn.classList.remove('text-white');
+        btn.classList.remove('border-2');
+      }
+    });
+
+    // Hide all forms
+    const forms = document.querySelectorAll('[id^="form_"]');
+    forms.forEach(form => {
+      form.style.display = 'none';
+    });
+
+    // Show the selected form
+    document.getElementById(formId).style.display = 'block';
+  }
+</script>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_03_164614) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_04_003327) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,6 +42,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_03_164614) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "stripe_token"
+    t.string "s3_access_key"
+    t.string "encrypted_s3_secret_key"
+    t.string "encrypted_s3_secret_key_iv"
     t.index ["company_id"], name: "index_datasources_on_company_id"
   end
 

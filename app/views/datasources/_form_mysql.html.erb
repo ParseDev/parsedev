@@ -24,8 +24,7 @@
     </div>
 
     <div class="field">
-      <%= form.label :datasource_type, 'Type', class: 'block text-sm font-medium text-gray-700' %>
-      <%= form.text_field :datasource_type, class: 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50' %>
+      <%= form.hidden_field :datasource_type, value: 'mysql'%>
     </div>
 
     <div class="field">

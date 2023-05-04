@@ -40,6 +40,7 @@ class DataqueriesController < ApplicationController
 
   def show
     @dataquery = current_user.dataqueries.find(params[:id])
+    @result = @dataquery.run
   end
 
   def destroy
