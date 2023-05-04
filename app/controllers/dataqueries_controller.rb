@@ -49,6 +49,23 @@ class DataqueriesController < ApplicationController
     redirect_to dataqueries_path, notice: 'Dataquery was successfully destroyed.'
   end
 
+  def download_csv
+    @dataquery = current_user.dataqueries.find(params[:dataquery_id])
+    result = @dataquery.run
+    csv_data = CSV.generate(headers: true) do |csv|
+      # Add headers to the CSV
+      csv << result[0].keys
+
+      # Add rows to the CSV
+      result.each do |row|
+        csv << row.values
+      end
+    end
+
+    # Send the CSV data as a file
+    send_data csv_data, type: 'text/csv', filename: 'data.csv'
+  end
+
   private
   def dataquery_params 
     params.require(:dataquery).permit(:name, :query, :datasource_id, :user_id)
