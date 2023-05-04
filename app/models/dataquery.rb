@@ -11,9 +11,9 @@ class Dataquery < ApplicationRecord
             datasource.connection do |connection|
                 output = connection.exec_query(query)
                 boxcar = Boxcars::SQL.new
-                result =  boxcar.send(:clean_up_output, output)
+                @result =  boxcar.send(:clean_up_output, output)
             end
-            return result
+            return @result
 
         else
             # TODO implement other types of datasources
