@@ -11,5 +11,5 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :destroy, :new]
   end
 
-  root "chats#new", as: :authenticated_root
+  root "chats#new"
 end
