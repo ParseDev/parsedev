@@ -8,11 +8,10 @@ class Dataquery < ApplicationRecord
 
     def run
         if datasource.datasource_type == 'psql'
-            datasource.connection do |connection|
-                output = connection.exec_query(query)
-                boxcar = Boxcars::SQL.new
-                @result =  boxcar.send(:clean_up_output, output)
-            end
+            connection = datasource.connection
+            output = connection.exec_query(query)
+            boxcar = Boxcars::SQL.new
+            @result =  boxcar.send(:clean_up_output, output)
             return @result
 
         else
