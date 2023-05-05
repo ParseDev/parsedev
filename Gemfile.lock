@@ -71,22 +71,6 @@ GEM
     ast (2.4.2)
     attr_encrypted (4.0.0)
       encryptor (~> 3.0.0)
-    aws-eventstream (1.2.0)
-    aws-partitions (1.760.0)
-    aws-sdk-core (3.171.1)
-      aws-eventstream (~> 1, >= 1.0.2)
-      aws-partitions (~> 1, >= 1.651.0)
-      aws-sigv4 (~> 1.5)
-      jmespath (~> 1, >= 1.6.1)
-    aws-sdk-kms (1.64.0)
-      aws-sdk-core (~> 3, >= 3.165.0)
-      aws-sigv4 (~> 1.1)
-    aws-sdk-s3 (1.122.0)
-      aws-sdk-core (~> 3, >= 3.165.0)
-      aws-sdk-kms (~> 1)
-      aws-sigv4 (~> 1.4)
-    aws-sigv4 (1.5.2)
-      aws-eventstream (~> 1, >= 1.0.2)
     bcrypt (3.1.18)
     better_html (2.0.1)
       actionview (>= 6.0)
@@ -95,7 +79,6 @@ GEM
       erubi (~> 1.4)
       parser (>= 2.4)
       smart_properties
-    bigdecimal (3.1.4)
     bindex (0.8.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
@@ -149,22 +132,12 @@ GEM
       rubocop
       smart_properties
     erubi (1.12.0)
-    extpp (0.1.1)
     faraday (2.7.4)
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.2)
-    fiddle (1.1.1)
-    gio2 (4.1.4)
-      fiddle
-      gobject-introspection (= 4.1.4)
-    glib2 (4.1.4)
-      native-package-installer (>= 1.0.3)
-      pkg-config (>= 1.3.5)
     globalid (1.1.0)
       activesupport (>= 5.0)
-    gobject-introspection (4.1.4)
-      glib2 (= 4.1.4)
     google_search_results (2.2.0)
     gpt4all (0.0.5)
       faraday (~> 2.7)
@@ -188,7 +161,6 @@ GEM
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
-    jmespath (1.6.2)
     jquery-rails (4.5.1)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
@@ -216,7 +188,6 @@ GEM
     minitest (5.18.0)
     msgpack (1.7.0)
     multi_xml (0.6.0)
-    native-package-installer (1.1.5)
     net-imap (0.3.4)
       date
       net-protocol
@@ -240,7 +211,6 @@ GEM
     parser (3.2.2.1)
       ast (~> 2.4.1)
     pg (1.4.6)
-    pkg-config (1.5.1)
     public_suffix (5.0.1)
     puma (5.6.5)
       nio4r (~> 2.0)
@@ -276,12 +246,6 @@ GEM
       zeitwerk (~> 2.5)
     rainbow (3.1.1)
     rake (13.0.6)
-    red-arrow (11.0.0)
-      bigdecimal (>= 3.1.0)
-      extpp (>= 0.1.1)
-      gio2 (>= 3.5.0)
-      native-package-installer
-      pkg-config
     redis (4.8.1)
     regexp_parser (2.8.0)
     reline (0.3.3)
@@ -395,7 +359,6 @@ PLATFORMS
 
 DEPENDENCIES
   attr_encrypted
-  aws-sdk-s3
   bootsnap
   boxcars
   capybara
@@ -414,7 +377,6 @@ DEPENDENCIES
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.4, >= 7.0.4.3)
-  red-arrow
   redis (~> 4.0)
   rest-client
   rspec-rails (~> 5.0)
