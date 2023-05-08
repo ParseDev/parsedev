@@ -16,7 +16,6 @@ export default class extends Controller {
     setTimeout(() => {
       // Get the Turbo progress bar element
       const turboProgressBar = document.querySelector(".turbo-progress-bar");
-      debugger;
       // Add the "hide-element" class to hide the Turbo progress bar
       if (turboProgressBar) {
         turboProgressBar.classList.add("hidden");
