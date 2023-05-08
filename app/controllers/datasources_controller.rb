@@ -17,7 +17,7 @@ class DatasourcesController < ApplicationController
   end
 
   def index
-    @datasources = Datasource.all
+    @datasources = current_user.company.datasources
   end
 
   def show

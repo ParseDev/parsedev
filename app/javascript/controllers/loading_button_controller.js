@@ -20,13 +20,13 @@ export default class extends Controller {
 
   disableForm() {
     this.showLoader();
-    this.formInputTargets.forEach(input => input.disabled = true);
+    this.element.formInputTargets.forEach(input => input.disabled = true);
   }
 
   enableForm() {
     window.scrollTo(0, document.body.scrollHeight);
     this.hideLoader();
-    this.formInputTargets.forEach(input => input.disabled = false);
+    this.element.formInputTargets.forEach(input => input.disabled = false);
   }
 
   submitForm(event) {
