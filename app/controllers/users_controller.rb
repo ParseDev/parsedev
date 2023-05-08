@@ -16,6 +16,12 @@ class UsersController < ApplicationController
 
   def invite
     User.invite!({ email: params[:email], company: current_user.company }, current_user)
-    redirect_to company_users_path(current_user.company), notice: "User invited!"
+    redirect_to company_users_path(current_user.company, user_id: user.id), notice: "User invited!"
+  end
+
+  def resend_invitation
+    user = User.find(params[:id], company_id: current_user.company.id)
+    user.resend_invitation
+    redirect_to company_users_path(@company), notice: "Invitation resent."
   end
 end
