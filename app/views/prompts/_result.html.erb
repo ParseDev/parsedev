@@ -45,7 +45,14 @@
             <%- result.answer.each do |res| %>
               <tr>
               <%- res.each do |k, v|%>
+              <% begin %>
+                <% if DateTime.parse(v) %>
+                <% datetime = DateTime.parse(v) %>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"> <%= datetime.strftime("%A %B #{datetime.day.ordinalize} %Y") %> </td>
+                <% end %>
+              <% rescue %>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%=v%></td>
+              <% end %>
                 <% end %>
               </tr>
             <% end %>
