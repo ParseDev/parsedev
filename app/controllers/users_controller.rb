@@ -21,7 +21,7 @@ class UsersController < ApplicationController
 
   def resend_invitation
     user = User.find(params[:id], company_id: current_user.company.id)
-    user.resend_invitation
+    user.invite!
     redirect_to company_users_path(@company), notice: "Invitation resent."
   end
 end
