@@ -14,7 +14,11 @@
 
 <%= form_with(url: dataquery_run_path(@dataquery), method: :post, id: "run_form", class: "inline mt-10") do |form| %>
   <%= form.hidden_field :query,  value: @dataquery.query, id: "hidden_query_field" %>
-  <%= form.submit "Run", class: "mt-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+  <%= form.submit "Run", class: "mt-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline", id: "run-button" %>
+  <%= button_tag class: "hidden mt-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline", id: "loader", disabled: true  do %>
+    <%= render 'shared/loader' %> 
+    <% end %>
+
 <% end %>
 
 
@@ -22,7 +26,18 @@
 </turbo-frame>
 
 <script>
-  document.getElementById('query_text_area').addEventListener('input', function() {
-    document.getElementById('hidden_query_field').value = this.value;
-  });
+  document.getElementById('run_form').addEventListener('submit', function() {
+  document.getElementById('loader').classList.remove('hidden');
+  document.getElementById('run-button').classList.add('hidden');
+});
+
+document.getElementById('query_text_area').addEventListener('input', function() {
+  document.getElementById('hidden_query_field').value = this.value;
+});
+
+document.addEventListener('turbo:submit-end', function() {
+  document.getElementById('loader').classList.add('hidden');
+  document.getElementById('run-button').classList.remove('hidden');
+});
+
 </script>
