@@ -1,0 +1,101 @@
+
+    <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+      <canvas id="chartCanvas" class="hidden"></canvas>
+      <div class="flex items-center py-4">
+      <% if include_save_button %>
+        <button id="createChartBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 cursor-pointer">
+          Create Chart
+        </button>
+    <% end %>
+
+        <% if include_create_chart_button %>
+        <% form_with model: Dataquery.new, url: dataqueries_path, method: :post, remote: true, data: {disabled_with: 'Saving ...'}, html: {data: {turbo: false}} do |form| %>
+          <%= form.hidden_field :datasource_id, value: prompt.datasource_id %>
+          <%= form.hidden_field :user_id, value: current_user.id %>
+          <%= form.hidden_field :query, value: prompt.code %>
+          <%= form.hidden_field :name, value: prompt.content %>
+          <%= form.button 'Save', class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer' %>
+        <% end %>
+        <% end %>
+      </div>
+
+        <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+    <table class="min-w-full divide-y divide-gray-300 mt-2">
+    <thead class="bg-gray-50">
+        <tr>
+        <% answer[0].keys.each do |header| %>
+        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= header %> </th>
+        <% end %>
+        </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-200 bg-white">
+    <% answer.each do |res| %>
+        <tr>
+        <% res.each do |k, v| %>
+        <% begin %>
+        <% if Time.iso8601(v) %>
+        <% datetime = DateTime.parse(v) %>
+            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"> <%= datetime.strftime("%A %B #{datetime.day.ordinalize} %Y") %> </td>
+        <% end %>
+        <% rescue %>
+        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= v %></td>
+        <% end %>
+        <% end %>
+        </tr>
+    <% end %>
+
+    </tbody>
+    </table>    
+    
+        </div>
+      </div>
+    </div>
+
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  // Handle the button click event
+  document.getElementById('createChartBtn').addEventListener('click', function() {
+    // Extract data from the table
+    const table = document.querySelector('table');
+    const labels = Array.from(table.querySelectorAll('tbody tr')).map(tr => tr.children[0].textContent);
+    const datasets = Array.from(table.querySelectorAll('thead th')).slice(1).map((th, index) => {
+      const data = Array.from(table.querySelectorAll('tbody tr')).map(tr => parseFloat(tr.children[index + 1].textContent));
+      return {
+        label: th.textContent,
+        data: data,
+        backgroundColor: `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, 0.2)`,
+        borderColor: `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, 1)`,
+        borderWidth: 1
+      };
+    });
+
+    // Create a chart using Chart.js
+    const canvas = document.getElementById('chartCanvas');
+    canvas.classList.remove('hidden');
+    const ctx = canvas.getContext('2d');
+
+    const chart = new Chart(ctx, {
+      type: 'bar', // Change this to the desired chart type (e.g., 'line', 'pie', etc.)
+      data: {
+        labels: labels,
+        datasets: datasets
+      },
+      options: {
+        // Customize chart options as needed
+        scales: {
+          y: {
+            beginAtZero: true,
+            stacked: true // Enable stacking on the y-axis
+          },
+          x: {
+            stacked: true // Enable stacking on the x-axis
+          }
+        }
+      }
+    });
+  });
+</script>

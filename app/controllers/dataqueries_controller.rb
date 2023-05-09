@@ -34,6 +34,10 @@ class DataqueriesController < ApplicationController
     end
   end
 
+  def edit
+    @dataquery = current_user.dataqueries.find(params[:id])
+  end
+
   def index
     @dataqueries = current_user.dataqueries.order(created_at: :desc)
   end
@@ -64,6 +68,37 @@ class DataqueriesController < ApplicationController
 
     # Send the CSV data as a file
     send_data csv_data, type: "text/csv", filename: "data.csv"
+  end
+
+  def update
+    @dataquery = current_user.dataqueries.find(params[:id])
+
+    respond_to do |format|
+      if @dataquery.update(dataquery_params)
+        # Set a flash message for successful update
+        flash[:notice] = "Query updated"
+        # Render the JSON response with the dataquery object if it was successfully updated
+        format.json { render json: @dataquery, status: :ok }
+        # Redirect to the same page for HTML format
+        format.html { redirect_to dataquery_path(@dataquery) }
+      else
+        # Set a flash message for unsuccessful update
+        flash[:alert] = "Oops, something went wrong"
+        # Render an error message and a 401 status code if there was an issue updating the dataquery object
+        format.json { render json: { error: "Unable to update dataquery" }, status: :unauthorized }
+        # Redirect to the same page for HTML format
+        format.html { redirect_to request.referrer }
+      end
+    end
+  end
+
+  def run
+    dataquery = current_user.dataqueries.find(params[:dataquery_id])
+    dataquery.query = params[:query]
+    result = dataquery.run
+    respond_to do |format|
+      format.turbo_stream { render turbo_stream: turbo_stream.update("result_frame", partial: "/shared/result_table", locals: { answer: result, prompt: nil, include_save_button: false, include_create_chart_button: false }) }
+    end
   end
 
   private

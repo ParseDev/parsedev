@@ -1,0 +1,28 @@
+<h1> Edit your query </h1>
+<%= form_with(model: @dataquery, url: dataquery_path(@dataquery), method: :put, local: true) do |form| %>
+  <div class="mb-4">
+    <%= form.label :query, class: "block text-gray-700 text-sm font-bold mb-2" %>
+    <%= form.text_area :query, value: @dataquery.query, id: "query_text_area", class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", data: { controller: "resizable-text-area" } %>
+
+
+  </div>
+
+  <div class="flex items-center justify-between">
+    <%= form.submit "Save", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+  </div>
+<% end %>
+
+<%= form_with(url: dataquery_run_path(@dataquery), method: :post, id: "run_form", class: "inline mt-10") do |form| %>
+  <%= form.hidden_field :query,  value: @dataquery.query, id: "hidden_query_field" %>
+  <%= form.submit "Run", class: "mt-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+<% end %>
+
+
+<turbo-frame id="result_frame">
+</turbo-frame>
+
+<script>
+  document.getElementById('query_text_area').addEventListener('input', function() {
+    document.getElementById('hidden_query_field').value = this.value;
+  });
+</script>

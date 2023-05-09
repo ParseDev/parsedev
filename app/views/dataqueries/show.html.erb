@@ -1,6 +1,8 @@
 <div class="container mx-auto px-4 py-8">
   <div class="w-full">
     <%= button_to "Delete", dataquery_path(@dataquery), method: :delete, data: { confirm: "Are you sure you want to delete this item?" }, class: "float-right inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500" %>
+      <%= link_to "Edit", edit_dataquery_path(@dataquery), class: "float-right inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 mr-2" %>
+
 </div>
 
   <div class="mb-6">
@@ -21,32 +23,5 @@
   <!-- You can add more content here, such as buttons for editing or deleting the data query -->
   
   <%= link_to "Download to CSV", dataquery_download_csv_path(@dataquery), class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
-
-
-         <table class="min-w-full divide-y divide-gray-300 mt-2">
-            <thead class="bg-gray-50">
-              <tr>
-              <% @result[0].keys.each do |header| %>
-                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= header %> </th>
-              <% end %>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200 bg-white">
-            <% @result.each do |res| %>
-              <tr>
-              <% res.each do |k, v| %>
-              <% begin %>
-                <% if Time.iso8601(v) %>
-                <% datetime = DateTime.parse(v) %>
-                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"> <%= datetime.strftime("%A %B #{datetime.day.ordinalize} %Y") %> </td>
-                <% end %>
-              <% rescue %>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= v %></td>
-              <% end %>
-                <% end %>
-              </tr>
-            <% end %>
-
-            </tbody>
-          </table>
+  <%= render "shared/result_table", prompt: nil, answer: @result, include_save_button: false, include_create_chart_button: false %>
 </div>

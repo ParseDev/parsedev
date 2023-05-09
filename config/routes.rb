@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   resources :prompts, only: [:show, :create]
   resources :datasources, only: [:index, :show, :new, :create, :destroy]
   resources :chats, only: [:new]
-  resources :dataqueries, only: [:index, :create, :show, :destroy] do
+  resources :dataqueries, only: [:index, :create, :show, :destroy, :edit, :update] do
+    post "run"
     get "download_csv"
   end
   devise_for :users, controllers: { registrations: "users/registrations" }
