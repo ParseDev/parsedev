@@ -91,5 +91,5 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
   #TODO change when there is a new domaijn
-  config.action_mailer.default_url_options = { host: "https://app.kalua.ai" }
+  config.action_mailer.default_url_options = { host: "https://misfits.kalua.ai" }
 end
