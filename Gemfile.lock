@@ -69,8 +69,6 @@ GEM
     addressable (2.8.4)
       public_suffix (>= 2.0.2, < 6.0)
     ast (2.4.2)
-    attr_encrypted (4.0.0)
-      encryptor (~> 3.0.0)
     bcrypt (3.1.18)
     better_html (2.0.1)
       actionview (>= 6.0)
@@ -123,7 +121,6 @@ GEM
     dotenv-rails (2.8.1)
       dotenv (= 2.8.1)
       railties (>= 3.2)
-    encryptor (3.0.0)
     erb_lint (0.4.0)
       activesupport
       better_html (>= 2.0.1)
@@ -358,7 +355,6 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  attr_encrypted
   bootsnap
   boxcars
   capybara

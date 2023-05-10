@@ -8,8 +8,8 @@
       <button onclick="toggleActive(this, 'form_mysql')" class="w-full py-4 bg-slate-50 rounded-lg hover:bg-blue-100 flex items-center justify-center">
         <%= image_tag "mysql.png", class: "h-40" %>
       </button>
-      <button onclick="toggleActive(this, 'form_s3')" class="w-full py-4 bg-slate-50 rounded-lg hover:bg-blue-100 flex items-center justify-center">
-        <%= image_tag "s3.png", class: "h-40" %>
+      <button onclick="toggleActive(this, 'form_stripe')" class="w-full py-4 bg-slate-50 rounded-lg hover:bg-blue-100 flex items-center justify-center">
+        <%= image_tag "stripe.png", class: "h-40" %>
       </button>
     </div>
   </div>
@@ -17,7 +17,7 @@
 
 <!-- Show the first form by default -->
 <div id="form_psql"><%= render "form_psql", datasource: @datasource %></div>
-<div id="form_s3" style="display: none;"><%= render "form_s3", datasource: @datasource %></div>
+<div id="form_stripe" style="display: none;"><%= render "form_stripe", datasource: @datasource %></div>
 <div id="form_mysql" style="display: none;"><%= render "form_mysql", datasource: @datasource %></div>
 
 <script>

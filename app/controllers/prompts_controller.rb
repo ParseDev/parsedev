@@ -8,7 +8,7 @@ class PromptsController < ApplicationController
       connection = datasource.connection
       boxcar = Boxcars::SQL.new(engine: engine, connection: connection)
     else
-      boxcar = Boxcars::Swagger.new(engine: engine, swagger_url: "https://raw.githubusercontent.com/stripe/openapi/master/openapi/spec3.yaml", context: "API_token: #{datasource.stripe_token}")
+      boxcar = Boxcars::Swagger.new(engine: engine, swagger_url: datasource.swagger_url, context: "API_token: #{datasource.api_key}")
     end
     @result = boxcar.conduct(params[:input_field])
 

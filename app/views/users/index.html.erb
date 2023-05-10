@@ -29,7 +29,7 @@
                 <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"><%= time_ago_in_words(user.invitation_accepted_at) %> ago</td>
               <% elsif user.invitation_created_at.present? %>
                 <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
-                  <%= button_to "Resend Invitation", company_resend_invitation_path(@company, user_id: user.id), method: :post, class: "block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+                  <%= button_to "Resend Invitation", company_resend_invitation_path(@company, user_id: user.id), method: :post, class: "inline-block px-4 py-2 bg-red-500 text-white font-semibold rounded hover:bg-red-600 mt-2" %>
                 </td>
               <% else %>
                 <td/>

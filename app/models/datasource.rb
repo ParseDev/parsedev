@@ -1,8 +1,9 @@
 class Datasource < ApplicationRecord
   belongs_to :company
-  has_many :prompts
+  has_many :prompts, dependent: :destroy
   has_many :dataqueries
-  attr_encrypted :s3_secret_key, key: ENV["ENCRYPTION_KEY"]
+  encrypts :api_key
+  encrypts :database_password
 
   def connection
     # Generate a unique class name based on the database name and host.

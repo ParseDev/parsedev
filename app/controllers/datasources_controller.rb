@@ -7,7 +7,6 @@ class DatasourcesController < ApplicationController
 
   def create
     @datasource = Datasource.new(datasource_params.merge(company_id: current_user.try(:company_id) || 1))
-
     if @datasource.save
       redirect_to @datasource, notice: "Datasource was successfully created."
     else
@@ -26,7 +25,7 @@ class DatasourcesController < ApplicationController
 
   def destroy
     @datasource = Datasource.find(params[:id])
-    if @datasource.user == current_user
+    if @datasource.company == current_user.company
       @datasource.destroy
       redirect_to datasources_path, notice: "Datasource was successfully destroyed."
     else
@@ -37,6 +36,6 @@ class DatasourcesController < ApplicationController
   # private
 
   def datasource_params
-    params.require(:datasource).permit(:name, :description, :datasource_type, :host, :port, :database_name, :database_username, :database_password)
+    params.require(:datasource).permit(:name, :description, :datasource_type, :host, :port, :database_name, :database_username, :database_password, :swagger_url, :api_key)
   end
 end

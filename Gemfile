@@ -88,4 +88,3 @@ gem "jquery-rails"
 gem "dockerfile-rails", ">= 1.2", :group => :development
 gem "devise_invitable", "~> 2.0.0"
 gem "letter_opener", group: :development
-gem "attr_encrypted"
