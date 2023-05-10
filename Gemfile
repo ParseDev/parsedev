@@ -72,7 +72,7 @@ group :test do
   gem "webdrivers"
 end
 gem "tailwindcss-rails", "~> 2.0"
-gem "boxcars", path: "./lib/boxcars"
+gem "boxcars", path: File.expand_path("./lib/boxcars", __dir__)
 gem "hnswlib"
 gem "dotenv-rails", groups: [:development, :test]
 gem "devise-tailwindcssed"
