@@ -9,11 +9,19 @@ export default class extends Controller {
   }
 
   showLoader() {
+    const loader = document.getElementById("message-loader");
+    if (loader) {
+    loader.classList.remove("hidden");
+    }
     this.buttonTarget.classList.add("hidden");
     this.loaderTarget.classList.remove("hidden");
   }
 
   hideLoader() {
+    const loader = document.getElementById("message-loader");
+    if (loader) {
+    loader.classList.add("hidden");
+    }
     this.buttonTarget.classList.remove("hidden");
     this.loaderTarget.classList.add("hidden");
   }
