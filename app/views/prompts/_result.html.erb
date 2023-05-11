@@ -11,7 +11,7 @@
 </div>
 
 
-<% -if result.present? && result.answer.present? && result.answer.kind_of?(Array) %>
+<% -if result.present? && result.try(:answer).present? && result.answer.kind_of?(Array) %>
 <div class="px-4 sm:px-6 lg:px-8">
   <div class="mt-8 flow-root">
     <%= render "shared/result_table", answer: result.answer, prompt: prompt, include_save_button: true, include_create_chart_button: true %>
@@ -25,11 +25,8 @@
   </div>
  <pre class="bg-gray-800 text-white p-3 rounded-md whitespace-pre-line block">
   <code class="language-json">
-    <% begin %>
-      <%= eval(result.answer) %>
-    <% rescue %>
-      <%= result.answer %>
-    <% end %>
+    <%= result.try(:answer) || result %>
+   
   </code>
 </pre>
 

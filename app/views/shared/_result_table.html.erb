@@ -3,20 +3,20 @@
       <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
       <canvas id="chartCanvas" class="hidden"></canvas>
       <div class="flex items-center py-4">
-      <% if include_save_button %>
+      <% if include_create_chart_button %>
         <button id="createChartBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 cursor-pointer">
           Create Chart
         </button>
-    <% end %>
+       <% end %>
 
-        <% if include_create_chart_button %>
-        <% form_with model: Dataquery.new, url: dataqueries_path, method: :post, remote: true, data: {disabled_with: 'Saving ...'}, html: {data: {turbo: false}} do |form| %>
-          <%= form.hidden_field :datasource_id, value: prompt.datasource_id %>
-          <%= form.hidden_field :user_id, value: current_user.id %>
-          <%= form.hidden_field :query, value: prompt.code %>
-          <%= form.hidden_field :name, value: prompt.content %>
-          <%= form.button 'Save', class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer' %>
-        <% end %>
+        <% if include_save_button %>
+          <%= form_with model: Dataquery.new, url: dataqueries_path, method: :post, remote: true, data: {disabled_with: 'Saving ...'}, html: {data: {turbo: false}} do |form| %>
+            <%= form.hidden_field :datasource_id, value: prompt.datasource_id %>
+            <%= form.hidden_field :user_id, value: current_user.id %>
+            <%= form.hidden_field :query, value: prompt.code %>
+            <%= form.hidden_field :name, value: prompt.content %>
+            <%= form.button 'Save', class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer' %>
+          <% end %>
         <% end %>
       </div>
 
