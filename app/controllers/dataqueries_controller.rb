@@ -36,6 +36,7 @@ class DataqueriesController < ApplicationController
 
   def edit
     @dataquery = current_user.dataqueries.find(params[:id])
+    @result = @dataquery.run
   end
 
   def index
