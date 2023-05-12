@@ -9,7 +9,6 @@ export default class extends Controller {
 
   updateLink() {
     const datasourceId = this.selectTarget.value
-    debugger;
     if (datasourceId && datasourceId.trim() !== "") {
         this.linkTarget.classList.remove("hidden");
       }

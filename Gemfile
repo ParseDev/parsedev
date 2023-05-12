@@ -72,7 +72,7 @@ group :test do
   gem "webdrivers"
 end
 gem "tailwindcss-rails", "~> 2.0"
-gem "boxcars"
+gem "boxcars", git: "https://github.com/eltoob/boxcars"
 
 gem "hnswlib"
 gem "dotenv-rails", groups: [:development, :test]
