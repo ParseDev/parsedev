@@ -98,13 +98,13 @@ class DataqueriesController < ApplicationController
     dataquery.query = params[:query]
     result = dataquery.run
     respond_to do |format|
-      format.turbo_stream { render turbo_stream: turbo_stream.update("result_frame", partial: "/shared/result_table", locals: { answer: result, prompt: nil, include_save_button: false, include_create_chart_button: false }) }
+      format.turbo_stream { render turbo_stream: turbo_stream.update("result_frame", partial: "/shared/result_table", locals: { answer: result, prompt: nil, include_create_chart_button: false }) }
     end
   end
 
   private
 
   def dataquery_params
-    params.require(:dataquery).permit(:name, :query, :datasource_id, :user_id)
+    params.require(:dataquery).permit(:name, :query, :datasource_id, :user_id, :url, :request_method, :request_header, :request_body)
   end
 end

@@ -22,7 +22,9 @@
 
 
 <turbo-frame id="result_frame">
-  <%= render "shared/result_table", prompt: nil, answer: @result, include_save_button: false, include_create_chart_button: false %>
+  <%if @result %>
+  <%= render "shared/result_table", prompt: nil, answer: @result,  include_create_chart_button: false %>
+  <% end %>
 </turbo-frame>
 
 <script>

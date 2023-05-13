@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_10_200723) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_13_055838) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -27,6 +27,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_10_200723) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "url"
+    t.string "request_method"
+    t.json "request_header"
+    t.json "request_body"
   end
 
   create_table "datasources", force: :cascade do |t|
@@ -53,6 +57,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_10_200723) do
     t.text "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.json "requestdetail"
     t.index ["datasource_id"], name: "index_prompts_on_datasource_id"
     t.index ["user_id"], name: "index_prompts_on_user_id"
   end

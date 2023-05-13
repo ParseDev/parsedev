@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/eltoob/boxcars
-  revision: a5ff3345ad5929c7739230d91d5882a462e78885
+  revision: 1861c8bd6518ff19ce438f31d95fdd235f0865a1
   specs:
     boxcars (0.2.11)
       google_search_results (~> 2.2)
