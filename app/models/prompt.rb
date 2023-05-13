@@ -4,6 +4,10 @@ class Prompt < ApplicationRecord
   store_accessor :requestdetail
 
   def sanitized_code
-    code.gsub(datasource.api_key, "{API_KEY}").lstrip
+    if datasource.api_key.present?
+      code.gsub(datasource.api_key, "{API_KEY}").lstrip
+    else
+      return code
+    end
   end
 end
