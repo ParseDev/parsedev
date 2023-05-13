@@ -10,8 +10,16 @@
   <% end %>
 </div>
 
+<%= form_with model: Dataquery.new, url: dataqueries_path, method: :post, remote: true, data: {disabled_with: 'Saving ...'}, html: {data: {turbo: false}} do |form| %>
+  <%= form.hidden_field :datasource_id, value: prompt.datasource_id %>
+  <%= form.hidden_field :user_id, value: current_user.id %>
+  <%= form.hidden_field :query, value: prompt.code %>
+  <%= form.hidden_field :name, value: prompt.content %>
+  <%= form.button 'Save', class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer' %>
+  <%= form.button 'Edit', class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer' %>
+<% end %>
 
-<% -if result.present? && result.try(:answer).present? && result.answer.kind_of?(Array) %>
+<% if result.present? && result.try(:answer).present? && result.answer.kind_of?(Array) %>
 <div class="px-4 sm:px-6 lg:px-8">
   <div class="mt-8 flow-root">
     <%= render "shared/result_table", answer: result.answer, prompt: prompt, include_save_button: true, include_create_chart_button: true %>
@@ -23,10 +31,9 @@
   <div class="p-3 rounded-md">
     Response
   </div>
- <pre class="bg-gray-800 text-white p-3 rounded-md whitespace-pre-line block">
+ <pre id="json-display" class="bg-gray-800 text-white p-3 rounded-md  block">
   <code class="language-json">
-    <%= result.try(:answer) || result %>
-   
+   <%= JSON.pretty_generate(eval(result.answer).as_json)%>
   </code>
 </pre>
 

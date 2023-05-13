@@ -7,6 +7,7 @@
           Assistant: Hi, How can I help you today?
         </div>
       </div>
+    
       <%= link_to "View data schema", datasource_path(Datasource.last), target: "_blank", class: "bg-blue-500 text-white px-4 py-2 rounded ml-2 focus:outline-none focus:ring-2 focus:ring-gray-500 hidden", data: { link_target: "link" } %>
     </turbo-frame>
     <div class="inline-block bg-green-100 rounded-tl-lg rounded-tr-lg rounded-br-lg px-4 py-2 text-green-800 hidden" id="message-loader">

@@ -1,8 +1,9 @@
 class Prompt < ApplicationRecord
   belongs_to :user
   belongs_to :datasource
+  store_accessor :requestdetail
 
   def sanitized_code
-    code.gsub(/(sk_live_)[a-zA-Z0-9]+/, '\1***********').lstrip
+    code.gsub(datasource.api_key, "{API_KEY}").lstrip
   end
 end
