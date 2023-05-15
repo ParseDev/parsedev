@@ -1,3 +1,9 @@
-<pre><code class="language-ruby">
-<%= raw pp eval(code) %>
-</code></pre>
+<pre id="json-display" class="mt-10 bg-gray-800 text-white p-3 rounded-md block">
+  <code class="language-json">
+    <% begin %>
+      <%= JSON.pretty_generate(eval(code).as_json) %>
+    <% rescue %>
+      <%= code %>
+    <% end %>
+  </code>
+</pre>
