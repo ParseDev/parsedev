@@ -1,7 +1,6 @@
 class Prompt < ApplicationRecord
   belongs_to :user
   belongs_to :datasource
-  store_accessor :requestdetail
 
   def sanitized_code
     if datasource.api_key.present?

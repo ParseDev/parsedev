@@ -22,8 +22,8 @@
 
 
 <turbo-frame id="result_frame">
-  <%if @result %>
-  <%= render "shared/result_table", prompt: nil, answer: @result,  include_create_chart_button: false %>
+  <%if @result &&  @dataquery.datasource.datasource_type == "psql"%>
+    <%= render "shared/result_table", prompt: nil, answer: @result,  include_create_chart_button: false %>
   <% end %>
 </turbo-frame>
 

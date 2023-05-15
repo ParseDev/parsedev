@@ -14,7 +14,9 @@ class Dataquery < ApplicationRecord
       @result = boxcar.send(:clean_up_output, output)
       return @result
     else
-      # TODO implement other types of datasources
+      repl = Boxcars::RubyREPL.new
+      @result = repl.send(:run, query)
+      return @result
     end
   end
 end
