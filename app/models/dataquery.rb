@@ -14,8 +14,14 @@ class Dataquery < ApplicationRecord
       @result = boxcar.send(:clean_up_output, output)
       return @result
     else
-      repl = Boxcars::RubyREPL.new
-      @result = repl.send(:run, query)
+      url = "https://wandering-resonance-1947.fly.dev/execute"
+
+      payload = { code: query }.to_json
+      headers = { "Content-Type" => "application/json" }
+
+      response = RestClient.post(url, payload, headers)
+      @result = JSON.parse(response.body).fetch("output") || JSON.parse(@response.body).fetch("error")
+
       return @result
     end
   end

@@ -102,7 +102,7 @@ class DataqueriesController < ApplicationController
       if dataquery.datasource.datasource_type == "psql"
         format.turbo_stream { render turbo_stream: turbo_stream.update("result_frame", partial: "/shared/result_table", locals: { answer: result, prompt: nil, include_create_chart_button: false }) }
       else
-        format.turbo_stream { render turbo_stream: turbo_stream.update("result_frame", partial: "/shared/code", locals: { code: result.to_answer }) }
+        format.turbo_stream { render turbo_stream: turbo_stream.update("result_frame", partial: "/shared/code", locals: { code: result }) }
       end
     end
   end

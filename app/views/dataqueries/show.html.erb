@@ -26,6 +26,6 @@
     <%= link_to "Download to CSV", dataquery_download_csv_path(@dataquery), class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
     <%= render "shared/result_table", prompt: nil, answer: @result, include_create_chart_button: false %>
     <% else %>
-      <%= render "shared/code", code: @result.try(:answer) %>
+      <%= render "shared/code", code: @result %>
     <% end %>
 </div>
