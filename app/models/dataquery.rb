@@ -7,7 +7,7 @@ class Dataquery < ApplicationRecord
   end
 
   def run
-    if datasource.datasource_type == "psql"
+    if datasource.datasource_type == "psql" || datasource.datasource_type == "mysql"
       connection = datasource.connection
       output = connection.exec_query(query)
       boxcar = Boxcars::SQL.new

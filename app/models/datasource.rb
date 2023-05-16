@@ -15,16 +15,28 @@ class Datasource < ApplicationRecord
       self.abstract_class = true
 
       def self.establish_custom_connection(datasource)
-        db_config_hash = {
-          adapter: "postgresql",
-          encoding: "unicode",
-          database: datasource.database_name,
-          host: datasource.host,
-          port: datasource.port,
-          username: datasource.database_username,
-          password: datasource.database_password,
-        }
-        establish_connection(db_config_hash)
+        if datasource.datasource_type == "psql"
+          db_config_hash = {
+            adapter: "postgresql",
+            encoding: "unicode",
+            database: datasource.database_name,
+            host: datasource.host,
+            port: datasource.port,
+            username: datasource.database_username,
+            password: datasource.database_password,
+          }
+          establish_connection(db_config_hash)
+        else
+          db_config_hash = {
+            adapter: "mysql2",
+            encoding: "unicode",
+            database: datasource.database_name,
+            host: datasource.host,
+            username: datasource.database_username,
+            password: datasource.database_password,
+          }
+          establish_connection(db_config_hash)
+        end
       end
     end
 

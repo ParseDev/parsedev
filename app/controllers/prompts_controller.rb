@@ -4,11 +4,11 @@ class PromptsController < ApplicationController
   def create
     engine = Boxcars::Openai.new(max_tokens: 256)
     datasource = current_user.company.datasources.find(params[:datasource_id])
-    if datasource.datasource_type == "psql"
+    if datasource.datasource_type == "psql" || datasource.datasource_type == "mysql"
       connection = datasource.connection
       boxcar = Boxcars::SQL.new(engine: engine, connection: connection)
     else
-      boxcar = Boxcars::Openapi.new(engine: engine, swagger_url: datasource.swagger_url, context: "API_token: #{datasource.api_key}")
+      boxcar = Boxcars::Swagger.new(engine: engine, swagger_url: datasource.swagger_url, context: "API_token: #{datasource.api_key}")
     end
     @result = boxcar.conduct(params[:input_field])
     code = @result.try(:added_context).present? ? @result.added_context[:code] : nil
