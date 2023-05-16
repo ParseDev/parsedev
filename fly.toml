@@ -15,3 +15,6 @@ primary_region = "lax"
 [[statics]]
   guest_path = "/rails/public"
   url_prefix = "/"
+
+[[services]]
+  internal_port = 3306 # Port on which MySQL will listen
