@@ -8,17 +8,6 @@
           Create Chart
         </button>
        <% end %>
-
-        <% if include_save_button %>
-          <%= form_with model: Dataquery.new, url: dataqueries_path, method: :post, remote: true, data: {disabled_with: 'Saving ...'}, html: {data: {turbo: false}} do |form| %>
-            <%= form.hidden_field :datasource_id, value: prompt.datasource_id %>
-            <%= form.hidden_field :user_id, value: current_user.id %>
-            <%= form.hidden_field :query, value: prompt.code %>
-            <%= form.hidden_field :name, value: prompt.content %>
-            <%= form.button 'Save', class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer' %>
-            <%= form.button 'Edit', class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer' %>
-          <% end %>
-        <% end %>
       </div>
 
         <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
