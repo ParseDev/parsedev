@@ -32,6 +32,7 @@ class Datasource < ApplicationRecord
             encoding: "unicode",
             database: datasource.database_name,
             host: datasource.host,
+            host: datasource.port,
             username: datasource.database_username,
             password: datasource.database_password,
           }
