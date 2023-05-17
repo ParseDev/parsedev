@@ -29,7 +29,6 @@ class Datasource < ApplicationRecord
         else
           db_config_hash = {
             adapter: "mysql2",
-            encoding: "unicode",
             database: datasource.database_name,
             host: datasource.host,
             host: datasource.port,
