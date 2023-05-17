@@ -24,7 +24,7 @@ FROM base as build
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential libpq-dev
+    apt-get install --no-install-recommends -y build-essential libpq-dev default-libmysqlclient-dev
 
 # Install application gems
 COPY --link Gemfile Gemfile.lock ./
