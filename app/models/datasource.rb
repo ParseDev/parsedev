@@ -31,7 +31,7 @@ class Datasource < ApplicationRecord
             adapter: "mysql2",
             database: datasource.database_name,
             host: datasource.host,
-            host: datasource.port,
+            port: datasource.port,
             username: datasource.database_username,
             password: datasource.database_password,
           }
