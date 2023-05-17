@@ -2,7 +2,7 @@ class PromptsController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    engine = Boxcars::Openai.new(max_tokens: 256)
+    engine = Boxcars::Openai.new(max_tokens: 512)
     datasource = current_user.company.datasources.find(params[:datasource_id])
     if datasource.datasource_type == "psql" || datasource.datasource_type == "mysql"
       connection = datasource.connection
