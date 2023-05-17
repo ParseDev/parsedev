@@ -32,8 +32,8 @@ export default class extends Controller {
         // Split the host and port
         const [host, port] = hostPort.split(':');
         document.getElementById('datasource_host').value = host;
-        document.getElementById('datasource_port').value = hostPort;
-        document.getElementById('datasource_database_name').value = host;
+        document.getElementById('datasource_port').value = port;
+        document.getElementById('datasource_database_name').value = dbName;
         document.getElementById('datasource_database_username').value = username;
         document.getElementById('datasource_database_password').value = password;
     } catch (error) { 

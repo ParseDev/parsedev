@@ -1,20 +1,20 @@
-# fly.toml app configuration file generated for stargaze on 2023-05-02T22:55:57-07:00
+# fly.toml app configuration file generated for parse-dev on 2023-05-17T08:07:09-07:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "stargaze"
+app = "parse-dev"
 primary_region = "lax"
 
 [http_service]
   internal_port = 3000
   force_https = true
-  auto_stop_machines = false
   auto_start_machines = true
+
+[[services]]
+  protocol = ""
+  internal_port = 3306
 
 [[statics]]
   guest_path = "/rails/public"
   url_prefix = "/"
-
-[[services]]
-  internal_port = 3306 # Port on which MySQL will listen
