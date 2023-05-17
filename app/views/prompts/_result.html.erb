@@ -31,15 +31,7 @@
   <div class="p-3 rounded-md">
     Response
   </div>
- <% begin %>
-  <pre id="json-display" class="bg-gray-800 text-white p-3 rounded-md block">
-    <code class="language-json">
-      <%= JSON.pretty_generate(eval(result.answer).as_json) %>
-    </code>
-  </pre>
-<% rescue => e %>
-  <p><%= result.try(:answer) %></p>
-<% end %>
+  <% render "shared/code", code: result %>
 
 
 </div>
