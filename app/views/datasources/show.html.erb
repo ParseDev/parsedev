@@ -27,7 +27,9 @@
     <% end %>
   </div>
   <div class="mt-6">
-    <%= link_to "Back to List", datasources_path, class: "inline-block px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600" %>
+    <%= link_to "Edit", edit_datasource_path(@datasource), class: "inline-block px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600" %>
+    </br>
+    <%= link_to "Back to List", datasources_path, class: "mt-2 inline-block px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600" %>
     <%= button_to "Delete", datasource_path(@datasource), method: :delete, data: { confirm: "Are you sure?", turbo: false }, class: "inline-block px-4 py-2 bg-red-500 text-white font-semibold rounded hover:bg-red-600 mt-2" %>
   </div>
 </div>

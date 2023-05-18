@@ -19,6 +19,23 @@ class DatasourcesController < ApplicationController
     @datasources = current_user.company.datasources
   end
 
+  def edit
+    @datasource = Datasource.find(params[:id])
+  end
+
+  def update
+    @datasource = Datasource.find(params[:id])
+    if @datasource.company == current_user.company
+      if @datasource.update(datasource_params)
+        redirect_to @datasource, notice: "Datasource was successfully updated."
+      else
+        redirect_to datasources_path, alert: "Oops something went wrong."
+      end
+    else
+      redirect_to datasources_path, alert: "Oops something went wrong."
+    end
+  end
+
   def show
     @datasource = Datasource.find(params[:id])
   end

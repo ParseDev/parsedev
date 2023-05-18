@@ -1,0 +1,9 @@
+<% if @datasource.datasource_type == "psql" %>
+  <div id="form_psql"><%= render "form_psql", datasource: @datasource %></div>
+<% elsif @datasource.datasource_type == "mysql" %>
+  <div id="form_mysql"><%= render "form_mysql", datasource: @datasource %></div>
+<% elsif @datasource.datasource_type == "stripe" %>
+  <div id="form_stripe"><%= render "form_stripe", datasource: @datasource %></div>
+<% elsif @datasource.datasource_type == "api" %>
+  <div id="form_api"><%= render "form_api", datasource: @datasource %></div>
+<% end %>

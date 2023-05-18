@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :prompts, only: [:show, :create]
-  resources :datasources, only: [:index, :show, :new, :create, :destroy]
+  resources :datasources, only: [:index, :show, :new, :create, :destroy, :edit, :update]
   resources :chats, only: [:new]
   resources :dataqueries, only: [:index, :create, :show, :destroy, :edit, :update] do
     post "run"
