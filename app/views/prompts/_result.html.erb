@@ -19,7 +19,7 @@
   <% end %>
 </div>
 
-<% if result.present? && result.try(:answer).present? && result.answer.kind_of?(Array) %>
+<% if result.present? && result.try(:answer).present? %>
 <div class="px-4 sm:px-6 lg:px-8">
   <div class="mt-8 flow-root">
     <%= render "shared/result_table", answer: result.answer, prompt: prompt, include_save_button: true, include_create_chart_button: true %>
