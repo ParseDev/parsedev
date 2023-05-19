@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_13_055838) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_19_171116) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -50,6 +50,40 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_13_055838) do
     t.index ["company_id"], name: "index_datasources_on_company_id"
   end
 
+  create_table "dataview_dataqueries", force: :cascade do |t|
+    t.integer "height"
+    t.integer "width"
+    t.integer "x_position"
+    t.integer "y_position"
+    t.bigint "dataview_id", null: false
+    t.bigint "dataquery_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["dataquery_id"], name: "index_dataview_dataqueries_on_dataquery_id"
+    t.index ["dataview_id"], name: "index_dataview_dataqueries_on_dataview_id"
+  end
+
+  create_table "dataviews", force: :cascade do |t|
+    t.string "name"
+    t.integer "company_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+  end
+
+  create_table "dataviews_dataqueries", force: :cascade do |t|
+    t.bigint "dataview_id", null: false
+    t.bigint "dataquery_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "height"
+    t.integer "width"
+    t.integer "x_position"
+    t.integer "y_position"
+    t.index ["dataquery_id"], name: "index_dataviews_dataqueries_on_dataquery_id"
+    t.index ["dataview_id"], name: "index_dataviews_dataqueries_on_dataview_id"
+  end
+
   create_table "prompts", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "datasource_id", null: false
@@ -57,7 +91,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_13_055838) do
     t.text "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.json "requestdetail"
     t.index ["datasource_id"], name: "index_prompts_on_datasource_id"
     t.index ["user_id"], name: "index_prompts_on_user_id"
   end
@@ -87,6 +120,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_13_055838) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "dataview_dataqueries", "dataqueries"
+  add_foreign_key "dataview_dataqueries", "dataviews"
+  add_foreign_key "dataviews_dataqueries", "dataqueries"
+  add_foreign_key "dataviews_dataqueries", "dataviews"
   add_foreign_key "prompts", "datasources"
   add_foreign_key "prompts", "users"
   add_foreign_key "users", "companies"

@@ -93,16 +93,35 @@ class DataqueriesController < ApplicationController
     end
   end
 
-  def run
-    dataquery = current_user.dataqueries.find(params[:dataquery_id])
-    dataquery.query = params[:query]
-    result = dataquery.run
+  def execute
+    @dataquery = current_user.dataqueries.find(params[:dataquery_id])
+    @result = @dataquery.run
 
     respond_to do |format|
-      if dataquery.datasource.datasource_type == "psql" || dataquery.datasource.datasource_type == "mysql"
-        format.turbo_stream { render turbo_stream: turbo_stream.update("result_frame", partial: "/shared/result_table", locals: { answer: result, prompt: nil, include_create_chart_button: false }) }
+      if @dataquery.datasource.datasource_type == "psql" || @dataquery.datasource.datasource_type == "mysql"
+        format.turbo_stream { render turbo_stream: turbo_stream.update(@dataquery.frame_id, partial: "/shared/result_table", locals: { answer: @result, prompt: nil, include_create_chart_button: false }) }
+        format.html { render :show }
       else
-        format.turbo_stream { render turbo_stream: turbo_stream.update("result_frame", partial: "/shared/code", locals: { code: result }) }
+        format.turbo_stream { render turbo_stream: turbo_stream.update(@dataquery.frame_id, partial: "/shared/code", locals: { code: @result }) }
+        format.html { render :show }
+      end
+    end
+  end
+
+  def run
+    @dataquery = current_user.dataqueries.find(params[:dataquery_id])
+    if params[:query].present?
+      @dataquery.query = params[:query]
+    end
+    @result = @dataquery.run
+
+    respond_to do |format|
+      if @dataquery.datasource.datasource_type == "psql" || @dataquery.datasource.datasource_type == "mysql"
+        format.turbo_stream { render turbo_stream: turbo_stream.update(@dataquery.frame_id, partial: "/shared/result_table", locals: { answer: @result, prompt: nil, include_create_chart_button: false }) }
+        format.html { render :show }
+      else
+        format.turbo_stream { render turbo_stream: turbo_stream.update(@dataquery.frame_id, partial: "/shared/code", locals: { code: @result }) }
+        format.html { render :show }
       end
     end
   end

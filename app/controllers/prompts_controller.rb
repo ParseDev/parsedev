@@ -8,7 +8,7 @@ class PromptsController < ApplicationController
       connection = datasource.connection
       boxcar = Boxcars::SQL.new(engine: engine, connection: connection)
     else
-      boxcar = Boxcars::Swagger.new(engine: engine, swagger_url: datasource.swagger_url, context: "API_token: #{datasource.api_key}")
+      boxcar = Boxcars::Swagger.new(engine: engine, swagger_url: datasource.swagger_url, context: "TOKEN: #{datasource.api_key}")
     end
     @result = boxcar.conduct(params[:input_field])
     code = @result.try(:added_context).present? ? @result.added_context[:code] : nil

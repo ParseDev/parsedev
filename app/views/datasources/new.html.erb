@@ -1,22 +1,23 @@
 <div class="m-10">
-  <div class="flex flex-col">
-    <div class="grid grid-cols-3 gap-4">
-      <!-- Add active styles to the first button -->
-      <button onclick="toggleActive(this, 'form_psql')" class="w-full py-6 bg-blue-100 border-2 rounded-lg hover:bg-blue-100 flex items-center justify-center">
-        <%= image_tag "postgres.png", class: "h-10" %>
-        <span class="text-2xl font-bold ml-2">PostgreSQL</span>
-      </button>
-      <button onclick="toggleActive(this, 'form_api')" class="w-full py-8 bg-slate-50 rounded-lg hover:bg-blue-100 flex items-center justify-center">
-        <%= image_tag "api.png", class: "h-10" %>
-        <span class="text-2xl font-bold ml-2">API</span>
-      </button>
-      <button onclick="toggleActive(this, 'form_mysql')" class="w-full py-6 bg-slate-50 rounded-lg hover:bg-blue-100 flex items-center justify-center">
-        <%= image_tag "mysql.png", class: "h-12" %>
-        <span class="text-2xl font-bold ml-2">Mysql</span>
-      </button>
-    </div>
+  <div class="flex flex-wrap" id="choice-datasource-buttons">
+    <button onclick="toggleActive(this, 'form_psql')" class="flex-auto py-6 px-4 m-2 bg-blue-100 border-2 rounded-lg hover:bg-blue-100 flex items-center justify-center">
+      <%= image_tag "postgres.png", class: "h-8" %>
+      <span class="text-2xl font-bold ml-2">PostgreSQL</span>
+    </button>
+    <button onclick="toggleActive(this, 'form_api')" class="flex-auto py-8 px-4 m-2 bg-slate-50 rounded-lg hover:bg-blue-100 flex items-center justify-center">
+      <%= image_tag "api.png", class: "h-10" %>
+      <span class="text-2xl font-bold ml-2">API</span>
+    </button>
+    <button onclick="toggleActive(this, 'form_stripe')" class="flex-auto py-8 px-4 m-2 bg-slate-50 rounded-lg hover:bg-blue-100 flex items-center justify-center">
+      <%= image_tag "stripe.png", class: "h-20" %>
+    </button>
+    <button onclick="toggleActive(this, 'form_mysql')" class="flex-auto py-6 px-4 m-2 bg-slate-50 rounded-lg hover:bg-blue-100 flex items-center justify-center">
+      <%= image_tag "mysql.png", class: "h-12" %>
+      <span class="text-2xl font-bold ml-2">MySQL</span>
+    </button>
   </div>
 </div>
+
 
 
 
@@ -25,6 +26,7 @@
 <div id="form_mysql" style="display: none;"><%= render "form_mysql", datasource: @datasource %></div>
 <div id="form_stripe" style="display: none;"><%= render "form_stripe", datasource: @datasource %></div>
 <div id="form_api" style="display: none;"><%= render "form_api", datasource: @datasource %></div>
+<div id="form_stripe" style="display: none;"><%= render "form_stripe", datasource: @datasource %></div>
 
 <script>
   function toggleActive(button, formId) {
@@ -35,7 +37,7 @@
 
     // Optionally, remove the active state from other buttons
     // This ensures that only one button can be active at a time
-    const buttons = document.querySelectorAll('.grid-cols-3 button');
+    const buttons = document.querySelectorAll('#choice-datasource-buttons button');
     buttons.forEach(btn => {
       if (btn !== button) {
         btn.classList.add('bg-slate-50');
