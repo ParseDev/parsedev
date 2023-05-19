@@ -1,9 +1,14 @@
 class Dataquery < ApplicationRecord
   belongs_to :user
   belongs_to :datasource
+  has_and_belongs_to_many :dataviews, join_table: "dataviews_dataqueries"
 
   def sanitized_query
     query.gsub(/(sk_live_)[a-zA-Z0-9]+/, '\1***********').strip
+  end
+
+  def frame_id
+    "result_frame_#{id}"
   end
 
   def run

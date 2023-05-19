@@ -34,9 +34,10 @@
           </div>
           <div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
             <!-- app/views/your_view.html.erb -->
-            <%= link_to "Dashboard", root_path, class: "#{active_menu_class(root_path)} inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium", aria: { current: current_page?(root_path) ? "page" : nil } %>
+            <%= link_to "Chat", root_path, class: "#{active_menu_class(root_path)} inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium", aria: { current: current_page?(root_path) ? "page" : nil } %>
             <%= link_to "Datasources", datasources_path, class: "#{active_menu_class(datasources_path)} inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium", aria: { current: current_page?(datasources_path) ? "page" : nil } %>
             <%= link_to "Saved Queries", dataqueries_path, class: "#{active_menu_class(dataqueries_path)} inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium", aria: { current: current_page?(dataqueries_path) ? "page" : nil } %>
+            <%= link_to "Dashboards", dataviews_path, class: "#{active_menu_class(dataviews_path)} inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium", aria: { current: current_page?(dataviews_path) ? "page" : nil } %>
           </div>
         </div>
         <div class="hidden sm:ml-6 sm:flex sm:items-center">
@@ -94,9 +95,10 @@
       <div class="space-y-1 pb-3 pt-2">
         <!-- Current: "border-indigo-500 bg-indigo-50 text-indigo-700", Default: "border-transparent text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800" -->
         <!-- app/views/your_view.html.erb -->
-        <%= link_to "Dashboard", root_path, class: "#{active_mobile_menu_class(root_path)} block border-l-4 py-2 pl-3 pr-4 text-base font-medium", aria: { current: current_page?(root_path) ? "page" : nil } %>
+        <%= link_to "Chat", root_path, class: "#{active_mobile_menu_class(root_path)} block border-l-4 py-2 pl-3 pr-4 text-base font-medium", aria: { current: current_page?(root_path) ? "page" : nil } %>
         <%= link_to "Datasources", datasources_path, class: "#{active_mobile_menu_class(datasources_path)} block border-l-4 py-2 pl-3 pr-4 text-base font-medium", aria: { current: current_page?(datasources_path) ? "page" : nil } %>
         <%= link_to "Saved Queries", dataqueries_path, class: "#{active_mobile_menu_class(dataqueries_path)} block border-l-4 py-2 pl-3 pr-4 text-base font-medium", aria: { current: current_page?(dataqueries_path) ? "page" : nil } %>
+        <%= link_to "Dashboards", dataviews_path, class: "#{active_mobile_menu_class(dataviews_path)} block border-l-4 py-2 pl-3 pr-4 text-base font-medium", aria: { current: current_page?(dataviews_path) ? "page" : nil } %>
 
       </div>
       <div class="border-t border-gray-200 pb-3 pt-4">
