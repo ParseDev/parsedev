@@ -1,0 +1,16 @@
+<!-- app/views/dataviews/new.html.erb -->
+
+<div class="container mx-auto py-8">
+  <h2 class="text-2xl font-bold mb-4">New DataView</h2>
+  
+  <%= form_with(model: @dataview, url: dataviews_path, class: "max-w-md") do |form| %>
+    <div class="mb-4">
+      <%= form.label :name, class: "block font-medium text-gray-700" %>
+      <%= form.text_field :name, class: "form-input mt-1 block w-full" %>
+    </div>
+  
+    <div class="flex items-center justify-end">
+      <%= form.submit "Create DataView", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+    </div>
+  <% end %>
+</div>

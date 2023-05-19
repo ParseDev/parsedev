@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :dataviews, only: [:show, :index]
+  resources :dataviews, only: [:show, :index, :new, :create, :destroy] do
+    post "create_dataquery"
+  end
   resources :prompts, only: [:show, :create]
   resources :datasources, only: [:index, :show, :new, :create, :destroy, :edit, :update]
   resources :chats, only: [:new]

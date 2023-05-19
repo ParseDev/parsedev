@@ -4,7 +4,11 @@
       <h1 class="text-base font-semibold leading-6 text-gray-900">DataViews</h1>
       <p class="mt-2 text-sm text-gray-700">A list of all the DataViews</p>
     </div>
+    <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+      <%= link_to "Add a new dashboard", new_dataview_path, class: "block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+    </div>
   </div>
+  
   <div class="mt-8 flow-root">
     <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
       <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
@@ -14,17 +18,21 @@
               <tr>
                 <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Name</th>
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Action</th>
+                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"></th> <!-- Add a new column for the destroy button -->
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-200 bg-white">
-            <% @dataviews.each do |dataview| %>
+              <% @dataviews.each do |dataview| %>
                 <tr>
-                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"><%= dataview.name %></td>
-                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                      <%= link_to "Show", dataview_path(dataview), class: "text-blue-600 hover:text-blue-800" %>
-                    </td>
+                  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"><%= dataview.name %></td>
+                  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                    <%= link_to "Show", dataview_path(dataview), class: "text-blue-600 hover:text-blue-800" %>
+                  </td>
+                  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                    <%= button_to "Destroy", dataview_path(dataview), method: :delete, form: { data: {'turbo-confirm': "Are you sure?"}}, class: "text-red-600 hover:text-red-800" %>
+                  </td>
                 </tr>
-            <% end %>
+              <% end %>
             </tbody>
           </table>
         </div>
