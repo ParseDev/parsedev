@@ -1,78 +1,60 @@
 <div class="m-20">
-  <%= form_with(model: datasource,  local: true, class: 'space-y-4') do |form| %>
-  <div class="space-y-12" data-controller="toggle">
+  <%= form_with(model: datasource,  local: true, class: 'space-y-4', html: {data: {controller: 'connection-loader', action: "submit->connection-loader#submit"}}) do |form| %>
+    <div class="space-y-12" data-controller="toggle">
       <% if datasource.errors.any? %>
-      <div id="error_explanation" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-        <h2 class="font-bold"><%= pluralize(datasource.errors.count, "error") %> prohibited this datasource from being saved:</h2>
-
-        <ul class="list-disc pl-5">
-          <% datasource.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-
+        <div id="error_explanation" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+          <h2 class="font-bold"><%= pluralize(datasource.errors.count, "error") %> prohibited this datasource from being saved:</h2>
+          <ul class="list-disc pl-5">
+            <% datasource.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
       <div class="field">
-      <%= form.label :name, 'Nickname', class: 'block text-sm font-medium text-gray-700' %>
-      <%= form.text_field :name, class: 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50' %>
-    </div>
-
-    <div class="field">
-      <%= form.label :description, class: 'block text-sm font-medium text-gray-700' %>
-      <%= form.text_field :description, class: 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50' %>
-    </div>
-
-    <div class="field">
-      <%= form.hidden_field :datasource_type, value: 'psql'%>
-    </div>
-
-
-  <label class="relative inline-flex items-center cursor-pointer">
-    <input type="checkbox" value="" class="sr-only peer" data-action="toggle#toggle" data-toggle-target="toggleInput">
-    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-    <span class="ml-3 text-sm font-medium text-gray-900">Enter URI</span>
-  </label>
-
-
-  <div class="field hidden" data-toggle-target="toggleField">
-    <%= form.label :uri, 'URI', class: 'block text-sm font-medium text-gray-700' %>
-    <%= form.text_field :uri, placeholder: 'postgres://user:password@host:port/databasename', class: 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50', data: { action: "input->toggle#edit" } %>
-  </div>
-
-
-
-
-    <div class="field" data-toggle-target="toggleField">
-      <%= form.label :host, class: 'block text-sm font-medium text-gray-700' %>
-      <%= form.text_field :host, class: 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50' %>
-    </div>
-
-    <div class="field" data-toggle-target="toggleField">
-      <%= form.label :port, class: 'block text-sm font-medium text-gray-700' %>
-      <%= form.text_field :port, class: 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50' %>
-    </div>
-
-    <div class="field" data-toggle-target="toggleField">
-      <%= form.label :database_name, class: 'block text-sm font-medium text-gray-700' %>
-      <%= form.text_field :database_name, class: 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50' %>
-    </div>
-
-    <div class="field" data-toggle-target="toggleField">
-      <%= form.label :database_username, class: 'block text-sm font-medium text-gray-700' %>
-      <%= form.text_field :database_username, class: 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50' %>
-    </div>
-
-    <div class="field" data-toggle-target="toggleField">
-      <%= form.label :database_password, class: 'block text-sm font-medium text-gray-700' %>
-      <%= form.text_field :database_password, class: 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50' %>
-    </div>
-
-    <div class="actions">
-      <%= form.submit 'Submit', class: 'inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500' %>
-      <%= link_to 'Back', datasources_path, class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
-    </div>
+        <%= form.label :name, 'Nickname', class: 'block text-sm font-medium text-gray-700' %>
+        <%= form.text_field :name, class: 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50' %>
+      </div>
+      <div class="field">
+        <%= form.label :description, class: 'block text-sm font-medium text-gray-700' %>
+        <%= form.text_field :description, class: 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50' %>
+      </div>
+      <div class="field">
+        <%= form.hidden_field :datasource_type, value: 'psql'%>
+      </div>
+      <label class="relative inline-flex items-center cursor-pointer">
+        <input type="checkbox" value="" class="sr-only peer" data-action="toggle#toggle" data-toggle-target="toggleInput">
+        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+        <span class="ml-3 text-sm font-medium text-gray-900">Enter URI</span>
+      </label>
+      <div class="field hidden" data-toggle-target="toggleField">
+        <%= form.label :uri, 'URI', class: 'block text-sm font-medium text-gray-700' %>
+        <%= form.text_field :uri, placeholder: 'postgres://user:password@host:port/databasename', class: 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50', data: { action: "input->toggle#edit" } %>
+      </div>
+      <div class="field" data-toggle-target="toggleField">
+        <%= form.label :host, class: 'block text-sm font-medium text-gray-700' %>
+        <%= form.text_field :host, class: 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50' %>
+      </div>
+      <div class="field" data-toggle-target="toggleField">
+        <%= form.label :port, class: 'block text-sm font-medium text-gray-700' %>
+        <%= form.text_field :port, class: 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50' %>
+      </div>
+      <div class="field" data-toggle-target="toggleField">
+        <%= form.label :database_name, class: 'block text-sm font-medium text-gray-700' %>
+        <%= form.text_field :database_name, class: 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50' %>
+      </div>
+      <div class="field" data-toggle-target="toggleField">
+        <%= form.label :database_username, class: 'block text-sm font-medium text-gray-700' %>
+        <%= form.text_field :database_username, class: 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50' %>
+      </div>
+      <div class="field" data-toggle-target="toggleField">
+        <%= form.label :database_password, class: 'block text-sm font-medium text-gray-700' %>
+        <%= form.text_field :database_password, class: 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50' %>
+      </div>
+      <div class="actions">
+        <%= form.submit 'Submit', class: 'inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500' %>
+        <%= link_to 'Back', datasources_path, class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+      </div>
     </div>
   <% end %>
-
 </div>

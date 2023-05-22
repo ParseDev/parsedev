@@ -17,17 +17,13 @@
     </button>
   </div>
 </div>
-
-
-
-
+<%= render 'shared/modal' %>
 <!-- Show the first form by default -->
 <div id="form_psql"><%= render "form_psql", datasource: @datasource %></div>
 <div id="form_mysql" style="display: none;"><%= render "form_mysql", datasource: @datasource %></div>
 <div id="form_stripe" style="display: none;"><%= render "form_stripe", datasource: @datasource %></div>
 <div id="form_api" style="display: none;"><%= render "form_api", datasource: @datasource %></div>
 <div id="form_stripe" style="display: none;"><%= render "form_stripe", datasource: @datasource %></div>
-
 <script>
   function toggleActive(button, formId) {
     // Toggle the Tailwind utility classes for the active state

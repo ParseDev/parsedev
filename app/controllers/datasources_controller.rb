@@ -7,11 +7,16 @@ class DatasourcesController < ApplicationController
 
   def create
     @datasource = Datasource.new(datasource_params.merge(company_id: current_user.try(:company_id) || 1))
+    begin
+      @datasource.connection
+    rescue
+      redirect_to new_datasource_path, alert: "Could not establish connection to datasource. Please make sure that you use correct credentials." and return true
+    end
     if @datasource.save
-      redirect_to @datasource, notice: "Datasource was successfully created."
+      redirect_to @datasource, notixe: "Datasource was successfully created."
     else
       Rails.logger.warn @datasource.errors.full_messages.to_s
-      render :new, notice: @datasource.errors.full_messages.to_s
+      render :new, alert: @datasource.errors.full_messages.to_s
     end
   end
 
