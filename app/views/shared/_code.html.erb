@@ -1,13 +1,13 @@
 <pre id="json-display" class="mt-10 bg-gray-800 text-white p-3 rounded-md block">
-  <code class="language-json">
+  <code class="language-json whitespace-pre">
     <% if valid_ruby_code?(code) %>
       <% begin %>
         <%= JSON.pretty_generate(eval(code).as_json) %>
       <% rescue %>
-        <%= code %>
+        <p><%= code %></p>
       <% end %>
     <% else %>
-      <%= code %>
+      <p><%= code %></p>
     <% end %>
   </code>
 </pre>

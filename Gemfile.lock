@@ -290,11 +290,19 @@ GEM
       httparty (>= 0.18.1)
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
+    ruby2ruby (2.5.0)
+      ruby_parser (~> 3.1)
+      sexp_processor (~> 4.6)
+    ruby_parser (3.20.1)
+      sexp_processor (~> 4.16)
+    rubyfmt (0.0.1)
+      ruby2ruby (~> 2.0)
     rubyzip (2.3.2)
     selenium-webdriver (4.8.6)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sexp_processor (4.17.0)
     smart_properties (1.17.0)
     sprockets (4.2.0)
       concurrent-ruby (~> 1.0)
@@ -378,6 +386,7 @@ DEPENDENCIES
   redis (~> 4.0)
   rest-client
   rspec-rails (~> 5.0)
+  rubyfmt
   selenium-webdriver
   sprockets-rails
   stimulus-rails

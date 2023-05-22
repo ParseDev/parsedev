@@ -1,10 +1,22 @@
+include ApplicationHelper
+
 class Dataquery < ApplicationRecord
   belongs_to :user
   belongs_to :datasource
   has_and_belongs_to_many :dataviews, join_table: "dataviews_dataqueries"
+  before_save :format_query
 
   def sanitized_query
-    query.gsub(/(sk_live_)[a-zA-Z0-9]+/, '\1***********').strip
+    if self.datasource.api_key.present?
+      return query.gsub(self.datasource.api_key, "*" * self.datasource.api_key.length).strip
+    end
+    return query.strip
+  end
+
+  def format_query
+    if valid_ruby_code?(self.query)
+      self.query = Rubyfmt.format(self.query)
+    end
   end
 
   def frame_id
@@ -19,7 +31,7 @@ class Dataquery < ApplicationRecord
       @result = boxcar.send(:clean_up_output, output)
       return @result
     else
-      url = "https://wandering-resonance-1947.fly.dev/execute"
+      url = "https://morpheus.parse.dev/execute"
 
       payload = { code: query }.to_json
       headers = { "Content-Type" => "application/json" }
