@@ -7,9 +7,9 @@ export default class extends Controller {
     // Code to be executed when the form is submitted
     event.preventDefault();
 
-    const loadingModal = document.getElementById('loadingModal');
-    if (loadingModal) {
-      loadingModal.classList.remove('hidden');
+    const loadingConnectionModal = document.getElementById('loadingConnectionModal');
+    if (loadingConnectionModal) {
+      loadingConnectionModal.classList.remove('hidden');
     }
 
     // Get the form element
