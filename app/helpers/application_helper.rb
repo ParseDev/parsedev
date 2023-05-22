@@ -17,4 +17,13 @@ module ApplicationHelper
   def active_menu_class(link_path)
     current_page?(link_path) ? "border-indigo-500 text-gray-900" : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700"
   end
+
+  def valid_ruby_code?(string)
+    begin
+      RubyVM::InstructionSequence.compile(string)
+      true
+    rescue SyntaxError
+      false
+    end
+  end
 end
