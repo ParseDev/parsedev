@@ -91,3 +91,7 @@ gem "letter_opener", group: :development
 gem "mysql2"
 gem "rubyfmt"
 gem "airbrake"
+
+gem "net-ssh-gateway"
+gem 'ed25519', '>= 1.2', '< 2.0'
+gem 'bcrypt_pbkdf', '>= 1.0', '< 2.0'
