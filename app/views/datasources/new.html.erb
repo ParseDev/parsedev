@@ -1,54 +1,32 @@
+<% active_class = 'flex-auto py-6 px-4 m-2 bg-blue-100 border-2 rounded-lg hover:bg-blue-100 flex items-center justify-center'%>
+<% inactive_class = 'flex-auto py-8 px-4 m-2 bg-slate-50 rounded-lg hover:bg-blue-100 flex items-center justify-center' %>
 <div class="m-10">
   <div class="flex flex-wrap" id="choice-datasource-buttons">
-    <button onclick="toggleActive(this, 'form_psql')" class="flex-auto py-6 px-4 m-2 bg-blue-100 border-2 rounded-lg hover:bg-blue-100 flex items-center justify-center">
-      <%= image_tag "postgres.png", class: "h-8" %>
+    <%= link_to new_datasource_path(datasource_type: 'psql'), class: (params[:datasource_type].nil? || params[:datasource_type]== "psql" ? active_class : inactive_class) do %>
+      <%= image_tag 'postgres.png', class: 'h-8' %>
       <span class="text-2xl font-bold ml-2">PostgreSQL</span>
-    </button>
-    <button onclick="toggleActive(this, 'form_api')" class="flex-auto py-8 px-4 m-2 bg-slate-50 rounded-lg hover:bg-blue-100 flex items-center justify-center">
-      <%= image_tag "api.png", class: "h-10" %>
+    <% end %>
+    <%= link_to new_datasource_path(datasource_type: 'api'), class: params[:datasource_type]== "api" ? active_class : inactive_class do %>
+      <%= image_tag 'api.png', class: 'h-10' %>
       <span class="text-2xl font-bold ml-2">API</span>
-    </button>
-    <button onclick="toggleActive(this, 'form_stripe')" class="flex-auto py-8 px-4 m-2 bg-slate-50 rounded-lg hover:bg-blue-100 flex items-center justify-center">
-      <%= image_tag "stripe.png", class: "h-20" %>
-    </button>
-    <button onclick="toggleActive(this, 'form_mysql')" class="flex-auto py-6 px-4 m-2 bg-slate-50 rounded-lg hover:bg-blue-100 flex items-center justify-center">
-      <%= image_tag "mysql.png", class: "h-12" %>
+    <% end %>
+    <%= link_to new_datasource_path(datasource_type: 'stripe'), class: params[:datasource_type]== "stripe" ? active_class : inactive_class do %>
+      <%= image_tag 'stripe.png', class: 'h-20' %>
+    <% end %>
+    <%= link_to new_datasource_path(datasource_type: 'mysql'), class: params[:datasource_type]== "mysql" ? active_class : inactive_class do %>
+      <%= image_tag 'mysql.png', class: 'h-12' %>
       <span class="text-2xl font-bold ml-2">MySQL</span>
-    </button>
+    <% end %>
   </div>
 </div>
 <%= render 'shared/db_connection_modal' %>
 <!-- Show the first form by default -->
-<div id="form_psql"><%= render "form_psql", datasource: @datasource %></div>
-<div id="form_mysql" style="display: none;"><%= render "form_mysql", datasource: @datasource %></div>
-<div id="form_stripe" style="display: none;"><%= render "form_stripe", datasource: @datasource %></div>
-<div id="form_api" style="display: none;"><%= render "form_api", datasource: @datasource %></div>
-<div id="form_stripe" style="display: none;"><%= render "form_stripe", datasource: @datasource %></div>
-<script>
-  function toggleActive(button, formId) {
-    // Toggle the Tailwind utility classes for the active state
-    button.classList.toggle('bg-slate-50'); // Passive background color
-    button.classList.toggle('bg-blue-100'); // Active background color
-    button.classList.toggle('border-2'); // Add a border
-
-    // Optionally, remove the active state from other buttons
-    // This ensures that only one button can be active at a time
-    const buttons = document.querySelectorAll('#choice-datasource-buttons button');
-    buttons.forEach(btn => {
-      if (btn !== button) {
-        btn.classList.add('bg-slate-50');
-        btn.classList.remove('bg-blue-100');
-        btn.classList.remove('border-2');
-      }
-    });
-
-    // Hide all forms
-    const forms = document.querySelectorAll('[id^="form_"]');
-    forms.forEach(form => {
-      form.style.display = 'none';
-    });
-
-    // Show the selected form
-    document.getElementById(formId).style.display = 'block';
-  }
-</script>
+<% if params[:datasource_type].nil? || params[:datasource_type]== "psql"%>
+  <div id="form_psql"><%= render "form_psql", datasource: @datasource %></div>
+<% elsif params[:datasource_type]== "mysql" %>
+  <div id="form_mysql"><%= render "form_mysql", datasource: @datasource %></div>
+<% elsif params[:datasource_type]== "stripe" %>
+  <div id="form_stripe" ><%= render "form_stripe", datasource: @datasource %></div>
+<% else %>
+  <div id="form_api"><%= render "form_api", datasource: @datasource %></div>
+<% end %>
