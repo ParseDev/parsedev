@@ -8,8 +8,6 @@
         </button>
       <% end %>
     </div>
-    
-
     <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
       <% if answer.is_a?(Array) %>
         <table class="min-w-full divide-y divide-gray-300 mt-2">
@@ -29,7 +27,7 @@
                       <% datetime = DateTime.parse(v) %>
                       <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"> <%= datetime.strftime("%A %B #{datetime.day.ordinalize} %Y") %> </td>
                     <% end %>
-                  <% rescue %>
+                    <% rescue %>
                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= v %></td>
                   <% end %>
                 <% end %>
@@ -38,16 +36,16 @@
           </tbody>
         </table>
       <% else %>
-        <p class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= answer %></p>
+        <div class="flex flex-col gap-y-3 border-l border-gray-900/10">
+          <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 px-10 py- text-center">
+            <%= answer %>
+          </dd>
+        </div>
       <% end %>
     </div>
   </div>
 </div>
-
-
-    
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
   // Handle the button click event
   document.getElementById('createChartBtn').addEventListener('click', function() {
