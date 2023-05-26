@@ -35,7 +35,7 @@
 </div>
 
 <% if @datasource.datasource_type == "psql" || @datasource.datasource_type == "mysql" %>
-  <% connection = @datasource.connection %>
+  <% connection = @datasource.connection(@bastion_port) %>
   <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
     <% connection.tables.each do |table| %>
       <div class="mb-8">
