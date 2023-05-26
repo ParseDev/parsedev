@@ -1,4 +1,3 @@
-require 'net/ssh/gateway'
 class Datasource < ApplicationRecord
   belongs_to :company
   has_many :prompts, dependent: :destroy
@@ -6,26 +5,19 @@ class Datasource < ApplicationRecord
   encrypts :api_key
   encrypts :database_password
 
-  def connection
+  
+
+  def connection(port)
     # Generate a unique class name based on the database name and host.
     # This assumes that the combination of database_name and host is unique for each connection.
-    class_name = "#{database_name}_#{host}".gsub(/[^0-9a-zA-Z]/, "_").camelize
+    random = Random.rand(399...79990)
+    class_name = "#{database_name}_#{host}_#{random}".gsub(/[^0-9a-zA-Z]/, "_").camelize
+      
     
-    
-
-    
-
     # Define the custom connection class dynamically.
     custom_connection_class = Class.new(ActiveRecord::Base) do
       self.abstract_class = true
-
-      def self.establish_custom_connection(datasource)
-        gateway = Net::SSH::Gateway.new('167.71.27.120', nil, {
-          user: 'root',
-          port: 22,
-          keys: ['~/.ssh/id_rsa']
-        })
-        port = gateway.open("#{datasource.host}", datasource.port)
+      def self.establish_custom_connection(datasource, port)
         if datasource.datasource_type == "psql"
           db_config_hash = {
             adapter: "postgresql",
@@ -55,7 +47,7 @@ class Datasource < ApplicationRecord
     Object.const_set(class_name, custom_connection_class)
 
     # Establish the connection and return the connection object.
-    custom_connection_class.establish_custom_connection(self)
+    custom_connection_class.establish_custom_connection(self, port)
     custom_connection_class.connection
   end
 end

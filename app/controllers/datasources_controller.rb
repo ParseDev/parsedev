@@ -1,3 +1,4 @@
+require 'net/ssh/gateway'
 class DatasourcesController < ApplicationController
   before_action :authenticate_user!
 
@@ -8,11 +9,18 @@ class DatasourcesController < ApplicationController
   def create
     @datasource = Datasource.new(datasource_params.merge(company_id: current_user.try(:company_id) || 1))
     begin
-      @datasource.connection
+      ssh_gateway = Net::SSH::Gateway.new("#{ENV['BASTION_SERVER_IP_1']}", nil, {
+        user: "#{ENV['BASTION_USER']}",
+        port: 22,
+        password: "#{ENV['BASTION_PASSWORD']}"
+      })
+      port = ssh_gateway.open("#{@datasource.host}", @datasource.port)
+      @datasource.connection(port)
     rescue
       redirect_to new_datasource_path, alert: "Could not establish connection to datasource. Please make sure that you use correct credentials." and return true
     end
     if @datasource.save
+      ssh_gateway.shutdown!
       redirect_to @datasource, notixe: "Datasource was successfully created."
     else
       Rails.logger.warn @datasource.errors.full_messages.to_s
@@ -43,6 +51,14 @@ class DatasourcesController < ApplicationController
 
   def show
     @datasource = Datasource.find(params[:id])
+
+    ssh_gateway = Net::SSH::Gateway.new('52.9.106.164', nil, {
+      user: 'bastion',
+      port: 22,
+      password: 'cr&MBhZ3NPp6qk#Q'
+    })
+    
+    @bastion_port = ssh_gateway.open("#{@datasource.host}", @datasource.port)
   end
 
   def destroy
