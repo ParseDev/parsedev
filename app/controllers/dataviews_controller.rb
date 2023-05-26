@@ -51,6 +51,21 @@ class DataviewsController < ApplicationController
     end
   end
 
+  def destroy_dataquery
+    @dataview = Dataview.find(params[:dataview_id])
+    @dataviewdataquery = DataviewsDataquery.find(params[:dataview_dataquery])
+
+    if @dataviewdataquery.destroy!
+      respond_to do |format|
+        format.turbo_stream { render turbo_stream: turbo_stream.remove(@dataviewdataquery) }
+      end
+    else
+      respond_to do |format|
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("dataquery-form", partial: "dataviews/form", locals: { dataview: @dataview }), status: :unprocessable_entity }
+      end
+    end
+  end
+
   private
 
   def dataview_params

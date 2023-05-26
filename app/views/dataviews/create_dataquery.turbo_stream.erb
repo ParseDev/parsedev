@@ -1,0 +1,6 @@
+<!-- dataviews/create_dataquery.turbo_stream.erb -->
+<%= turbo_stream.append(
+    @dataview,
+    partial: 'dataqueries/dataquery',
+    locals: { dataviews_dataquery: @dataview.dataviews_dataqueries.last, dataquery: @dataquery }
+  ) %>
