@@ -2,12 +2,18 @@ class PromptsController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    engine = Boxcars::Openai.new(max_tokens: 512)
     datasource = current_user.company.datasources.find(params[:datasource_id])
     if datasource.datasource_type == "psql" || datasource.datasource_type == "mysql"
       connection = datasource.connection
+      if connection.tables.count > 30
+        engine = Boxcars::Openai.new(max_tokens: 512, model: "gpt-4")
+      else
+        engine = Boxcars::Openai.new(max_tokens: 512)
+      end
+
       boxcar = Boxcars::SQL.new(engine: engine, connection: connection)
     else
+      engine = Boxcars::Openai.new(max_tokens: 512)
       boxcar = Boxcars::Swagger.new(engine: engine, swagger_url: datasource.swagger_url, context: "TOKEN: #{datasource.api_key}")
     end
     @result = boxcar.conduct(params[:input_field])
