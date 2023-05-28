@@ -52,10 +52,10 @@ class DatasourcesController < ApplicationController
   def show
     @datasource = Datasource.find(params[:id])
 
-    ssh_gateway = Net::SSH::Gateway.new('52.9.106.164', nil, {
-      user: 'bastion',
+    ssh_gateway = Net::SSH::Gateway.new("#{ENV['BASTION_SERVER_IP_1']}", nil, {
+      user: "#{ENV['BASTION_USER']}",
       port: 22,
-      password: 'cr&MBhZ3NPp6qk#Q'
+      password: "#{ENV['BASTION_PASSWORD']}"
     })
     
     @bastion_port = ssh_gateway.open("#{@datasource.host}", @datasource.port)
