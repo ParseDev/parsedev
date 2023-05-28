@@ -18,13 +18,20 @@ class Datasource < ApplicationRecord
     custom_connection_class = Class.new(ActiveRecord::Base) do
       self.abstract_class = true
       def self.establish_custom_connection(datasource, port)
+        if datasource.host == "localhost"
+          connection_port = datasource.port
+          connection_host = "#{datasource.host}"
+        else
+          connection_port = port
+          connection_host = '127.0.0.1'
+        end
         if datasource.datasource_type == "psql"
           db_config_hash = {
             adapter: "postgresql",
             encoding: "unicode",
             database: datasource.database_name,
-            host: '127.0.0.1',
-            port: port,
+            host: connection_host,
+            port: connection_port,
             username: datasource.database_username,
             password: datasource.database_password,
           }
@@ -33,8 +40,8 @@ class Datasource < ApplicationRecord
           db_config_hash = {
             adapter: "mysql2",
             database: datasource.database_name,
-            host: '127.0.0.1',
-            port: port,
+            host: connection_host,
+            port: connection_port,
             username: datasource.database_username,
             password: datasource.database_password,
           }
