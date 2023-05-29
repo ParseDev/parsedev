@@ -4,6 +4,7 @@ class Datasource < ApplicationRecord
   has_many :dataqueries
   encrypts :api_key
   encrypts :database_password
+  before_create :create_dataview
 
   def connection(port)
     # Generate a unique class name based on the database name and host.
@@ -20,7 +21,7 @@ class Datasource < ApplicationRecord
             adapter: "postgresql",
             encoding: "unicode",
             database: datasource.database_name,
-            host: '127.0.0.1',
+            host: "127.0.0.1",
             port: port,
             username: datasource.database_username,
             password: datasource.database_password,
@@ -47,6 +48,25 @@ class Datasource < ApplicationRecord
     custom_connection_class.establish_custom_connection(self, port)
     custom_connection_class.connection
   end
+
+  def create_dataview
+    return unless datasource_type == "psql" || datasource_type == "mysql"
+    ssh_gateway = Net::SSH::Gateway.new("#{ENV["BASTION_SERVER_IP_1"]}", nil, {
+      user: "#{ENV["BASTION_USER"]}",
+      port: 22,
+      password: "#{ENV["BASTION_PASSWORD"]}",
+    })
+    ssh_port = ssh_gateway.open("#{host}", port)
+    engine = Boxcars::Openai.new(max_tokens: 512)
+    # Create a new dataview.
+    dataview = Dataview.create(name: "Home", company_id: company_id)
+    # TODO using ssh tunnel
+    connection = self.connection(ssh_port)
+    response = engine.run("You are a data analyst and you are given a list of tables: #{connection.tables}      Based on that write a series of 5 questions to ask the database that a CEO would like to s
+      ee on a daily basis\n      Format it as an array of string\n      Example: [' How many new subscripti
+      ons were added today?', 'What is the current balance of all transactions made by our users?']\n
+      Just return the code")
+    questions = response.gsub(/[\[\]\n']/, "").split(",").map(&:strip)
     questions.each do |question|
       boxcar = Boxcars::SQL.new(engine: engine, connection: connection)
       result = boxcar.conduct(question)
