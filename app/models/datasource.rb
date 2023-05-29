@@ -4,7 +4,6 @@ class Datasource < ApplicationRecord
   has_many :dataqueries
   encrypts :api_key
   encrypts :database_password
-  before_create :create_dataview
 
   def connection(port)
     # Generate a unique class name based on the database name and host.
