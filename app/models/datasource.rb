@@ -20,7 +20,7 @@ class Datasource < ApplicationRecord
           connection_host = "#{datasource.host}"
         else
           connection_port = port
-          connection_host = '127.0.0.1'
+          connection_host = "127.0.0.1"
         end
         if datasource.datasource_type == "psql"
           db_config_hash = {
@@ -63,11 +63,17 @@ class Datasource < ApplicationRecord
       password: "#{ENV["BASTION_PASSWORD"]}",
     })
     ssh_port = ssh_gateway.open("#{host}", port)
-    engine = Boxcars::Openai.new(max_tokens: 512)
+
     # Create a new dataview.
     dataview = Dataview.create(name: "Home", company_id: company_id)
     # TODO using ssh tunnel
     connection = self.connection(ssh_port)
+    if connection.tables.count > 30
+      engine = Boxcars::Openai.new(max_tokens: 512, model: "gpt-4")
+    else
+      engine = Boxcars::Openai.new(max_tokens: 512)
+    end
+
     response = engine.run("You are a data analyst and you are given a list of tables: #{connection.tables}      Based on that write a series of 5 questions to ask the database that a CEO would like to s
       ee on a daily basis\n      Format it as an array of string\n      Example: [' How many new subscripti
       ons were added today?', 'What is the current balance of all transactions made by our users?']\n
