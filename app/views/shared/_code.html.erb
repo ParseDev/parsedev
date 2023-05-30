@@ -2,7 +2,7 @@
   <code class="language-json whitespace-pre">
     <% if valid_ruby_code?(code) %>
       <% begin %>
-        <%= JSON.pretty_generate(eval(code).as_json) %>
+        <%= JSON.pretty_generate(eval(code.to_s).as_json) %>
       <% rescue %>
         <p><%= code %></p>
       <% end %>
