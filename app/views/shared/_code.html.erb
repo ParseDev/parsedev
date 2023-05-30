@@ -1,6 +1,8 @@
 <pre id="json-display" class="mt-10 bg-gray-800 text-white p-3 rounded-md block">
   <code class="language-json whitespace-pre">
-    <% if valid_ruby_code?(code) %>
+  <% if code.is_a?(Integer) %>
+    <p> <%= code %> </p>
+  <% elsif valid_ruby_code?(code.to_s) %>
       <% begin %>
         <%= JSON.pretty_generate(eval(code.to_s).as_json) %>
       <% rescue %>
