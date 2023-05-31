@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "beta", to: "contact#new"
+  post "contact", to: "contact#create"
   resources :dataviews, only: [:show, :index, :new, :create, :destroy] do
     post "create_dataquery"
     delete "destroy_dataquery"
