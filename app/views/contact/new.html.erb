@@ -5,7 +5,7 @@
       <h1 class="text-xl font-bold ml-2">Join the parse beta program</h1>
     </div>
   </header>
-  <%= form_with(model: Contact, url: contact_url, local: true) do |form| %>
+  <%= form_with(model: Contact, url: contact_url, local: false) do |form| %>
     <div class="mb-4">
       <%= form.label :email, class: "block text-gray-700 text-sm font-bold mb-2" %>
       <%= form.text_field :email, class: "form-input mt-1 block w-full" %>
