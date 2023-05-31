@@ -8,19 +8,20 @@
     <% # Add a favicon %>
     <link rel="icon" type="image/png" href="" />
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <%= favicon_link_tag asset_path("logo.png") %>
   </head>
-
   <body class="h-full">
+    <% flash.each do |type, message| %>
+      <div class="<%= flash_class(type) %>">
+        <%= message %>
+      </div>
+    <% end %>
     <main class="center-content">
       <div class="mt-20">
         <%= yield %>
       </div>
     </main>
-
-
   </body>
 </html>
