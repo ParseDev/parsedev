@@ -3,6 +3,9 @@
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
+# Run locally
+In order to run locally, make sure you copy the .env.sample to .env and adjust the right variables.
+
 Things you may want to cover:
 
 * Ruby version
