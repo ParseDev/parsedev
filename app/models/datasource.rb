@@ -4,6 +4,7 @@ class Datasource < ApplicationRecord
   has_many :dataqueries
   encrypts :api_key
   encrypts :database_password
+  default_scope { where(deleted_at: nil) }
 
   def connection(port)
     # Generate a unique class name based on the database name and host.
@@ -89,5 +90,9 @@ class Datasource < ApplicationRecord
     end
 
     ssh_gateway.shutdown!
+  end
+
+  def soft_destroy
+    update(deleted_at: Time.now)
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_31_052910) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_01_141047) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,6 +40,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_31_052910) do
     t.string "request_method"
     t.json "request_header"
     t.json "request_body"
+    t.datetime "deleted_at"
   end
 
   create_table "datasources", force: :cascade do |t|

@@ -57,10 +57,10 @@ class DatasourcesController < ApplicationController
   def show
     @datasource = Datasource.find(params[:id])
 
-    ssh_gateway = Net::SSH::Gateway.new("#{ENV['BASTION_SERVER_IP_1']}", nil, {
-      user: "#{ENV['BASTION_USER']}",
+    ssh_gateway = Net::SSH::Gateway.new("#{ENV["BASTION_SERVER_IP_1"]}", nil, {
+      user: "#{ENV["BASTION_USER"]}",
       port: 22,
-      password: "#{ENV['BASTION_PASSWORD']}"
+      password: "#{ENV["BASTION_PASSWORD"]}",
     })
 
     @bastion_port = ssh_gateway.open("#{@datasource.host}", @datasource.port)
@@ -69,7 +69,7 @@ class DatasourcesController < ApplicationController
   def destroy
     @datasource = Datasource.find(params[:id])
     if @datasource.company == current_user.company
-      @datasource.destroy
+      @datasource.soft_destroy
       redirect_to datasources_path, notice: "Datasource was successfully destroyed."
     else
       redirect_to datasources_path, alert: "Oops something went wrong."
