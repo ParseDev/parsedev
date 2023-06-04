@@ -8,23 +8,18 @@
     <%= form.label :query, class: "block text-gray-700 text-sm font-bold mb-2" %>
     <%= form.text_area :query, value: @dataquery.query, id: "query_text_area", class: "bg-gray-800 text-white p-3 rounded-md whitespace-pre-line block w-full", data: { controller: "resizable-text-area" } %>
   </div>
-
   <div class="flex items-center justify-between">
     <%= form.submit "Save", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
     <button type="button" id="execute-button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Execute</button>
     <%= button_tag class: "hidden mt-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline", id: "loader", disabled: true  do %>
-    <%= render 'shared/loader' %> 
-  <% end %>
+      <%= render 'shared/loader' %>
+    <% end %>
   </div>
 <% end %>
-
-<%= form_with(url: dataquery_run_path(@dataquery), method: :post, id: "run_form", class: "inline mt-10") do |form| %>
+<%= form_with(url: dataquery_run_path(@dataquery.id), method: :post, id: "run_form", class: "inline mt-10") do |form| %>
   <%= form.hidden_field :query,  value: @dataquery.query, id: "hidden_query_field" %>
   <%= form.submit "Run", class: "hidden", id: "run-button" %>
 <% end %>
-
-
-
 <turbo-frame id=<%=@dataquery.frame_id%>>
   <%if @result &&  (@dataquery.datasource.datasource_type == "psql" || @dataquery.datasource.datasource_type == "mysql")%>
     <%= render "shared/result_table", prompt: nil, answer: @result,  include_create_chart_button: false %>
@@ -33,25 +28,21 @@
 
   <% end %>
 </turbo-frame>
+  <script>
+    document.getElementById('execute-button').addEventListener('click', function() {
+        document.getElementById('run-button').click();
+      });
+      document.getElementById('run_form').addEventListener('submit', function() {
+      document.getElementById('loader').classList.remove('hidden');
+      document.getElementById('execute-button').classList.add('hidden');
+    });
 
-<script>
-document.getElementById('execute-button').addEventListener('click', function() {
-    document.getElementById('run-button').click();
-  });
-  document.getElementById('run_form').addEventListener('submit', function() {
-  document.getElementById('loader').classList.remove('hidden');
-  document.getElementById('execute-button').classList.add('hidden');
-});
+    document.getElementById('query_text_area').addEventListener('input', function() {
+      document.getElementById('hidden_query_field').value = this.value;
+    });
 
-document.getElementById('query_text_area').addEventListener('input', function() {
-  document.getElementById('hidden_query_field').value = this.value;
-});
-
-document.addEventListener('turbo:submit-end', function() {
-  document.getElementById('loader').classList.add('hidden');
-  document.getElementById('execute-button').classList.remove('hidden');
-});
-
-
-
-</script>
+    document.addEventListener('turbo:submit-end', function() {
+      document.getElementById('loader').classList.add('hidden');
+      document.getElementById('execute-button').classList.remove('hidden');
+    });
+  </script>

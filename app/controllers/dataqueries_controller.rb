@@ -1,5 +1,6 @@
 class DataqueriesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_dataquery, only: [:show, :edit, :update, :destroy, :download_csv, :execute, :run]
 
   def create
     if current_user.id == dataquery_params[:user_id].try(:to_i)
@@ -35,7 +36,6 @@ class DataqueriesController < ApplicationController
   end
 
   def edit
-    @dataquery = current_user.dataqueries.find(params[:id])
     @result = @dataquery.run
   end
 
@@ -44,18 +44,15 @@ class DataqueriesController < ApplicationController
   end
 
   def show
-    @dataquery = current_user.dataqueries.find(params[:id])
     @result = @dataquery.run
   end
 
   def destroy
-    dataquery = current_user.dataqueries.find(params[:id])
-    dataquery.destroy!
+    @dataquery.destroy!
     redirect_to dataqueries_path, notice: "Dataquery was successfully destroyed."
   end
 
   def download_csv
-    @dataquery = current_user.dataqueries.find(params[:dataquery_id])
     result = @dataquery.run
     csv_data = CSV.generate(headers: true) do |csv|
       # Add headers to the CSV
@@ -72,8 +69,6 @@ class DataqueriesController < ApplicationController
   end
 
   def update
-    @dataquery = current_user.dataqueries.find(params[:id])
-
     respond_to do |format|
       if @dataquery.update(dataquery_params)
         # Set a flash message for successful update
@@ -94,7 +89,6 @@ class DataqueriesController < ApplicationController
   end
 
   def execute
-    @dataquery = current_user.dataqueries.find(params[:dataquery_id])
     @result = @dataquery.run
 
     respond_to do |format|
@@ -109,7 +103,6 @@ class DataqueriesController < ApplicationController
   end
 
   def run
-    @dataquery = current_user.dataqueries.find(params[:dataquery_id])
     if params[:query].present?
       @dataquery.query = params[:query]
     end
@@ -130,5 +123,13 @@ class DataqueriesController < ApplicationController
 
   def dataquery_params
     params.require(:dataquery).permit(:name, :query, :datasource_id, :user_id, :url, :request_method, :request_header, :request_body)
+  end
+
+  def set_dataquery
+    dataquery_id = params[:dataquery_id] || params[:id]
+    if dataquery_id
+      @dataquery = Dataquery.find(dataquery_id)
+      redirect_to dataqueries_path, alert: "Oops something went wrong." unless @dataquery.user.company == current_user.company
+    end
   end
 end
