@@ -21,12 +21,7 @@ class DatasourcesController < ApplicationController
       redirect_to new_datasource_path, alert: "Could not establish connection to datasource. Please make sure that you use correct credentials." and return true
     end
     if @datasource.save
-      first_dataview = @datasource.dataviews.first
-      if first_dataview.present?
-        redirect_to dataview_path(first_dataview), notice: "Datasource was successfully created."
-      else
-        redirect_to @datasource, notice: "Datasource was successfully created."
-      end
+      redirect_to @datasource, notice: "Datasource was successfully created."
     else
       Rails.logger.warn @datasource.errors.full_messages.to_s
       render :new, alert: @datasource.errors.full_messages.to_s
