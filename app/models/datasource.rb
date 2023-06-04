@@ -16,10 +16,10 @@ class Datasource < ApplicationRecord
     custom_connection_class = Class.new(ActiveRecord::Base) do
       self.abstract_class = true
       def self.establish_custom_connection(datasource, port)
-        if datasource.host == "localhost"
+        if datasource.host == "localhost" || ENV["SSH_TUNNEL_ENABLED"] == "false"
           connection_port = datasource.port
           connection_host = "#{datasource.host}"
-        else
+        if ENV["SSH_TUNNEL_ENABLED"] == "true"
           connection_port = port
           connection_host = "127.0.0.1"
         end
