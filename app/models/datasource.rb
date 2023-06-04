@@ -58,17 +58,13 @@ class Datasource < ApplicationRecord
 
   def create_dataview
     return unless datasource_type == "psql" || datasource_type == "mysql"
-    ssh_gateway = Net::SSH::Gateway.new("#{ENV["BASTION_SERVER_IP_1"]}", nil, {
-      user: "#{ENV["BASTION_USER"]}",
-      port: 22,
-      password: "#{ENV["BASTION_PASSWORD"]}",
-    })
-    ssh_port = ssh_gateway.open("#{host}", port)
+    
+    tunnel = SshGatewayService.new(datasource.host, datasource.port).intiat_connection
 
     # Create a new dataview.
     dataview = Dataview.create(name: "Home", company_id: company_id)
     # TODO using ssh tunnel
-    connection = self.connection(ssh_port)
+    connection = self.connection(tunnel[1])
     if connection.tables.count > 30
       engine = Boxcars::Openai.new(max_tokens: 512, model: "gpt-4")
     else
@@ -89,7 +85,7 @@ class Datasource < ApplicationRecord
       end
     end
 
-    ssh_gateway.shutdown!
+    tunnel[0].shutdown!
   end
 
   def soft_destroy

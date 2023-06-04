@@ -1,4 +1,3 @@
-require 'net/ssh/gateway'
 class PromptsController < ApplicationController
   before_action :authenticate_user!
 
@@ -6,13 +5,8 @@ class PromptsController < ApplicationController
     datasource = current_user.company.datasources.find(params[:datasource_id])
     if datasource.datasource_type == "psql" || datasource.datasource_type == "mysql"
 
-      ssh_gateway = Net::SSH::Gateway.new("#{ENV['BASTION_SERVER_IP_1']}", nil, {
-        user: "#{ENV['BASTION_USER']}",
-        port: 22,
-        password: "#{ENV['BASTION_PASSWORD']}"
-      })
-      bastion_port = ssh_gateway.open("#{datasource.host}", datasource.port)
-      connection = datasource.connection(bastion_port)
+      tunnel = SshGatewayService.new(datasource.host, datasource.port).intiat_connection
+      connection = datasource.connection(tunnel[1])
       if connection.tables.count > 30
         engine = Boxcars::Openai.new(max_tokens: 512, model: "gpt-4")
       else
@@ -21,7 +15,7 @@ class PromptsController < ApplicationController
 
       boxcar = Boxcars::SQL.new(engine: engine, connection: connection)
       @result = boxcar.conduct(params[:input_field])
-      ssh_gateway.shutdown!
+      tunnel[0].shutdown!
     else
       engine = Boxcars::Openai.new(max_tokens: 512)
       boxcar = Boxcars::Swagger.new(engine: engine, swagger_url: datasource.swagger_url, context: "TOKEN: #{datasource.api_key}")
