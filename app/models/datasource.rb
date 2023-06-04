@@ -19,7 +19,7 @@ class Datasource < ApplicationRecord
         if datasource.host == "localhost" || ENV["SSH_TUNNEL_ENABLED"] == "false"
           connection_port = datasource.port
           connection_host = "#{datasource.host}"
-        if ENV["SSH_TUNNEL_ENABLED"] == "true"
+        elsif ENV["SSH_TUNNEL_ENABLED"] == "true"
           connection_port = port
           connection_host = "127.0.0.1"
         end
