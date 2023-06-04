@@ -1,6 +1,4 @@
 include ApplicationHelper
-require 'net/ssh/gateway'
-
 class Dataquery < ApplicationRecord
   belongs_to :user
   belongs_to :datasource
@@ -27,18 +25,13 @@ class Dataquery < ApplicationRecord
   def run
     
     if datasource.datasource_type == "psql" || datasource.datasource_type == "mysql"
-      gateway = Net::SSH::Gateway.new("#{ENV['BASTION_SERVER_IP_1']}", nil, {
-        user: "#{ENV['BASTION_USER']}",
-        port: 22,
-        password: "#{ENV['BASTION_PASSWORD']}"
-      })
-      port = gateway.open("#{datasource.host}", datasource.port)
-      connection = datasource.connection(port)
+      tunnel = SshGatewayService.new(datasource.host, datasource.port).intiat_connection
+      connection = datasource.connection(tunnel[1])
       output = connection.exec_query(query)
       boxcar = Boxcars::SQL.new
       @result = boxcar.send(:clean_up_output, output)
       return @result
-      gateway.shutdown!
+      tunnel[0].shutdown!
     else
       url = "https://morpheus.parse.dev/execute"
 
