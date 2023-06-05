@@ -111,10 +111,8 @@ class DataqueriesController < ApplicationController
     respond_to do |format|
       if @dataquery.datasource.datasource_type == "psql" || @dataquery.datasource.datasource_type == "mysql"
         format.turbo_stream { render turbo_stream: turbo_stream.update(@dataquery.frame_id, partial: "/shared/result_table", locals: { answer: @result, prompt: nil, include_create_chart_button: false }) }
-        format.html { render :show }
       else
         format.turbo_stream { render turbo_stream: turbo_stream.update(@dataquery.frame_id, partial: "/shared/code", locals: { code: @result }) }
-        format.html { render :show }
       end
     end
   end
