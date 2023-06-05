@@ -81,7 +81,7 @@ test:
 #
 production:
   <<: *default
-  host: db
-  database: chartGPT_production
-  username: chartGPT
-  password: <%= ENV["CHARTGPT_DATABASE_PASSWORD"] %>
+  host: <%= ENV["POSTGRES_PASSWORD"] %>
+  database: <%= ENV["POSTGRES_PASSWORD"] %>
+  username: <%= ENV["POSTGRES_PASSWORD"] %>
+  password: <%= ENV["POSTGRES_PASSWORD"] %>
