@@ -40,7 +40,7 @@ class DataqueriesController < ApplicationController
   end
 
   def index
-    @dataqueries = current_user.dataqueries.order(created_at: :desc)
+    @dataqueries = current_user.company.users.map { |user| user.dataqueries }.flatten.sort_by(&:created_at).reverse
   end
 
   def show

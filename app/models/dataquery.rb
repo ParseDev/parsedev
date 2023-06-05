@@ -1,6 +1,8 @@
 include ApplicationHelper
+
 class Dataquery < ApplicationRecord
   belongs_to :user
+  has_one :company, through: :user
   belongs_to :datasource
   has_and_belongs_to_many :dataviews, join_table: "dataviews_dataqueries"
   before_save :format_query
@@ -21,9 +23,8 @@ class Dataquery < ApplicationRecord
   def frame_id
     "result_frame_#{id}"
   end
-  
+
   def run
-    
     if datasource.datasource_type == "psql" || datasource.datasource_type == "mysql"
       tunnel = SshGatewayService.new(datasource.host, datasource.port).intiat_connection
       connection = datasource.connection(tunnel[1])
