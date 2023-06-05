@@ -34,7 +34,7 @@
 <% else %>
   <div id="form_api"><%= render "form_api", datasource: @datasource %></div>
 <% end %>
-<%- if current_user.company.datasources.empty? && flash[:alert].nil? %>
+<%- if current_user.company.datasources.empty? && flash[:alert].nil? && params[:datasource_type].nil? %>
   <div id="modal" class="fixed z-10 inset-0 overflow-y-auto">
     <div class="flex items-center justify-center min-h-screen p-4">
       <div class="bg-white shadow-md rounded-lg p-6 w-1/2 relative" style="padding-top: 2rem;">
