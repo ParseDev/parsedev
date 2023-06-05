@@ -81,6 +81,7 @@ test:
 #
 production:
   <<: *default
+  host: db
   database: chartGPT_production
   username: chartGPT
   password: <%= ENV["CHARTGPT_DATABASE_PASSWORD"] %>
