@@ -37,6 +37,8 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
+      <!-- Modal Header -->
+      <h2 class="text-xl font-bold mb-4 text-gray-900">Add a new datapoint</h2>
       <%= form_with(url: dataview_create_dataquery_path(@dataview), id: 'add-dataquery-form', data: { turbo_action: 'submit', turbo_frame: 'dataquery-form' }) do |f| %>
         <div class="mb-4">
           <%= f.select :dataquery_id, options_from_collection_for_select(current_user.company.dataqueries.reject { |dataquery| @dataview.dataqueries.include?(dataquery) }, 'id', 'name'), prompt: 'Select a Dataquery', class: 'p-2 border rounded-lg w-full' %>
