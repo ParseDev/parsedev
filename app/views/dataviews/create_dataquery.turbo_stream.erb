@@ -4,3 +4,4 @@
     partial: 'dataqueries/dataquery',
     locals: { dataviews_dataquery: @dataview.dataviews_dataqueries.last, dataquery: @dataquery }
   ) %>
+<%= turbo_stream.remove('empty_state') if @dataview.dataviews_dataqueries.size == 1 %>

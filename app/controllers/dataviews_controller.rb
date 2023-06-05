@@ -41,6 +41,8 @@ class DataviewsController < ApplicationController
     @dataview.dataqueries << @dataquery
 
     if @dataview.save
+      turbo_stream.remove("empty_state") if @dataview.dataviews_dataqueries.size == 1
+
       respond_to do |format|
         format.turbo_stream
       end
