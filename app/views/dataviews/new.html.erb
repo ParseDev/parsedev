@@ -7,31 +7,7 @@
       <%= form.text_field :name, class: "form-input mt-1 block w-full" %>
     </div>
     <div class="flex items-center justify-end">
-      <%= form.submit "Create DataView", class: "block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+      <%= form.submit "Create Dashboard", class: "block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
     </div>
   <% end %>
 </div>
-<!-- Modal -->
-<div id="modal" class="fixed z-10 inset-0 overflow-y-auto">
-  <div class="flex items-center justify-center min-h-screen p-4">
-    <div class="bg-white shadow-md rounded-lg p-6 w-1/2 relative" style="padding-top: 2rem;">
-      <button id="close-modal" class="absolute top-2 right-2 text-gray-600 hover:text-gray-800 focus:outline-none">
-        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
-      <!-- Modal Header -->
-      <h2 class="text-xl font-bold mb-4 text-gray-900">Add a new datapoint</h2>
-      <%= form_with(url: dataview_create_dataquery_path(@dataview), id: 'add-dataquery-form', data: { turbo_action: 'submit', turbo_frame: 'dataquery-form' }) do |f| %>
-        <div class="mb-4">
-          <%= f.select :dataquery_id, options_from_collection_for_select(current_user.company.dataqueries.reject { |dataquery| @dataview.dataqueries.include?(dataquery) }, 'id', 'name'), prompt: 'Select a Dataquery', class: 'p-2 border rounded-lg w-full' %>
-        </div>
-        <div class="flex justify-end">
-          <%= f.button 'Add', class: 'bg-blue-500 text-white py-2 px-4 rounded-lg' %>
-        </div>
-      <% end %>
-    </div>
-  </div>
-</div>
-<!-- Overlay with black transparent background -->
-<div id="modal-overlay" class="fixed inset-0 bg-black opacity-50 "></div>
