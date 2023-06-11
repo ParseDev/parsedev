@@ -28,7 +28,7 @@
       <tr>
         <td><%= u.content %></td>
         <td><%= u.datasource_id %></td>
-        <td><%= u.datasource.datasource_type %></td>
+        <td><%= u.datasource.try(:datasource_type) %></td>
       </tr>
     <% end %>
   </tbody>
