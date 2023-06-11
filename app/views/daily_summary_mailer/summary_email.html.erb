@@ -1,13 +1,35 @@
 <h1>Daily Summary</h1>
 <p>New Sign-ups: <%= @new_signups.count %></p>
 <p>New Prompts: <%= @new_prompts.count %></p>
-<ul>
-  <% @new_signups.each do |u|%>
-    <li> <%= u.email %> </li>
-  <% end %>
-</ul>
-<ul>
-  <% @new_prompts.each do |u|%>
-    <li> <%= u.content %> </li>
-  <% end %>
-</ul>
+<table>
+  <thead>
+    <tr>
+      <th>New Signups</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @new_signups.each do |u| %>
+      <tr>
+        <td><%= u.email %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<table>
+  <thead>
+    <tr>
+      <th>New Prompts</th>
+      <th>datasource id</th>
+      <th>datasource type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @new_prompts.each do |u| %>
+      <tr>
+        <td><%= u.content %></td>
+        <td><%= u.datasource_id %></td>
+        <td><%= u.datasource.datasource_type %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
