@@ -1,3 +1,13 @@
 <h1>Daily Summary</h1>
-<p>New Sign-ups: <%= @new_signups %></p>
-<p>New Prompts: <%= @new_prompts %></p>
+<p>New Sign-ups: <%= @new_signups.count %></p>
+<p>New Prompts: <%= @new_prompts.count %></p>
+<ul>
+  <% @new_signups.each do |u|%>
+    <li> <%= u.email %> </li>
+  <% end %>
+</ul>
+<ul>
+  <% @new_prompts.each do |u|%>
+    <li> <%= u.content %> </li>
+  <% end %>
+</ul>
