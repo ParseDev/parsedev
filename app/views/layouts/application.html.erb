@@ -142,23 +142,23 @@
       </div>
     </div>
     <script>
-      document.addEventListener("DOMContentLoaded", function() {
-        // By default, the mobile menu is closed
-        const mobileMenu = document.querySelector(".lg\\:hidden");
-        mobileMenu.classList.add("hidden");
+      document.addEventListener("turbo:load", function() {
+            // By default, the mobile menu is closed
+            const mobileMenu = document.querySelector(".lg\\:hidden");
+            mobileMenu.classList.add("hidden");
 
-        // Open the mobile menu when the button is clicked
-        const openSidebarButton = document.getElementById("openSidebar");
-        openSidebarButton.addEventListener("click", function() {
-          mobileMenu.classList.remove("hidden");
-        });
+            // Open the mobile menu when the button is clicked
+            const openSidebarButton = document.getElementById("openSidebar");
+            openSidebarButton.addEventListener("click", function() {
+              mobileMenu.classList.remove("hidden");
+            });
 
-        // Close the mobile menu when the menu button is clicked
-        const mobileMenuButton = document.getElementById("mobileMenuButton");
-        mobileMenuButton.addEventListener("click", function() {
-          mobileMenu.classList.add("hidden");
-        });
-      });
+            // Close the mobile menu when the menu button is clicked
+            const mobileMenuButton = document.getElementById("mobileMenuButton");
+            mobileMenuButton.addEventListener("click", function() {
+              mobileMenu.classList.add("hidden");
+            });
+          });
     </script>
   </body>
 </html>
