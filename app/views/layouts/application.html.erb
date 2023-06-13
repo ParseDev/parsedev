@@ -19,108 +19,146 @@
         <%= message %>
       </div>
     <% end %>
-    <div class="min-h-full">
-      <nav class="border-b border-gray-200 bg-white">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div class="flex h-16 justify-between">
-            <div class="flex">
-              <div class="flex flex-shrink-0 items-center">
-                <%= link_to root_path do %>
-                  <%= image_tag "logo.png", class: "block h-8 w-auto lg:hidden", alt: "ChartGPT" %>
-                  <%= image_tag "logo.png", class: "hidden h-8 w-auto lg:block", alt: "ChartGPT" %>
-                <% end %>
-              </div>
-              <div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
-                <!-- app/views/your_view.html.erb -->
-                <%= link_to "Chat", root_path, class: "#{active_menu_class(root_path)} inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium", aria: { current: current_page?(root_path) ? "page" : nil } %>
-                <%= link_to "Datasources", datasources_path, class: "#{active_menu_class(datasources_path)} inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium", aria: { current: current_page?(datasources_path) ? "page" : nil } %>
-                <%= link_to "Saved Queries", dataqueries_path, class: "#{active_menu_class(dataqueries_path)} inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium", aria: { current: current_page?(dataqueries_path) ? "page" : nil } %>
-                <%= link_to "Dashboards", dataviews_path, class: "#{active_menu_class(dataviews_path)} inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium", aria: { current: current_page?(dataviews_path) ? "page" : nil } %>
-              </div>
-            </div>
-            <div class="hidden sm:ml-6 sm:flex sm:items-center">
-              <!-- Profile dropdown -->
-              <div class="relative ml-3">
-                <div>
-                  <button type="button" data-controller="menu" data-action="click->menu#handleClick" class="flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
-                    <span class="sr-only">Open user menu</span>
-                    <%= current_user.email %>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                    </svg>
-                  </button>
-                </div>
-                <!--
-              Dropdown menu, show/hide based on menu state.
-
-              Entering: "transition ease-out duration-200"
-                From: "transform opacity-0 scale-95"
-                To: "transform opacity-100 scale-100"
-              Leaving: "transition ease-in duration-75"
-                From: "transform opacity-100 scale-100"
-                To: "transform opacity-0 scale-95"
-            -->
-                <div class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
-                  <!-- Active: "bg-gray-100", Not Active: "" -->
-                  <%= link_to "Your Team", company_users_path(current_user.company), class: "block px-4 py-2 text-sm text-gray-700", role: "menuitem", tabindex: "-1", id: "user-menu-item-0" %>
-                  <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
-                  <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "block px-4 py-2 text-sm text-gray-700", role: "menuitem", tabindex: "-1", id: "user-menu-item-2" %>
-                </div>
-              </div>
-            </div>
-            <div class="-mr-2 flex items-center sm:hidden">
-              <!-- Mobile menu button -->
-              <button type="button" data-controller="mobilemenu" data-action="click->mobilemenu#handleClick" class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" aria-controls="mobile-menu" aria-expanded="false">
-                <span class="sr-only">Open main menu</span>
-                <!-- Menu open: "hidden", Menu closed: "block" -->
-                <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                </svg>
-                <!-- Menu open: "block", Menu closed: "hidden" -->
-                <svg class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+    <div>
+      <div class="relative z-50 lg:hidden" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-gray-900/80"></div>
+        <div class="fixed inset-0 flex">
+          <div class="relative mr-16 flex w-full max-w-xs flex-1">
+            <div class="absolute left-full top-0 flex w-16 justify-center pt-5">
+              <button type="button" class="-m-2.5 p-2.5" id="mobileMenuButton">
+                <span class="sr-only">Close sidebar</span>
+                <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
             </div>
-          </div>
-        </div>
-        <!-- Mobile menu, show/hide based on menu state. -->
-        <div class="hidden" id="mobile-menu">
-          <div class="space-y-1 pb-3 pt-2">
-            <!-- Current: "border-indigo-500 bg-indigo-50 text-indigo-700", Default: "border-transparent text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800" -->
-            <!-- app/views/your_view.html.erb -->
-            <%= link_to "Chat", root_path, class: "#{active_mobile_menu_class(root_path)} block border-l-4 py-2 pl-3 pr-4 text-base font-medium", aria: { current: current_page?(root_path) ? "page" : nil } %>
-            <%= link_to "Datasources", datasources_path, class: "#{active_mobile_menu_class(datasources_path)} block border-l-4 py-2 pl-3 pr-4 text-base font-medium", aria: { current: current_page?(datasources_path) ? "page" : nil } %>
-            <%= link_to "Saved Queries", dataqueries_path, class: "#{active_mobile_menu_class(dataqueries_path)} block border-l-4 py-2 pl-3 pr-4 text-base font-medium", aria: { current: current_page?(dataqueries_path) ? "page" : nil } %>
-            <%= link_to "Dashboards", dataviews_path, class: "#{active_mobile_menu_class(dataviews_path)} block border-l-4 py-2 pl-3 pr-4 text-base font-medium", aria: { current: current_page?(dataviews_path) ? "page" : nil } %>
-          </div>
-          <div class="border-t border-gray-200 pb-3 pt-4">
-            <div class="flex items-center px-4">
-              <div class="flex-shrink-0">
-                <%= current_user.email %>
+            <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-4">
+              <div class="flex h-16 shrink-0 items-center">
+                <%= image_tag("logo.png", class: "w-8 h-8")%>
               </div>
-            </div>
-            <div class="mt-3 space-y-1">
-              <%= link_to "Your Team", company_users_path(current_user.company), class: "block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800" %>
-              <a href="#" class="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800">Settings</a>
-              <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800" %>
+              <nav class="flex flex-1 flex-col">
+                <ul role="list" class="flex flex-1 flex-col gap-y-7">
+                  <li>
+                    <ul role="list" class="-mx-2 space-y-1">
+                      <li>
+                        <%= link_to "Chat", root_path, class: "#{active_mobile_menu_class(root_path)} bg-gray-50 text-indigo-600 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold", aria: { current: current_page?(root_path) ? "page" : nil } %>
+                      </li>
+                      <li>
+                        <%= link_to "Datasources", datasources_path, class: "#{active_mobile_menu_class(datasources_path)} text-gray-700 hover:text-indigo-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold", aria: { current: current_page?(datasources_path) ? "page" : nil } %>
+                      </li>
+                      <li>
+                        <%= link_to "Saved Queries", dataqueries_path, class: "#{active_mobile_menu_class(dataqueries_path)} text-gray-700 hover:text-indigo-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold", aria: { current: current_page?(dataqueries_path) ? "page" : nil } %>
+                      </li>
+                      <li>
+                        <%= link_to "Dashboards", dataviews_path, class: "#{active_mobile_menu_class(dataviews_path)} text-gray-700 hover:text-indigo-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold", aria: { current: current_page?(dataviews_path) ? "page" : nil } %>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <div class="text-xs font-semibold leading-6 text-gray-400">Your views</div>
+                    <ul role="list" class="-mx-2 mt-2 space-y-1">
+                      <% current_user.company.dataviews.last(3).each do |dataview| %>
+                        <li>
+                          <%= link_to dataview_path(dataview), class: "text-gray-700 hover:text-indigo-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold" do %>
+                            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-white text-gray-400 border-gray-200 group-hover:border-indigo-600 group-hover:text-indigo-600"><%= dataview.name[0] %></span>
+                            <span class="truncate"><%= dataview.name %></span>
+                          <% end %>
+                        </li>
+                      <% end %>
+                    </ul>
+                  </li>
+                </ul>
+              </nav>
             </div>
           </div>
         </div>
-      </nav>
-      <%- unless @display_chat %>
-        <div class="py-10">
-          <main>
-            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-              <%= yield %>
+      </div>
+      <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-60 lg:flex-col">
+        <div class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4">
+          <div class="flex h-16 shrink-0 items-center">
+            <%= image_tag("logo.png", class: "h8 w-8")%>
+          </div>
+          <nav class="flex flex-1 flex-col">
+            <ul role="list" class="flex flex-1 flex-col gap-y-7">
+              <li>
+                <ul role="list" class="-mx-2 space-y-1">
+                  <li class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 inline-block align-middle">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z" />
+                    </svg>
+                    <%= link_to "Chat", root_path, class: "text-indigo-600 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold" %>
+                  </li>
+                  <li class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
+                    </svg>
+                    <%= link_to "Datasources", datasources_path, class: "text-gray-700 hover:text-indigo-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold" %>
+                  </li>
+                  <li class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
+                    </svg>
+                    <%= link_to "Saved Queries", dataqueries_path, class: "text-gray-700 hover:text-indigo-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold" %>
+                  </li>
+                  <li class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 01-1.125-1.125M3.375 19.5h7.5c.621 0 1.125-.504 1.125-1.125m-9.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 3.75h-7.5A1.125 1.125 0 0112 18.375m9.75-12.75c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125m19.5 0v1.5c0 .621-.504 1.125-1.125 1.125M2.25 5.625v1.5c0 .621.504 1.125 1.125 1.125m0 0h17.25m-17.25 0h7.5c.621 0 1.125.504 1.125 1.125M3.375 8.25c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125m17.25-3.75h-7.5c-.621 0-1.125.504-1.125 1.125m8.625-1.125c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125M12 10.875v-1.5m0 1.5c0 .621-.504 1.125-1.125 1.125M12 10.875c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125M13.125 12h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125M20.625 12c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h7.5M12 14.625v-1.5m0 1.5c0 .621-.504 1.125-1.125 1.125M12 14.625c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125m0 1.5v-1.5m0 0c0-.621.504-1.125 1.125-1.125m0 0h7.5" />
+                    </svg>
+                    <%= link_to "Dashboards", dataviews_path, class: "text-gray-700 hover:text-indigo-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold" %>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <div class="text-xs font-semibold leading-6 text-gray-400">Your views</div>
+                <ul role="list" class="-mx-2 mt-2 space-y-1">
+                  <% current_user.company.dataviews.last(3).each do |dataview| %>
+                    <li>
+                      <%= link_to dataview_path(dataview), class: "text-gray-700 hover:text-indigo-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold" do %>
+                        <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-white text-gray-400 border-gray-200 group-hover:border-indigo-600 group-hover:text-indigo-600">H</span>
+                        <span class="truncate"><%= dataview.name %></span>
+                      <% end %>
+                    </li>
+                  <% end %>
+                </ul>
+              </nav>
             </div>
-          </main>
+          </div>
+          <div class="lg:pl-72">
+            <div class="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 px-4 sm:gap-x-6 sm:px-6 lg:px-8">
+              <button type="button" class="-m-2.5 p-2.5 text-gray-700 lg:hidden" id="openSidebar">
+                <span class="sr-only">Open sidebar</span>
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+              </button>
+            </div>
+            <main>
+              <div class="px-4 sm:px-6 lg:px-8">
+                <%= yield %>
+              </div>
+            </main>
+          </div>
         </div>
-      <% else %>
-        <main>
-          <%= yield %>
-        </main>
-      <% end %>
+      </div>
     </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        // By default, the mobile menu is closed
+        const mobileMenu = document.querySelector(".lg\\:hidden");
+        mobileMenu.classList.add("hidden");
+
+        // Open the mobile menu when the button is clicked
+        const openSidebarButton = document.getElementById("openSidebar");
+        openSidebarButton.addEventListener("click", function() {
+          mobileMenu.classList.remove("hidden");
+        });
+
+        // Close the mobile menu when the menu button is clicked
+        const mobileMenuButton = document.getElementById("mobileMenuButton");
+        mobileMenuButton.addEventListener("click", function() {
+          mobileMenu.classList.add("hidden");
+        });
+      });
+    </script>
   </body>
 </html>
