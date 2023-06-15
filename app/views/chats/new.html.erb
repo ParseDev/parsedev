@@ -14,7 +14,7 @@
     </div>
   </div>
   <!-- Input Bar -->
-  <div class="flex justify-center w-full border-t border-gray-300 p-4 bg-white absolute bottom-0" style="width: -webkit-fill-available;">
+  <div class="flex justify-center w-full border-t border-gray-300 p-4 bg-white fixed bottom-0" style="width: -webkit-fill-available;">
     <%= form_with url: prompts_path, remote: true, local: false, html: { id: 'generate-form', class: 'flex items-center', data: {turbo: true, controller: "hide-turbo-progress loading-button" } } do |form| %>
       <div class="relative overflow-hidden whitespace-nowrap text-overflow-ellipsis border-none mr-2 rounded-l-lg px-3 py-2 focus-within:outline-none focus-within:border-none focus-within:ring-0 ring-0">
         <%= form.select :datasource_id, current_user.company.datasources.map { |ds| [ds.name, ds.id] }, { prompt: 'Source' }, class: "w-full bg-white border-none focus-within:border-none focus-within:ring-0 ring-0", required: true, data: { action: "change->link#updateLink", link_target: "select" } %>
