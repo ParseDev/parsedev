@@ -19,16 +19,16 @@
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-200 bg-white">
-            <% @dataqueries.each do |dataquery| %>
+              <% @dataqueries.each do |dataquery| %>
                 <tr>
-                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"><%= dataquery.name %></td>
-                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 text-overflow-ellipsis overflow-hidden max-w-0"><%= dataquery.query %></td>
-                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"><%= dataquery.datasource.name %></td>
-                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                      <%= link_to "Show", dataquery_path(dataquery), class: "text-blue-600 hover:text-blue-800" %>
-                    </td>
+                  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 max-w-[300px] overflow-hidden text-ellipsis"><%= dataquery.name %></td>
+                  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 text-overflow-ellipsis overflow-hidden max-w-0"><%= dataquery.query %></td>
+                  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"><%= dataquery.datasource.name %></td>
+                  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                    <%= link_to "Show", dataquery_path(dataquery), class: "text-blue-600 hover:text-blue-800" %>
+                  </td>
                 </tr>
-            <% end %>
+              <% end %>
             </tbody>
           </table>
         </div>

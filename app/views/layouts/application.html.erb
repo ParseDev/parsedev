@@ -150,15 +150,21 @@
 
             // Open the mobile menu when the button is clicked
             const openSidebarButton = document.getElementById("openSidebar");
-            openSidebarButton.addEventListener("click", function() {
-              mobileMenu.classList.remove("hidden");
-            });
+            if (openSidebarButton) {
+              openSidebarButton.addEventListener("click", function() {
+                mobileMenu.classList.remove("hidden");
+              });
+            }
+
 
             // Close the mobile menu when the menu button is clicked
             const mobileMenuButton = document.getElementById("mobileMenuButton");
-            mobileMenuButton.addEventListener("click", function() {
-              mobileMenu.classList.add("hidden");
-            });
+            if(mobileMenuButton) {
+              mobileMenuButton.addEventListener("click", function() {
+                mobileMenu.classList.add("hidden");
+              });
+            }
+
           });
     </script>
   </body>
