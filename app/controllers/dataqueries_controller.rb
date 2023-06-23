@@ -48,10 +48,10 @@ class DataqueriesController < ApplicationController
     @dataquery = Dataquery.new(datasource: datasource, query: params[:query])
     @dataquery.run
     if @dataquery.datasource.datasource_type == "psql" || @dataquery.datasource.datasource_type == "mysql"
-      format.turbo_stream { render turbo_stream: turbo_stream.update(@dataquery.frame_id, partial: "/shared/result_table", locals: { answer: @result, prompt: nil, include_create_chart_button: false }) }
+      format.turbo_stream { render turbo_stream: turbo_stream.update("test-result", partial: "/shared/result_table", locals: { answer: @result, prompt: nil, include_create_chart_button: false }) }
       format.html { render :show }
     else
-      format.turbo_stream { render turbo_stream: turbo_stream.update(@dataquery.frame_id, partial: "/shared/code", locals: { code: @result }) }
+      format.turbo_stream { render turbo_stream: turbo_stream.update("test-result", partial: "/shared/code", locals: { code: @result }) }
       format.html { render :show }
     end
   end

@@ -26,37 +26,31 @@
     <%= form.hidden_field :datasource_id,  value: @dataquery.datasource_id, id: "hidden_datasource_field" %>
     <%= form.submit "Run", class: "hidden", id: "run-button" %>
   <% end %>
-  <turbo-frame id=<%=@dataquery.frame_id%>>
-  <%if @result &&  (@dataquery.datasource.datasource_type == "psql" || @dataquery.datasource.datasource_type == "mysql")%>
-    <%= render "shared/result_table", prompt: nil, answer: @result,  include_create_chart_button: false %>
-    <% else %>
-    <%= render "shared/code", code: @result %>
+  <turbo-frame id='test-result'>
+  </turbo-frame>
+</div>
+<script>
+  document.getElementById('execute-button').addEventListener('click', function() {
+      document.getElementById('run-button').click();
+    });
+    document.getElementById('run_form').addEventListener('submit', function() {
+    document.getElementById('loader').classList.remove('hidden');
+    document.getElementById('execute-button').classList.add('hidden');
+  });
 
-  <% end %>
-</turbo-frame>
-  </div>
-  <script>
-    document.getElementById('execute-button').addEventListener('click', function() {
-        document.getElementById('run-button').click();
-      });
-      document.getElementById('run_form').addEventListener('submit', function() {
-      document.getElementById('loader').classList.remove('hidden');
-      document.getElementById('execute-button').classList.add('hidden');
-    });
+  document.getElementById('query_text_area').addEventListener('input', function() {
+    document.getElementById('hidden_query_field').value = this.value;
+  });
+  document.getElementById('datasource_id_field').addEventListener('input', function() {
+    document.getElementById('hidden_datasource_field').value = this.value;
+  });
 
-    document.getElementById('query_text_area').addEventListener('input', function() {
-      document.getElementById('hidden_query_field').value = this.value;
-    });
-    document.getElementById('datasource_id_field').addEventListener('input', function() {
-      document.getElementById('hidden_datasource_field').value = this.value;
-    });
+  document.getElementById('query_text_area').addEventListener('input', function() {
+    document.getElementById('hidden_query_field').value = this.value;
+  });
 
-    document.getElementById('query_text_area').addEventListener('input', function() {
-      document.getElementById('hidden_query_field').value = this.value;
-    });
-
-    document.addEventListener('turbo:submit-end', function() {
-      document.getElementById('loader').classList.add('hidden');
-      document.getElementById('execute-button').classList.remove('hidden');
-    });
-  </script>
+  document.addEventListener('turbo:submit-end', function() {
+    document.getElementById('loader').classList.add('hidden');
+    document.getElementById('execute-button').classList.remove('hidden');
+  });
+</script>
