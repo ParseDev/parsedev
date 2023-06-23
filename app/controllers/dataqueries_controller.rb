@@ -39,12 +39,33 @@ class DataqueriesController < ApplicationController
     @result = @dataquery.run
   end
 
+  def test
+    datasource = Datasource.find(params[:datasource_id])
+    unless datasource.company == current_user.company
+      redirect_to dataqueries_path, alert: "Oops something went wrong."
+      return
+    end
+    @dataquery = Dataquery.new(datasource: datasource, query: params[:query])
+    @dataquery.run
+    if @dataquery.datasource.datasource_type == "psql" || @dataquery.datasource.datasource_type == "mysql"
+      format.turbo_stream { render turbo_stream: turbo_stream.update(@dataquery.frame_id, partial: "/shared/result_table", locals: { answer: @result, prompt: nil, include_create_chart_button: false }) }
+      format.html { render :show }
+    else
+      format.turbo_stream { render turbo_stream: turbo_stream.update(@dataquery.frame_id, partial: "/shared/code", locals: { code: @result }) }
+      format.html { render :show }
+    end
+  end
+
   def index
     @dataqueries = current_user.company.users.map { |user| user.dataqueries }.flatten.sort_by(&:created_at).reverse
   end
 
   def show
     @result = @dataquery.run
+  end
+
+  def new
+    @dataquery = Dataquery.new
   end
 
   def destroy

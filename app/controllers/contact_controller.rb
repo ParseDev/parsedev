@@ -1,4 +1,6 @@
 class ContactController < ApplicationController
+  layout false
+
   def new
   end
 
