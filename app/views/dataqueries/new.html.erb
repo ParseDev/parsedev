@@ -3,15 +3,18 @@
   <%= form_with(model: @dataquery, url: dataqueries_path, local: true) do |form| %>
     <div class="mb-4">
       <%= form.label :name, class: " text-sm font-bold mb-2" %>
-      <%= form.text_field :name, value: @dataquery.name, class: "rounded-md whitespace-pre-line block w-full", data: { controller: "resizable-text-area" } %>
+      <%= form.text_field :name,  value: @dataquery.name, required: true , class: "rounded-md whitespace-pre-line block w-full", data: { controller: "resizable-text-area" } %>
     </div>
     <div class="mb-4">
       <%= form.label :datasource, class: "block text-gray-700 text-sm font-bold mb-2" %>
-      <%= form.select :datasource_id, current_user.company.datasources.map { |ds| [ds.name, ds.id] }, { prompt: 'Source' }, id: 'datasource_id_field', class: "w-full bg-white focus-within:ring-0 ring-0", required: true%>
+      <%= form.select :datasource_id,current_user.company.datasources.map { |ds| [ds.name, ds.id] }, { prompt: 'Source' }, required: true, id: 'datasource_id_field', class: "w-full bg-white focus-within:ring-0 ring-0", required: true%>
     </div>
     <div class="mb-4">
       <%= form.label :query, class: "block text-gray-700 text-sm font-bold mb-2" %>
-      <%= form.text_area :query, value: @dataquery.query, id: "query_text_area", class: "bg-gray-800 text-white p-3 rounded-md whitespace-pre-line block w-full", data: { controller: "resizable-text-area" } %>
+      <%= form.text_area :query, value: @dataquery.query, required: true, id: "query_text_area", class: "bg-gray-800 text-white p-3 rounded-md whitespace-pre-line block w-full", data: { controller: "resizable-text-area" } %>
+    </div>
+    <div class="hidden">
+      <%= form.hidden_field :user_id, value:current_user.id, required: true%>
     </div>
     <div class="flex items-center justify-between">
       <%= form.submit "Save", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
@@ -21,13 +24,13 @@
       <% end %>
     </div>
   <% end %>
-  <%= form_with(url: dataquery_test_path, method: :post, id: "run_form", class: "inline mt-10") do |form| %>
+  <%= form_with(url: dataquery_test_path, method: :post, id: "run_form", class: "inline mt-10", local: false) do |form| %>
     <%= form.hidden_field :query,  value: @dataquery.query, id: "hidden_query_field" %>
     <%= form.hidden_field :datasource_id,  value: @dataquery.datasource_id, id: "hidden_datasource_field" %>
     <%= form.submit "Run", class: "hidden", id: "run-button" %>
   <% end %>
-  <turbo-frame id='test-result'>
-  </turbo-frame>
+  <div id="test_result">
+  </div>
 </div>
 <script>
   document.getElementById('execute-button').addEventListener('click', function() {

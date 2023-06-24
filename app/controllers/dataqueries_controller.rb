@@ -45,14 +45,29 @@ class DataqueriesController < ApplicationController
       redirect_to dataqueries_path, alert: "Oops something went wrong."
       return
     end
+
     @dataquery = Dataquery.new(datasource: datasource, query: params[:query])
-    @dataquery.run
-    if @dataquery.datasource.datasource_type == "psql" || @dataquery.datasource.datasource_type == "mysql"
-      format.turbo_stream { render turbo_stream: turbo_stream.update("test-result", partial: "/shared/result_table", locals: { answer: @result, prompt: nil, include_create_chart_button: false }) }
-      format.html { render :show }
-    else
-      format.turbo_stream { render turbo_stream: turbo_stream.update("test-result", partial: "/shared/code", locals: { code: @result }) }
-      format.html { render :show }
+
+    begin
+      @result = @dataquery.run
+    rescue => e
+      # Handle the exception here
+      @error_message = e.message
+      respond_to do |format|
+        format.turbo_stream { render turbo_stream: turbo_stream.update("test_result", partial: "/shared/error", locals: { error_message: @error_message }) }
+        format.html { render :show, alert: @error_message }
+      end
+      return
+    end
+
+    respond_to do |format|
+      if @dataquery.datasource.datasource_type == "psql" || @dataquery.datasource.datasource_type == "mysql"
+        format.turbo_stream { render turbo_stream: turbo_stream.update("test_result", partial: "/shared/result_table", locals: { answer: @result, prompt: nil, include_create_chart_button: false }) }
+        format.html { render :show }
+      else
+        format.turbo_stream { render turbo_stream: turbo_stream.update("test-result", partial: "/shared/code", locals: { code: @result }) }
+        format.html { render :show }
+      end
     end
   end
 

@@ -8,7 +8,7 @@ class DatasourcesController < ApplicationController
   def create
     @datasource = Datasource.new(datasource_params.merge(company_id: current_user.try(:company_id) || 1))
     begin
-      tunnel = SshGatewayService.new(@datasource.host, @datasource.port).intiat_connection    
+      tunnel = SshGatewayService.new(@datasource.host, @datasource.port).intiat_connection
       @datasource.connection(tunnel[1])
       tunnel[0].shutdown!
     rescue
@@ -45,7 +45,7 @@ class DatasourcesController < ApplicationController
 
   def show
     @datasource = Datasource.find(params[:id])
-    @tunnel = SshGatewayService.new(@datasource.host, @datasource.port).intiat_connection    
+    @tunnel = SshGatewayService.new(@datasource.host, @datasource.port).intiat_connection
   end
 
   def destroy
