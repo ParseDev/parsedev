@@ -20,20 +20,19 @@
       </p>
     <% end %>
     <% if @datasource.port.present? %>
-    <p class="flex items-center space-x-2">
-      <strong class="w-24">Port:</strong>
-      <span class="flex-1"><%= @datasource.port %></span>
-    </p>
+      <p class="flex items-center space-x-2">
+        <strong class="w-24">Port:</strong>
+        <span class="flex-1"><%= @datasource.port %></span>
+      </p>
     <% end %>
   </div>
   <div class="mt-6">
     <%= link_to "Edit", edit_datasource_path(@datasource), class: "inline-block px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600" %>
-    </br>
-    <%= link_to "Back to List", datasources_path, class: "mt-2 inline-block px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600" %>
-    <%= button_to "Delete", datasource_path(@datasource), method: :delete, form: {data: { 'turbo-confirm': "Are you sure?" }}, class: "inline-block px-4 py-2 bg-red-500 text-white font-semibold rounded hover:bg-red-600 mt-2" %>
-  </div>
+  </br>
+  <%= link_to "Back to List", datasources_path, class: "mt-2 inline-block px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600" %>
+  <%= button_to "Delete", datasource_path(@datasource), method: :delete, form: {data: { 'turbo-confirm': "Are you sure?" }}, class: "inline-block px-4 py-2 bg-red-500 text-white font-semibold rounded hover:bg-red-600 mt-2" %>
 </div>
-
+</div>
 <% if @datasource.datasource_type == "psql" || @datasource.datasource_type == "mysql" %>
   <% connection = @datasource.connection(@tunnel[1]) %>
   <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
@@ -48,10 +47,10 @@
             </tr>
           </thead>
           <tbody class="bg-white">
-            <% connection.columns(table).each do |row| %>
+            <% connection.schema(table).each do |row| %>
               <tr>
-                <td class="border px-4 py-2"><%= row.name %></td>
-                <td class="border px-4 py-2"><%= row.sql_type %></td>
+                <td class="border px-4 py-2"><%= row[0] %></td>
+                <td class="border px-4 py-2"><%= row[1][:db_type] %></td>
               </tr>
             <% end %>
           </tbody>
