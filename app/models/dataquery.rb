@@ -28,11 +28,11 @@ class Dataquery < ApplicationRecord
     if datasource.datasource_type == "psql" || datasource.datasource_type == "mysql"
       tunnel = SshGatewayService.new(datasource.host, datasource.port).intiat_connection
       connection = datasource.connection(tunnel[1])
-      output = connection[query]
+      output = connection[query].all
       boxcar = Boxcars::SQL.new
       @result = boxcar.send(:clean_up_output, output)
-      return @result
       tunnel[0].shutdown!
+      return @result
     else
       url = "https://morpheus.parse.dev/execute"
 
