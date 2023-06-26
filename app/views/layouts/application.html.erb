@@ -123,59 +123,63 @@
                       </svg>
                       Settings
                     <% end %>
-
-                  <li class="mt-auto">
-                    <%= button_to destroy_user_session_path, method: :delete, class: "group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600" do %>
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
+                    <%= link_to company_users_path(current_user.company), class: "group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600" do %>
+                      <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
                       </svg>
-
-                      Sign out
+                      Team
                     <% end %>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-          <div class="lg:pl-60">
-            <main>
-              <% flash.each do |type, message| %>
-                <div class="<%= flash_class(type) %>">
-                  <%= message %>
-                </div>
-              <% end %>
-              <div class="px-4 sm:px-6 lg:px-8">
-                <%= yield %>
+                    <li class="mt-auto">
+                      <%= button_to destroy_user_session_path, method: :delete, class: "group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600" do %>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
+                        </svg>
+                        Sign out
+                      <% end %>
+                    </li>
+                  </ul>
+                </nav>
               </div>
-            </main>
+            </div>
+            <div class="lg:pl-60">
+              <main>
+                <% flash.each do |type, message| %>
+                  <div class="<%= flash_class(type) %>">
+                    <%= message %>
+                  </div>
+                <% end %>
+                <div class="px-4 sm:px-6 lg:px-8">
+                  <%= yield %>
+                </div>
+              </main>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <script>
-      document.addEventListener("turbo:load", function() {
-            // By default, the mobile menu is closed
-            const mobileMenu = document.querySelector(".lg\\:hidden");
-            mobileMenu.classList.add("hidden");
+      <script>
+        document.addEventListener("turbo:load", function() {
+              // By default, the mobile menu is closed
+              const mobileMenu = document.querySelector(".lg\\:hidden");
+              mobileMenu.classList.add("hidden");
 
-            // Open the mobile menu when the button is clicked
-            const openSidebarButton = document.getElementById("openSidebar");
-            if (openSidebarButton) {
-              openSidebarButton.addEventListener("click", function() {
-                mobileMenu.classList.remove("hidden");
-              });
-            }
+              // Open the mobile menu when the button is clicked
+              const openSidebarButton = document.getElementById("openSidebar");
+              if (openSidebarButton) {
+                openSidebarButton.addEventListener("click", function() {
+                  mobileMenu.classList.remove("hidden");
+                });
+              }
 
 
-            // Close the mobile menu when the menu button is clicked
-            const mobileMenuButton = document.getElementById("mobileMenuButton");
-            if(mobileMenuButton) {
-              mobileMenuButton.addEventListener("click", function() {
-                mobileMenu.classList.add("hidden");
-              });
-            }
+              // Close the mobile menu when the menu button is clicked
+              const mobileMenuButton = document.getElementById("mobileMenuButton");
+              if(mobileMenuButton) {
+                mobileMenuButton.addEventListener("click", function() {
+                  mobileMenu.classList.add("hidden");
+                });
+              }
 
-          });
-    </script>
-  </body>
-</html>
+            });
+      </script>
+    </body>
+  </html>
