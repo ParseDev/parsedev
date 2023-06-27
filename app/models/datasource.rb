@@ -58,7 +58,7 @@ class Datasource < ApplicationRecord
       Just return the code")
     questions = response.gsub(/[\[\]\n']/, "").split(",").map(&:strip)
     questions.each do |question|
-      boxcar = Boxcars::SQL.new(engine: engine, connection: connection)
+      boxcar = Boxcars::SQLSequel.new(engine: engine, connection: connection)
       result = boxcar.conduct(question)
       code = result.try(:added_context).present? ? result.added_context[:code] : nil
       if code.present?

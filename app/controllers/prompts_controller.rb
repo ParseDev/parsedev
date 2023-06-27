@@ -4,7 +4,6 @@ class PromptsController < ApplicationController
   def create
     datasource = current_user.company.datasources.find(params[:datasource_id])
     if datasource.datasource_type == "psql" || datasource.datasource_type == "mysql"
-
       tunnel = SshGatewayService.new(datasource.host, datasource.port).intiat_connection
       connection = datasource.connection(tunnel[1])
       if connection.tables.count > 30
@@ -13,7 +12,7 @@ class PromptsController < ApplicationController
         engine = Boxcars::Openai.new(max_tokens: 512)
       end
 
-      boxcar = Boxcars::SQL.new(engine: engine, connection: connection)
+      boxcar = Boxcars::SQLSequel.new(engine: engine, connection: connection)
       @result = boxcar.conduct(params[:input_field])
       tunnel[0].shutdown!
     else
@@ -21,7 +20,7 @@ class PromptsController < ApplicationController
       boxcar = Boxcars::Swagger.new(engine: engine, swagger_url: datasource.swagger_url, context: "TOKEN: #{datasource.api_key}")
       @result = boxcar.conduct(params[:input_field])
     end
-    
+
     code = @result.try(:added_context).present? ? @result.added_context[:code] : nil
 
     @prompt = Prompt.create(user: current_user, datasource: datasource, content: params[:input_field], code: code)
