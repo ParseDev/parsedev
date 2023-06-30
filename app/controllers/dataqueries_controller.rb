@@ -81,6 +81,10 @@ class DataqueriesController < ApplicationController
 
   def new
     @dataquery = Dataquery.new
+    @datasources = current_user.company.datasources
+    if @datasources.empty?
+      redirect_to new_datasource_path, notice: "Please create a datasource first."
+    end
   end
 
   def destroy

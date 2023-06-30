@@ -1,13 +1,13 @@
 <div class="m-10">
   <h1> New Dataquery </h1>
-  <%= form_with(model: @dataquery, url: dataqueries_path, local: true) do |form| %>
+  <%= form_with(model: @dataquery, url: dataqueries_path, local: true, id: "new_dataquery_form") do |form| %>
     <div class="mb-4">
       <%= form.label :name, class: " text-sm font-bold mb-2" %>
       <%= form.text_field :name,  value: @dataquery.name, required: true , class: "rounded-md whitespace-pre-line block w-full", data: { controller: "resizable-text-area" } %>
     </div>
     <div class="mb-4">
       <%= form.label :datasource, class: "block text-gray-700 text-sm font-bold mb-2" %>
-      <%= form.select :datasource_id,current_user.company.datasources.map { |ds| [ds.name, ds.id] }, { prompt: 'Source' }, required: true, id: 'datasource_id_field', class: "w-full bg-white focus-within:ring-0 ring-0", required: true%>
+      <%= form.select :datasource_id, @datasources.map { |ds| [ds.name, ds.id] }, { prompt: 'Source', selected: @datasources.first.id }, id: 'datasource_id_field', class: "w-full bg-white focus-within:ring-0 ring-0", required: true %>
     </div>
     <div class="mb-4">
       <%= form.label :query, class: "block text-gray-700 text-sm font-bold mb-2" %>
@@ -34,7 +34,11 @@
 </div>
 <script>
   document.getElementById('execute-button').addEventListener('click', function() {
-      document.getElementById('run-button').click();
+      const form = document.getElementById("new_dataquery_form");
+      if (form.checkValidity()) {
+        document.getElementById('run-button').click();
+      }
+
     });
     document.getElementById('run_form').addEventListener('submit', function() {
     document.getElementById('loader').classList.remove('hidden');
