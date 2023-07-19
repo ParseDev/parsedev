@@ -33,6 +33,7 @@ class Dataquery < ApplicationRecord
         boxcar.connection = connection
         @result = boxcar.send(:clean_up_output, query)
         tunnel[0].shutdown!
+        return @result
       rescue => e
         tunnel[0].shutdown! if tunnel
 

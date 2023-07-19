@@ -60,7 +60,7 @@ class Datasource < ApplicationRecord
     questions.each do |question|
       boxcar = Boxcars::SQLSequel.new(engine: engine, connection: connection)
       result = boxcar.conduct(question)
-      code = result.try(:added_context).present? ? result.added_context[:code] : nil
+      code = result.dig(:answer).try(:added_context).present? ? result.dig(:answer).added_context[:code] : nil
       if code.present?
         dataview.dataqueries.create(name: question, query: code, user: company.users.first, datasource: self)
       end

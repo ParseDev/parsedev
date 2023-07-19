@@ -1,15 +1,15 @@
 <div class="w-full overflow-x-scroll mt-10">
-  <% if result && !result.is_a?(String) && result.added_context.is_a?(Hash) && result.added_context.key?(:code) %>
+  <% if result && !result.dig(:answer).is_a?(String) && result.dig(:answer).added_context.is_a?(Hash) && result.dig(:answer).added_context.key?(:code) %>
     <code class="bg-gray-800 text-white p-3 rounded-md whitespace-pre-line block">
       <%= prompt.sanitized_code %>
     </code>
-  <% elsif result.is_a?(String) %>
+  <% elsif result.dig(:answer).answer.is_a?(String) %>
     <%= result %>
   <% else %>
     <p> Oops, it seems like something went wrong </p>
   <% end %>
 </div>
-<% if result.present? && result.try(:answer).present? %>
+<% if result.dig(:answer).present? && result.dig(:answer).try(:answer).present? %>
   <div class="px-4 sm:px-6 lg:px-8">
     <div class="mt-8 flow-root">
       <%= form_with model: Dataquery.new, url: dataqueries_path, method: :post, remote: true, data: {disabled_with: 'Saving ...'}, html: {data: {turbo: false}} do |form| %>
@@ -20,7 +20,7 @@
         <%= form.button 'Save', class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer' %>
         <%= form.button 'Edit', class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer' %>
       <% end %>
-      <%= render "shared/result_table", answer: result.answer, prompt: prompt, include_save_button: true, include_create_chart_button: true %>
+      <%= render "shared/result_table", answer: result.dig(:answer).answer, prompt: prompt, include_save_button: true, include_create_chart_button: true %>
     </div>
   </div>
 <% else %>
@@ -36,6 +36,6 @@
     <div class="p-3 rounded-md">
       Response
     </div>
-    <% render "shared/code", code: result %>
+    <% render "shared/code", code: result[:answer] %>
   </div>
 <% end %>

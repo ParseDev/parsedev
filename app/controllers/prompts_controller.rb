@@ -21,7 +21,7 @@ class PromptsController < ApplicationController
       @result = boxcar.conduct(params[:input_field])
     end
 
-    code = @result.try(:added_context).present? ? @result.added_context[:code] : nil
+    code = @result.dig(:answer).try(:added_context).present? ? @result.dig(:answer).added_context[:code] : nil
 
     @prompt = Prompt.create(user: current_user, datasource: datasource, content: params[:input_field], code: code)
     respond_to do |format|
