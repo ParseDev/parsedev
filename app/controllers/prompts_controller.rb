@@ -7,7 +7,7 @@ class PromptsController < ApplicationController
       tunnel = SshGatewayService.new(datasource.host, datasource.port).intiat_connection
       connection = datasource.connection(tunnel[1])
       if connection.tables.count > 30
-        engine = Boxcars::Openai.new(max_tokens: 512, model: "gpt-4")
+        engine = Boxcars::Openai.new(max_tokens: 512, model: "gpt-3.5-turbo-16k")
       else
         engine = Boxcars::Openai.new(max_tokens: 512)
       end
