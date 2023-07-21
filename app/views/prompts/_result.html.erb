@@ -3,8 +3,8 @@
     <code class="bg-gray-800 text-white p-3 rounded-md whitespace-pre-line block">
       <%= prompt.sanitized_code %>
     </code>
-  <% elsif result.dig(:answer).answer.is_a?(String) %>
-    <%= result %>
+  <% elsif result.dig(:answer).is_a?(String) %>
+    <%= result.dig(:answer) %>
   <% else %>
     <p> Oops, it seems like something went wrong </p>
   <% end %>

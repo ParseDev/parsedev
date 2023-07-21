@@ -1,3 +1,16 @@
+GIT
+  remote: https://github.com/eltoob/boxcars.git
+  revision: f615ffb90f23727fa02eeb2c202fc40ae4937940
+  specs:
+    boxcars (0.4.0)
+      anthropic (~> 0.1)
+      google_search_results (~> 2.2)
+      gpt4all (~> 0.0.4)
+      hnswlib (~> 0.8)
+      nokogiri (~> 1.15)
+      pgvector (~> 0.2)
+      ruby-openai (~> 4.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -72,6 +85,9 @@ GEM
       airbrake-ruby (~> 6.0)
     airbrake-ruby (6.2.1)
       rbtree3 (~> 0.6)
+    anthropic (0.1.0)
+      faraday (>= 1)
+      faraday-multipart (>= 1)
     ast (2.4.2)
     bcrypt (3.1.18)
     bcrypt_pbkdf (1.1.0)
@@ -85,12 +101,6 @@ GEM
     bindex (0.8.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
-    boxcars (0.3.1)
-      google_search_results (~> 2.2)
-      gpt4all (~> 0.0.4)
-      hnswlib (~> 0.8)
-      pgvector (~> 0.2)
-      ruby-openai (~> 4.1)
     builder (3.2.4)
     capybara (3.39.0)
       addressable
@@ -209,11 +219,11 @@ GEM
       net-ssh (>= 4.0.0)
     netrc (0.11.0)
     nio4r (2.5.9)
-    nokogiri (1.14.3-aarch64-linux)
+    nokogiri (1.15.3-aarch64-linux)
       racc (~> 1.4)
-    nokogiri (1.14.3-arm64-darwin)
+    nokogiri (1.15.3-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.14.3-x86_64-linux)
+    nokogiri (1.15.3-x86_64-linux)
       racc (~> 1.4)
     orm_adapter (0.5.0)
     os (1.1.4)
@@ -386,7 +396,7 @@ DEPENDENCIES
   airbrake
   bcrypt_pbkdf (>= 1.0, < 2.0)
   bootsnap
-  boxcars
+  boxcars!
   capybara
   csv
   debug
