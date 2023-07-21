@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'cron/dailysummary'
   get "beta", to: "contact#new"
   post "contact", to: "contact#create"
   resources :dataviews, only: [:show, :index, :new, :create, :destroy] do
