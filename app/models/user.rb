@@ -14,11 +14,11 @@ class User < ApplicationRecord
   DEV_MIXMAX_URL = ""
 
   def start_mixmax_sequence
-    url = Rails.env.production? PROD_MIXMAX_URL : DEV_MIXMAX_URL
+    url = Rails.env.production? ? PROD_MIXMAX_URL : DEV_MIXMAX_URL
 
-      headers = {
-        "Content-Type" => "application/json",
-      }
+    headers = {
+      "Content-Type" => "application/json",
+    }
     payload = { email: email }
     response = HTTParty.post(url, headers: headers, body: payload.to_json)
 
