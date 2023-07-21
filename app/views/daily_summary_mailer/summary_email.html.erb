@@ -4,13 +4,17 @@
 <table>
   <thead>
     <tr>
-      <th>New Signups</th>
+      <th>Email</th>
+      <th>Company name</th>
+      <th>Datasource count</th>
     </tr>
   </thead>
   <tbody>
     <% @new_signups.each do |u| %>
       <tr>
         <td><%= u.email %></td>
+        <td><%= u.company.name %> </td>
+        <td><%= u.company.datasources.count %> </td>
       </tr>
     <% end %>
   </tbody>
@@ -21,6 +25,8 @@
       <th>New Prompts</th>
       <th>datasource id</th>
       <th>datasource type</th>
+      <th>Company</th>
+      <th>Created_at</th>
     </tr>
   </thead>
   <tbody>
@@ -29,6 +35,8 @@
         <td><%= u.content %></td>
         <td><%= u.datasource_id %></td>
         <td><%= u.datasource.try(:datasource_type) %></td>
+        <td><%= u.company.name %></td>
+        <td><%= u.created_at %></td>
       </tr>
     <% end %>
   </tbody>
