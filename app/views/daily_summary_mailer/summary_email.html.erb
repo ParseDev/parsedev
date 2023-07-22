@@ -35,7 +35,7 @@
         <td><%= u.content %></td>
         <td><%= u.datasource_id %></td>
         <td><%= u.datasource.try(:datasource_type) %></td>
-        <td><%= u.company.name %></td>
+        <td><%= u.datasource.company.name %></td>
         <td><%= u.created_at %></td>
       </tr>
     <% end %>
