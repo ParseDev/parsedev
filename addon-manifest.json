@@ -1,0 +1,21 @@
+{
+  "id": "parse",
+  "api": {
+    "config_vars_prefix": "PARSE",
+    "config_vars": [
+      "PARSE_URL"
+    ],
+    "password": "aA3Oo7bYUYTNxPMX0OO1WsKxzUEIvL4c",
+    "sso_salt": "heEf9VAtIkxoztj7T1W4tlIWwmW1AnOM",
+    "regions": [
+      "us"
+    ],
+    "requires": [],
+    "production": {
+      "base_url": "https://app.parse.dev/heroku/resources",
+      "sso_url": "https://app.parse.dev/sso/login"
+    },
+    "version": "3"
+  },
+  "name": "Parse"
+}
