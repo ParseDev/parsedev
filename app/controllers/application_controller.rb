@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   private
 
   def determine_layout
+    return @layout if @layout
     current_user ? "application" : "devise"
   end
 end

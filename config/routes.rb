@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  get 'cron/dailysummary'
+  root "home#index"
+  get "cron/dailysummary"
   get "beta", to: "contact#new"
   post "contact", to: "contact#create"
   resources :dataviews, only: [:show, :index, :new, :create, :destroy] do
@@ -21,6 +22,4 @@ Rails.application.routes.draw do
     post "resend_invitation/:user_id", to: "users#resend_invitation", as: :resend_invitation
     resources :users, only: [:index, :destroy, :new]
   end
-
-  root "chats#new"
 end
