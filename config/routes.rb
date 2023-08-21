@@ -1,3 +1,6 @@
+require 'sidekiq/web'
+require 'sidekiq/cron/web'
+
 Rails.application.routes.draw do
   root "home#index"
   get "cron/dailysummary" # called using cron-job.org
@@ -23,7 +26,8 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :destroy, :new]
   end
   resources :mailer_schedulers
-  require 'sidekiq/web'
-  require 'sidekiq/cron/web'
-  mount Sidekiq::Web => '/sidekiq'
+
+  authenticate :user, ->(user) { user.is_admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 end

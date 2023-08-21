@@ -5,15 +5,24 @@
 
 app = "parse-dev"
 primary_region = "lax"
+console_command = "/rails/bin/rails console"
+
+[deploy]
+  release_command = "./bin/rails db:prepare"
+[processes]
+  app = "./bin/rails server"
+  sidekiq = "bundle exec sidekiq"
 
 [http_service]
   internal_port = 3000
   force_https = true
   auto_start_machines = true
+  processes = ["app"]
 
 [[services]]
   protocol = ""
   internal_port = 3306
+  processes = ["app"]
 
 [[statics]]
   guest_path = "/rails/public"
