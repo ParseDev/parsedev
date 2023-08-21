@@ -1,4 +1,4 @@
 send_scheduler_mailer:
   cron: "1 * * * *"
-  class: "SendSchedulerMailerJob"
+  class: "GetSchedulerMailersJob"
   queue: default
