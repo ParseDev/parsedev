@@ -113,6 +113,7 @@ GEM
       xpath (~> 3.2)
     chronic (0.10.2)
     concurrent-ruby (1.2.2)
+    connection_pool (2.4.1)
     crass (1.0.6)
     csv (3.2.7)
     date (3.3.3)
@@ -149,12 +150,17 @@ GEM
       rubocop
       smart_properties
     erubi (1.12.0)
+    et-orbi (1.2.7)
+      tzinfo
     faraday (2.7.10)
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
     faraday-multipart (1.0.4)
       multipart-post (~> 2)
     faraday-net_http (3.0.2)
+    fugit (1.8.1)
+      et-orbi (~> 1, >= 1.2.7)
+      raabro (~> 1.4)
     globalid (1.1.0)
       activesupport (>= 5.0)
     google_search_results (2.2.0)
@@ -239,6 +245,7 @@ GEM
     public_suffix (5.0.1)
     puma (5.6.5)
       nio4r (~> 2.0)
+    raabro (1.4.0)
     racc (1.6.2)
     rack (2.2.6.4)
     rack-test (2.1.0)
@@ -273,6 +280,8 @@ GEM
     rake (13.0.6)
     rbtree3 (0.7.1)
     redis (4.8.1)
+    redis-client (0.16.0)
+      connection_pool
     regexp_parser (2.8.0)
     reline (0.3.3)
       io-console (~> 0.5)
@@ -333,6 +342,15 @@ GEM
       websocket (~> 1.0)
     sequel (5.69.0)
     sexp_processor (4.17.0)
+    sidekiq (7.1.2)
+      concurrent-ruby (< 2)
+      connection_pool (>= 2.3.0)
+      rack (>= 2.2.4)
+      redis-client (>= 0.14.0)
+    sidekiq-cron (1.10.1)
+      fugit (~> 1.8)
+      globalid (>= 1.0.1)
+      sidekiq (>= 6)
     smart_properties (1.17.0)
     sprockets (4.2.0)
       concurrent-ruby (~> 1.0)
@@ -428,6 +446,8 @@ DEPENDENCIES
   rubyfmt
   selenium-webdriver
   sequel
+  sidekiq
+  sidekiq-cron
   sprockets-rails
   stimulus-rails
   tailwindcss-rails (~> 2.0)

@@ -8,6 +8,7 @@ class User < ApplicationRecord
   attr_accessor :company_name
   has_many :prompts
   has_many :dataqueries
+  has_many :mailer_schedulers
   after_create :start_mixmax_sequence
 
   PROD_MIXMAX_URL = "https://gateway.mixmax.com/ir/63bf6924ac6c3dcd4f32c4af/sWsS0c13eiBw7Yd2v"

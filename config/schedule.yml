@@ -1,0 +1,4 @@
+generate_random_user:
+  cron: "1 * * * *"
+  class: "SendSchedulerMailerJob"
+  queue: default

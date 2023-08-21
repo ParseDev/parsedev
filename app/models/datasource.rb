@@ -9,7 +9,7 @@ class Datasource < ApplicationRecord
   def connection(port)
     if host == "localhost" || ENV["SSH_TUNNEL_ENABLED"] == "false"
       connection_port = self.port
-      connection_host = "#{host}"
+      connection_host = self.host
     elsif ENV["SSH_TUNNEL_ENABLED"] == "true"
       connection_port = port
       connection_host = "127.0.0.1"

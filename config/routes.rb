@@ -22,4 +22,8 @@ Rails.application.routes.draw do
     post "resend_invitation/:user_id", to: "users#resend_invitation", as: :resend_invitation
     resources :users, only: [:index, :destroy, :new]
   end
+  resources :mailer_schedulers
+  require 'sidekiq/web'
+  require 'sidekiq/cron/web'
+  mount Sidekiq::Web => '/sidekiq'
 end

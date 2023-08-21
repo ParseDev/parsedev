@@ -1,0 +1,25 @@
+<!-- app/views/dataviews/new.html.erb -->
+<div class="container mx-auto py-8">
+  <h2 class="text-2xl font-bold mb-4">New Mailer Scheduler</h2>
+  <%= form_with(model: @scheduler, url: mailer_schedulers_path, class: "max-w-md") do |form| %>
+    <div class="mb-4">
+      <%= form.label :name, class: "block font-medium text-gray-700" %>
+      <%= form.text_field :name, placeholder: "Name your schelduer", class: "form-input mt-1 block w-full border rounded-lg" %>
+    </div>
+    <div class="mb-4">
+         <%= form.label :dataview_id, class: "block font-medium text-gray-700" %>
+        <%= form.select(:dataview_id, options_from_collection_for_select(current_user.company.dataviews, 'id', 'name'), {prompt: 'select a query'}, {class: 'p-2 border rounded-lg w-full'}) %>
+    </div>
+
+     <div>
+         <%= form.label "time", class: "block font-medium text-gray-700" %>
+          <div class="mt-2 flex rounded-md shadow-sm">
+            <%= form.select :send_time, MailerScheduler.times, {prompt: "Select Time"}, { class: "disabled block w-full min-w-0 flex-1 rounded-none rounded-l-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"}%>
+            <span class="inline-flex items-center rounded-r-md border border-l-0 border-gray-300 px-3 text-gray-500 sm:text-sm w-1/2">UTC</span>
+          </div>
+        </div>
+    <div class="flex items-center justify-end">
+      <%= form.submit "Create Mailer Scheduler", class: "block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+    </div>
+  <% end %>
+</div>
