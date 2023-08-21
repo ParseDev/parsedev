@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_25_220653) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_16_224105) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "vector"
 
   create_table "action_mailbox_inbound_emails", force: :cascade do |t|
     t.integer "status", default: 0, null: false
@@ -132,6 +133,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_25_220653) do
     t.index ["dataview_id"], name: "index_dataviews_dataqueries_on_dataview_id"
   end
 
+# Could not dump table "documents_items" because of following StandardError
+#   Unknown type 'vector(1536)' for column 'embedding'
+
+  create_table "mailer_schedulers", force: :cascade do |t|
+    t.string "name"
+    t.bigint "dataview_id", null: false
+    t.bigint "user_id", null: false
+    t.string "send_time"
+    t.string "recipient"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["dataview_id"], name: "index_mailer_schedulers_on_dataview_id"
+    t.index ["user_id"], name: "index_mailer_schedulers_on_user_id"
+  end
+
   create_table "prompts", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "datasource_id", null: false
@@ -139,6 +155,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_25_220653) do
     t.text "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.json "requestdetail"
     t.index ["datasource_id"], name: "index_prompts_on_datasource_id"
     t.index ["user_id"], name: "index_prompts_on_user_id"
   end
@@ -174,6 +191,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_25_220653) do
   add_foreign_key "dataview_dataqueries", "dataviews"
   add_foreign_key "dataviews_dataqueries", "dataqueries"
   add_foreign_key "dataviews_dataqueries", "dataviews"
+  add_foreign_key "mailer_schedulers", "dataviews"
+  add_foreign_key "mailer_schedulers", "users"
   add_foreign_key "prompts", "datasources"
   add_foreign_key "prompts", "users"
   add_foreign_key "users", "companies"
