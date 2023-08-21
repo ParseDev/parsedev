@@ -27,7 +27,7 @@ Rails.application.routes.draw do
   end
   resources :mailer_schedulers
 
-  authenticate :user, ->(user) { user.admin? } do
+  authenticate :user, ->(user) { user.is_admin? } do
     mount Sidekiq::Web => '/sidekiq'
   end
 end
