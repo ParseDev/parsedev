@@ -24,10 +24,18 @@ class MailerSchedulersController < ApplicationController
   end
 
   def edit
-
+    @scheduler = MailerScheduler.find(params[:id])
+    redirect_to root_path if @scheduler.user_id.nil? || @scheduler.user_id != current_user.id
   end
   def update
+    @scheduler = MailerScheduler.find(params[:id])
 
+    if @scheduler.update(mailer_scheduler_params)
+      redirect_to mailer_schedulers_path, notice: "BMailer Schedulerrand was successfully created."
+    else
+      flash[:alert] = @scheduler.errors.full_messages.to_sentence
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   private
