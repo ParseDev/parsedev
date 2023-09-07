@@ -12,7 +12,7 @@ Things you may want to cover:
 Recently tested on both Heroku and Fly.io and works fine.
 
 
-* Want a hosted solution
+# Want a hosted solution
 Go ahead and try parse.dev
 
 
