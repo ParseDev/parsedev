@@ -1,27 +1,20 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The goal of Parse is to allow people to talk to their database using AI.
+No need to know SQL, just connect your database and start chatting.
 
 # Run locally
 In order to run locally, make sure you copy the .env.sample to .env and adjust the right variables.
 
 Things you may want to cover:
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
 * Deployment instructions
+Recently tested on both Heroku and Fly.io and works fine.
+
+
+* Want a hosted solution
+Go ahead and try parse.dev
+
+
 
 * ...
